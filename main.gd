@@ -11,40 +11,7 @@ var dough_success_chance = 0.5
 var filling_value = 20
 var filling_success_chance = 0.6
 
-var items = [
-	{
-		"name": "Dough",
-		"image": preload("res://icon.svg"),
-		"owned": 0,
-		"success": 0.5,
-		"value": 10,
-		"cost": 8
-	},
-	{
-		"name": "Filling",
-		"image": preload("res://icon.svg"),
-		"owned": 0,
-		"success": 0.6,
-		"value": 20,
-		"cost": 20
-	},
-	{
-		"name": "risky one",
-		"image": preload("res://icon.svg"),
-		"owned": 0,
-		"success": 0.1,
-		"value": 101,
-		"cost": 20
-	},
-	{
-		"name": "not risky one",
-		"image": preload("res://icon.svg"),
-		"owned": 0,
-		"success": 0.97,
-		"value": 201,
-		"cost": 400
-	}
-]
+@export var items: Array[Part]
 
 var items_scene = preload("res://item_box.tscn")
 
@@ -98,6 +65,7 @@ func update_ui():
 	dough_stats_label.text = "Value: %s\nSuccess Chance: %s%%" % [dough_value, dough_success_chance * 100]
 	filling_stats_label.text = "Value: %s\nSuccess Chance: %s%%" % [filling_value, filling_success_chance * 100]
 	update_items_container()
+	print(items)
 
 func _on_add_dough_button_pressed():
 	# Add a 'Dough' part to the rocket

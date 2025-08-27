@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Part" load_steps=2 format=3 uid="uid://cw8ig06rbmwew"]
+
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="1_1txxf"]
+
+[resource]
+script = ExtResource("1_1txxf")
+part_name = ""
+owned = 0
+success = 0.0
+value = 0
+cost = 0
+value_upgrade_cost = 0
+success_upgrade_cost = 0
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

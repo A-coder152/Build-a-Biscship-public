@@ -1,4 +1,4 @@
-extends Resource
+class_name Part extends Resource 
 
 @export var part_name: String
 @export var image: Texture2D
