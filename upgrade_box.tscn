@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://rfu285g41yq4"]
+
+[ext_resource type="Script" uid="uid://qp3g4desxxp2" path="res://item_box.gd" id="1_2166m"]
+[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="2_up8vd"]
+
+[node name="ItemBox" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 142.0
+script = ExtResource("1_2166m")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.560784, 0.611765, 0.592157, 0.466667)
+
+[node name="img" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 14.0
+offset_top = -44.0
+offset_right = 80.0
+offset_bottom = 23.0
+grow_vertical = 2
+texture = ExtResource("2_up8vd")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Item"
+horizontal_alignment = 1
+
+[node name="ValueText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 27.0
+offset_right = 199.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 14
+text = "Value:"
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 46.0
+offset_right = 199.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 10
+text = "x -> y ($z)"
+horizontal_alignment = 1
+
+[node name="SuccessText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 62.0
+offset_right = 199.0
+offset_bottom = 79.0
+theme_override_font_sizes/font_size = 14
+text = "Success:"
+horizontal_alignment = 1
+
+[node name="Success" type="Label" parent="."]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 81.0
+offset_right = 199.0
+offset_bottom = 98.0
+theme_override_font_sizes/font_size = 10
+text = "x -> y ($z)"
+horizontal_alignment = 1
+
+[node name="BuyValue" type="Button" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 112.0
+offset_right = 93.0
+offset_bottom = 137.0
+theme_override_font_sizes/font_size = 12
+text = "+ Value"
+
+[node name="BuySuccess" type="Button" parent="."]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 112.0
+offset_right = 190.0
+offset_bottom = 137.0
+theme_override_font_sizes/font_size = 12
+text = "+ Success"
+
+[connection signal="pressed" from="BuyValue" to="." method="_on_buy_pressed"]
+[connection signal="pressed" from="BuySuccess" to="." method="_on_add_pressed"]
