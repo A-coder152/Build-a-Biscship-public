@@ -1,12 +1,12 @@
 extends Control
 
-var item
+var item: Part
 var main_scene
 
 func setup(dict):
 	main_scene = get_tree().current_scene
 	item = dict
-	$Name.text = item.name
+	$Name.text = item.part_name
 	$img.texture = item.image
 	update()
 

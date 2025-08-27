@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://cvkxopkpaq3vj"]
+
+[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="1_u3f7v"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_gk7p2"]
+
+[resource]
+script = ExtResource("2_gk7p2")
+part_name = "Filling"
+image = ExtResource("1_u3f7v")
+owned = 0
+success = 0.6
+value = 20
+cost = 20
+value_upgrade_cost = 0
+success_upgrade_cost = 0
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"
