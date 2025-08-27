@@ -232,7 +232,7 @@ func _on_grid_gui_input(event: InputEvent) -> void:
 	var mouse_pos = get_global_mouse_position()
 	var newtarget = _get_target_cell_placement(mouse_pos)
 	
-	if newtarget != targetcell:
+	if newtarget and newtarget != targetcell:
 		targetcell = newtarget
 		obj.global_position = targetcell.global_position + obj.rect.size/2
 		
@@ -252,7 +252,7 @@ func _reset_highlight():
 		
 
 #check if placement is valid or if theres another part in the way
-func _get_object_cells():
+func _get_object_cells() -> Array:
 	var cells = []
 	for child: Control in grid.get_children():
 		if child.get_global_rect().intersects(obj.get_global_rect()):
