@@ -1,0 +1,125 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3cv383fvusc5"]
+
+[ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ig7tw")
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="CashLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Cash: $1239"
+
+[node name="PointsLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Biscuit Points: 0"
+
+[node name="ValueLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Rocket value/cost: 0"
+
+[node name="FailureChanceLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Rocket Failure Chance: 1000%"
+
+[node name="Button" type="Button" parent="UI/VBoxContainer/FailureChanceLabel"]
+visible = false
+layout_mode = 0
+offset_left = 400.0
+offset_right = 408.0
+offset_bottom = 8.0
+text = "Build!"
+
+[node name="Control" type="Control" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DoughContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="UI/VBoxContainer/HBoxContainer/DoughContainer"]
+visible = false
+layout_mode = 2
+text = "Dough"
+
+[node name="DoughStatsLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer/DoughContainer"]
+visible = false
+layout_mode = 2
+text = "Stats"
+
+[node name="AddDoughButton" type="Button" parent="UI/VBoxContainer/HBoxContainer/DoughContainer"]
+visible = false
+layout_mode = 2
+text = "Add Dough"
+
+[node name="FillingContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="UI/VBoxContainer/HBoxContainer/FillingContainer"]
+visible = false
+layout_mode = 2
+text = "Filling"
+
+[node name="FillingStatsLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer/FillingContainer"]
+visible = false
+layout_mode = 2
+text = "Stats"
+
+[node name="AddFillingButton" type="Button" parent="UI/VBoxContainer/HBoxContainer/FillingContainer"]
+visible = false
+layout_mode = 2
+text = "Add Filling"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemsContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemBox" parent="UI/VBoxContainer/HBoxContainer/ScrollContainer/ItemsContainer" instance=ExtResource("2_0xm2m")]
+custom_minimum_size = Vector2(0, 142)
+layout_mode = 2
+
+[node name="UpgradeContainer" type="VBoxContainer" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="UpgradeDoughButton" type="Button" parent="UI/VBoxContainer/UpgradeContainer"]
+layout_mode = 2
+text = "Upgrade Dough"
+
+[node name="UpgradeFillingButton" type="Button" parent="UI/VBoxContainer/UpgradeContainer"]
+layout_mode = 2
+text = "Upgrade Filling"
+
+[node name="SellBiscuits" type="Button" parent="UI/VBoxContainer/UpgradeContainer"]
+layout_mode = 2
+text = "Sell Biscuits"
+
+[node name="LaunchButton" type="Button" parent="UI"]
+offset_left = 1000.0
+offset_right = 1126.0
+offset_bottom = 31.0
+text = "Launch Rocket!"
+
+[node name="MessageLog" type="RichTextLabel" parent="UI"]
+offset_top = 611.0
+offset_right = 1145.0
+offset_bottom = 649.0
