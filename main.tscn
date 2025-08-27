@@ -20,6 +20,7 @@ offset_right = 1152.0
 offset_bottom = 648.0
 
 [node name="CashLabel" type="Label" parent="UI/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Cash: $1239"
 
@@ -132,16 +133,16 @@ offset_right = 1145.0
 offset_bottom = 649.0
 
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]
-offset_left = 193.0
-offset_top = 11.0
-offset_right = 1016.0
-offset_bottom = 483.0
+offset_left = 338.0
+offset_top = 105.0
+offset_right = 1148.0
+offset_bottom = 491.0
 theme_override_constants/h_separation = 5
-columns = 11
-width = 11
-height = 7
-cellWidth = 64
-cellHeight = 64
+columns = 9
+width = 9
+height = 6
+cellWidth = 48
+cellHeight = 48
 seperation = 5
 
 [connection signal="gui_input" from="grid" to="." method="_on_grid_gui_input"]

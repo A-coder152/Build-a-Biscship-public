@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="Part" load_steps=2 format=3 uid="uid://cw8ig06rbmwew"]
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://cw8ig06rbmwew"]
 
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="1_1txxf"]
+[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="1_gpogw"]
 
 [resource]
 script = ExtResource("1_1txxf")
-part_name = ""
+part_name = "Why"
+image = ExtResource("1_gpogw")
 owned = 0
-success = 0.0
-value = 0
-cost = 0
+success = 0.2
+value = 50
+cost = 9
 value_upgrade_cost = 0
 success_upgrade_cost = 0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

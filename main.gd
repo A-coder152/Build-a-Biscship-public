@@ -1,7 +1,6 @@
 extends Node2D
 
 # Game Variables
-var cash = 1000
 var biscuit_points = 0
 
 # Ingredient Stats
@@ -33,7 +32,6 @@ var objectCells
 var isValid = false
 
 # UI Node References
-@onready var cash_label = $UI/VBoxContainer/CashLabel
 @onready var points_label = $UI/VBoxContainer/PointsLabel
 @onready var rocket_value_label = $UI/VBoxContainer/ValueLabel
 @onready var fail_chance_label = $UI/VBoxContainer/FailureChanceLabel
@@ -51,14 +49,12 @@ func _ready():
 	$UI/VBoxContainer/HBoxContainer/FillingContainer/AddFillingButton.connect("pressed", _on_add_filling_button_pressed)
 	$UI/VBoxContainer/UpgradeContainer/UpgradeDoughButton.connect("pressed", _on_upgrade_dough_button_pressed)
 	$UI/VBoxContainer/UpgradeContainer/UpgradeFillingButton.connect("pressed", _on_upgrade_filling_button_pressed)
-	$UI/VBoxContainer/UpgradeContainer/SellBiscuits.connect("pressed", _on_sell_biscuits_button_pressed)
 	launch_button.connect("pressed", _on_launch_button_pressed)
 	
 	gridSize = Vector2(grid.cellWidth, grid.cellHeight)
 
 func update_ui():
 	# Updates all the UI labels with the current game state
-	cash_label.text = "Cash: $%s" % cash
 	points_label.text = "Biscuit Points: %s" % biscuit_points
 	rocket_value_label.text = "Rocket Value: %s" % rocket_value
 	fail_chance_label.text = "Rocket Success Chance: %s%%" % (round(rocket_success_chance * 100))
@@ -105,7 +101,7 @@ func _on_launch_button_pressed():
 		message_log.text = "Launch SUCCESS! Your rocket reached space and you earned %s Biscuit Points!" % total_points
 	else:
 		# Launch Failure
-		message_log.text = "Launch FAILED! The rocket exploded and you lost $%s." % rocket_cost
+		message_log.text = "Launch FAILED! The rocket exploded and you lost %s Biscuit Points." % rocket_cost
 	
 	# Reset rocket for the next launch
 	rocket_parts.clear()
@@ -141,17 +137,11 @@ func _on_upgrade_filling_button_pressed():
 		message_log.text = "Not enough Biscuit Points to upgrade Filling! You need %s." % upgrade_cost
 	update_ui()
 
-func _on_sell_biscuits_button_pressed():
-	cash += biscuit_points * 2
-	biscuit_points = 0
-	message_log.text = "Sold all Biscuit Points for $2 each!"
-	update_ui()
-
 func buy_item(item):
 	var idx = items.find(item)
-	if cash > item.cost:
+	if biscuit_points > item.cost:
 		items[idx].owned += 1
-		cash -= item.cost
+		biscuit_points -= item.cost
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
@@ -193,6 +183,7 @@ func _input(event: InputEvent) -> void:
 		placement.global_position = get_global_mouse_position()
 		obj = placement
 	elif Input.is_action_just_pressed("leftClick") and isValid:
+		print("lefto")
 		_place_thing(objectCells)
 
 func _on_grid_gui_input(event: InputEvent) -> void:
@@ -243,6 +234,7 @@ func _check_and_highlight_cells(objectCells: Array):
 	return isValid
 
 func _place_thing(objectCells):
+	print("thing placed")
 	obj.set_on_place()
 	obj = null
 	isValid = null
