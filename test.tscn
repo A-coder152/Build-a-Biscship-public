@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsa8shqwb8rkm"]
+
+[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="1_8uh7m"]
+[ext_resource type="Script" uid="uid://bct0431cy8svk" path="res://obj.gd" id="2_6uqi0"]
+
+[node name="test" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.392157)
+texture = ExtResource("1_8uh7m")
+script = ExtResource("2_6uqi0")
+rect = Rect2(0, 0, 128, 128)

@@ -56,6 +56,15 @@ var rocket_success_chance = 0.0
 var rocket_total_value = 0
 var rocket_total_probability = 0
 
+#Placement variables
+@onready var grid: GridContainer = $grid
+const OBJ = preload("res://test.tscn")
+var gridSize: Vector2
+var targetcell
+var obj
+var objectCells
+var isValid = false
+
 # UI Node References
 @onready var cash_label = $UI/VBoxContainer/CashLabel
 @onready var points_label = $UI/VBoxContainer/PointsLabel
@@ -77,6 +86,8 @@ func _ready():
 	$UI/VBoxContainer/UpgradeContainer/UpgradeFillingButton.connect("pressed", _on_upgrade_filling_button_pressed)
 	$UI/VBoxContainer/UpgradeContainer/SellBiscuits.connect("pressed", _on_sell_biscuits_button_pressed)
 	launch_button.connect("pressed", _on_launch_button_pressed)
+	
+	gridSize = Vector2(grid.cellWidth, grid.cellHeight)
 
 func update_ui():
 	# Updates all the UI labels with the current game state
@@ -201,3 +212,75 @@ func reset_items_container():
 func update_items_container():
 	for child in items_container.get_children():
 		if child.item: child.update()
+
+
+
+
+#region placement
+
+func _input(event: InputEvent) -> void:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not obj:
+		var placement = OBJ.instantiate()
+		add_child(placement)
+		placement.global_position = get_global_mouse_position()
+		obj = placement
+	elif Input.is_action_just_pressed("leftClick") and isValid:
+		_place_thing(objectCells)
+
+func _on_grid_gui_input(event: InputEvent) -> void:
+	if not obj: return
+	var mouse_pos = get_global_mouse_position()
+	var newtarget = _get_target_cell_placement(mouse_pos)
+	
+	if newtarget and newtarget != targetcell:
+		targetcell = newtarget
+		obj.global_position = targetcell.global_position + obj.rect.size/2
+		
+		_reset_highlight()
+		objectCells = _get_object_cells()
+		isValid = _check_and_highlight_cells(objectCells)
+
+func _get_target_cell_placement(targetPosition):
+	for child: Control in grid.get_children():
+		if child.get_global_rect().has_point(targetPosition):
+			return child
+			
+
+func _reset_highlight():
+	for child: Control in grid.get_children():
+		child.change_color(Color(0.5, 0.5, 0.5, 0.5))
+		
+
+#check if placement is valid or if theres another part in the way
+func _get_object_cells() -> Array:
+	var cells = []
+	for child: Control in grid.get_children():
+		if child.get_global_rect().intersects(obj.get_global_rect()):
+			cells.append(child)
+	return cells
+
+func _check_and_highlight_cells(objectCells: Array):
+	var isValid = true
+	var objectCellCount = (obj.rect.size.x / gridSize.x) * (obj.rect.size.y / gridSize.y)
+	
+	if objectCellCount != objectCells.size():
+		isValid = false
+	
+	for cell in objectCells:
+		if cell.full:
+			isValid = false
+			cell.change_color(Color.CRIMSON)
+		else:
+			cell.change_color(Color.SEA_GREEN)
+	return isValid
+
+func _place_thing(objectCells):
+	obj.set_on_place()
+	obj = null
+	isValid = null
+	
+	for cell in objectCells:
+		cell.full = true
+	
+	_reset_highlight()
+#endregion
