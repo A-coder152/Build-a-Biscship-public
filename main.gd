@@ -34,7 +34,7 @@ var items = [
 		"owned": 0,
 		"success": 0.1,
 		"value": 101,
-		"cost": 5
+		"cost": 20
 	},
 	{
 		"name": "not risky one",
@@ -42,7 +42,7 @@ var items = [
 		"owned": 0,
 		"success": 0.97,
 		"value": 201,
-		"cost": 100
+		"cost": 400
 	}
 ]
 
@@ -50,8 +50,11 @@ var items_scene = preload("res://item_box.tscn")
 
 # Rocket Variables
 var rocket_parts = []
+var rocket_value = 0
 var rocket_cost = 0
 var rocket_success_chance = 0.0
+var rocket_total_value = 0
+var rocket_total_probability = 0
 
 # UI Node References
 @onready var cash_label = $UI/VBoxContainer/CashLabel
@@ -79,7 +82,7 @@ func update_ui():
 	# Updates all the UI labels with the current game state
 	cash_label.text = "Cash: $%s" % cash
 	points_label.text = "Biscuit Points: %s" % biscuit_points
-	rocket_value_label.text = "Rocket value/cost: %s" % rocket_cost
+	rocket_value_label.text = "Rocket Value: %s" % rocket_value
 	fail_chance_label.text = "Rocket Success Chance: %s%%" % (round(rocket_success_chance * 100))
 	dough_stats_label.text = "Value: %s\nSuccess Chance: %s%%" % [dough_value, dough_success_chance * 100]
 	filling_stats_label.text = "Value: %s\nSuccess Chance: %s%%" % [filling_value, filling_success_chance * 100]
@@ -98,11 +101,15 @@ func _on_add_filling_button_pressed():
 func add_part(part):
 	# General function to add a part, update cost and failure chance
 	rocket_parts.append(part)
-	rocket_cost += part.value
 	if rocket_success_chance:
-		rocket_success_chance *= part.fail_chance
+		rocket_success_chance *= part.success
 	else:
-		rocket_success_chance = part.fail_chance
+		rocket_success_chance = part.success
+	rocket_total_value += part.value
+	rocket_total_probability += part.success
+	rocket_cost += part.cost
+	rocket_value = rocket_total_value * rocket_total_probability / len(rocket_parts) / rocket_success_chance
+	if len(rocket_parts) > 1: rocket_value /= sqrt(len(rocket_parts) - 1)
 	update_ui()
 
 func _on_launch_button_pressed():
@@ -113,9 +120,7 @@ func _on_launch_button_pressed():
 		# Generate a random number between 0 and 1. If it's greater than the failure chance, the launch succeeds.
 	if randf() < rocket_success_chance:
 		# Launch Success!
-		var total_points = 0
-		for part in rocket_parts:
-			total_points += part.value
+		var total_points = rocket_value
 		
 		biscuit_points += total_points
 		message_log.text = "Launch SUCCESS! Your rocket reached space and you earned %s Biscuit Points!" % total_points
@@ -125,8 +130,11 @@ func _on_launch_button_pressed():
 	
 	# Reset rocket for the next launch
 	rocket_parts.clear()
+	rocket_value = 0
 	rocket_cost = 0
 	rocket_success_chance = 0.0
+	rocket_total_value = 0
+	rocket_total_probability = 0
 	
 	update_ui()
 
@@ -174,7 +182,7 @@ func add_item_to_rocket(item):
 	var idx = items.find(item)
 	if item.owned > 0:
 		items[idx].owned -= 1
-		add_part({"value": item.value, "fail_chance": item.success})
+		add_part(item)
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
