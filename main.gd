@@ -32,6 +32,11 @@ var targetcell
 var obj
 var objectCells
 var isValid = false
+var last_highlighted_cells = []
+var last_hover_cell = null
+var hover_update_timer = 0.0
+var hover_update_interval = 0.016
+
 
 # UI Node References
 @onready var points_label = $UI/VBoxContainer/PointsLabel
@@ -48,7 +53,15 @@ func _ready():
 	launch_button.connect("pressed", _on_launch_button_pressed)
 	
 	gridSize = Vector2(grid.cellWidth, grid.cellHeight) / 2.4
+	for cell in grid.get_children():
+		cell.change_color(Color(0.5, 0.5, 0.5, 0.5))
 
+func _process(delta):
+	# added this stupid thing because godot is a fucking bitch
+	hover_update_timer += delta
+	if hover_update_timer >= hover_update_interval:
+		hover_update_timer = 0.0
+		_update_hover_effects()
 
 func update_ui():
 	# Updates all the UI labels with the current game state
@@ -184,6 +197,7 @@ func change_bar(new_bar):
 
 #region placement
 
+#this is for tesitng purposes. Move the function body to whatever function adds the part to rocket
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("leftClick") and not obj:
 		var placement = OBJ.instantiate()
@@ -201,17 +215,22 @@ func _input(event: InputEvent) -> void:
 		isValid = null
 		_reset_highlight()
 
-func _on_grid_gui_input(event: InputEvent) -> void:
-	if not obj: return
+#RIP GUI INPUT
+func _update_hover_effects():
+	if not obj:
+		return
 	var mouse_pos = get_global_mouse_position()
 	var newtarget = _get_target_cell_placement(mouse_pos)
-	if newtarget and newtarget != targetcell:
-		targetcell = newtarget
-		obj.global_position = targetcell.global_position + obj.rect.size/2
-		_reset_highlight()
-		objectCells = _get_object_cells()
-		isValid = _check_and_highlight_cells(objectCells)
-
+	if newtarget != last_hover_cell:
+		last_hover_cell = newtarget
+		if newtarget:
+			obj.global_position = newtarget.global_position + obj.rect.size/2
+			_reset_highlight()
+			objectCells = _get_object_cells()
+			isValid = _check_and_highlight_cells(objectCells)
+		else:
+			_reset_highlight()
+			isValid = false
 func _get_target_cell_placement(targetPosition):
 #	for child in grid.get_children():
 #		if child.get_global_rect().has_point(targetPosition):
@@ -226,9 +245,9 @@ func _get_target_cell_placement(targetPosition):
 	return null
 
 func _reset_highlight():
-	for child: Control in grid.get_children():
-		child.change_color(Color(0.5, 0.5, 0.5, 0.5))
-		
+	for cell in last_highlighted_cells:
+		cell.change_color(Color(0.5, 0.5, 0.5, 0.5))
+	last_highlighted_cells.clear()
 
 #check if placement is valid or if theres another part in the way
 func _get_object_cells() -> Array:
@@ -251,6 +270,7 @@ func _check_and_highlight_cells(objectCells: Array):
 			cell.change_color(Color.CRIMSON)
 		else:
 			cell.change_color(Color.SEA_GREEN)
+		last_highlighted_cells.append(cell)
 	return isValid
 
 func _place_thing(objectCells):
@@ -261,6 +281,5 @@ func _place_thing(objectCells):
 	
 	for cell in objectCells:
 		cell.full = true
-	
 	_reset_highlight()
 #endregion
