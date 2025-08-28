@@ -88,7 +88,7 @@ text = "Launch Rocket!"
 
 [node name="MessageLog" type="RichTextLabel" parent="UI"]
 offset_top = 611.0
-offset_right = 1145.0
+offset_right = 933.0
 offset_bottom = 649.0
 
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]

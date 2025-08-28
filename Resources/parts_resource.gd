@@ -9,3 +9,4 @@ class_name Part extends Resource
 @export var value_upgrade_cost: int
 @export var success_upgrade_cost: int
 @export var locked: bool
+@export var blocks: Vector2

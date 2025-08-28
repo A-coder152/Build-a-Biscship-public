@@ -85,6 +85,7 @@ func add_part(part):
 	add_child(placement)
 	placement.global_position = get_global_mouse_position()
 	obj = placement
+	obj.setup(part)
 	# General function to add a part, update cost and failure chance
 	rocket_parts.append(part)
 	if rocket_success_chance:
@@ -127,7 +128,7 @@ func _on_launch_button_pressed():
 
 func buy_item(item):
 	var idx = items.find(item)
-	if biscuit_points > item.cost:
+	if biscuit_points >= item.cost:
 		items[idx].owned += 1
 		biscuit_points -= item.cost
 		for child in items_container.get_children():
@@ -154,7 +155,7 @@ func add_item_to_rocket(item):
 
 func upgrade_value(item):
 	var idx = items.find(item)
-	if biscuit_points > item.value_upgrade_cost:
+	if biscuit_points >= item.value_upgrade_cost:
 		message_log.text = "Upgraded value of " + str(item.part_name) + " for " + str(item.value_upgrade_cost) + " Biscuit Points."
 		biscuit_points -= item.value_upgrade_cost
 		items[idx].value *= 1.1
@@ -168,7 +169,7 @@ func upgrade_value(item):
 
 func upgrade_success(item):
 	var idx = items.find(item)
-	if biscuit_points > item.success_upgrade_cost:
+	if biscuit_points >= item.success_upgrade_cost:
 		message_log.text = "Upgraded success rate of " + str(item.part_name) + " for " + str(item.success_upgrade_cost) + " Biscuit Points."
 		biscuit_points -= item.success_upgrade_cost
 		items[idx].success += (1 - item.success) * 0.1
@@ -260,7 +261,7 @@ func _get_object_cells() -> Array:
 
 func _check_and_highlight_cells(objectCells: Array):
 	isValid = true
-	var objectCellCount = (obj.rect.size.x / gridSize.x) * (obj.rect.size.y / gridSize.y)
+	var objectCellCount = obj.item.blocks.x * obj.item.blocks.y
 	
 	if objectCellCount != objectCells.size():
 		isValid = false

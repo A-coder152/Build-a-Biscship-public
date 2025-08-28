@@ -14,4 +14,5 @@ cost = 4
 value_upgrade_cost = 10
 success_upgrade_cost = 10
 locked = false
+blocks = Vector2(2, 1)
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"
