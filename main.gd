@@ -18,6 +18,7 @@ var upgrades_scene = preload("res://upgrade_box.tscn")
 
 # Rocket Variables
 var rocket_parts = []
+var parts_obj = []
 var rocket_value = 0
 var rocket_cost = 0
 var rocket_success_chance = 0.0
@@ -118,6 +119,8 @@ func _on_launch_button_pressed():
 	
 	# Reset rocket for the next launch
 	rocket_parts.clear()
+	for obj in parts_obj:
+		obj.queue_free()
 	rocket_value = 0
 	rocket_cost = 0
 	rocket_success_chance = 0.0
@@ -147,6 +150,7 @@ func add_item_to_rocket(item):
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		update_ui()
 	elif item.owned == 0:
 		message_log.text = "You do not have any of this part! Buy the part before adding to rocket."
@@ -276,8 +280,10 @@ func _check_and_highlight_cells(objectCells: Array):
 	return isValid
 
 func _place_thing(objectCells):
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	print("thing placed")
 	obj.set_on_place()
+	parts_obj.append(obj)
 	obj = null
 	isValid = null
 	
