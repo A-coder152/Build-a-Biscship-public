@@ -55,6 +55,7 @@ func _ready():
 	
 	gridSize = Vector2(grid.cellWidth, grid.cellHeight)
 
+
 func update_ui():
 	# Updates all the UI labels with the current game state
 	points_label.text = "Biscuit Points: %s" % biscuit_points
@@ -216,33 +217,45 @@ func change_bar(new_bar):
 #region placement
 
 func _input(event: InputEvent) -> void:
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not obj:
+	if Input.is_action_just_pressed("leftClick") and not obj:
 		var placement = OBJ.instantiate()
 		add_child(placement)
 		placement.global_position = get_global_mouse_position()
 		obj = placement
+		print(obj)
 	elif Input.is_action_just_pressed("leftClick") and isValid:
 		print("lefto")
 		_place_thing(objectCells)
+	elif Input.is_action_just_pressed("leftClick") and obj and not isValid:
+		print("invalid placement - destroying object")
+		obj.queue_free()
+		obj = null
+		isValid = null
+		_reset_highlight()
 
 func _on_grid_gui_input(event: InputEvent) -> void:
 	if not obj: return
 	var mouse_pos = get_global_mouse_position()
 	var newtarget = _get_target_cell_placement(mouse_pos)
-	
 	if newtarget and newtarget != targetcell:
 		targetcell = newtarget
 		obj.global_position = targetcell.global_position + obj.rect.size/2
-		
 		_reset_highlight()
 		objectCells = _get_object_cells()
 		isValid = _check_and_highlight_cells(objectCells)
 
 func _get_target_cell_placement(targetPosition):
-	for child: Control in grid.get_children():
-		if child.get_global_rect().has_point(targetPosition):
-			return child
-			
+#	for child in grid.get_children():
+#		if child.get_global_rect().has_point(targetPosition):
+#			return child
+#			
+	var grid_pos = (targetPosition - grid.global_position) / gridSize
+	var cell_x = int(grid_pos.x)
+	var cell_y = int(grid_pos.y)
+	if cell_x >= 0 and cell_x < grid.width and cell_y >= 0 and cell_y < grid.height:
+		var idx = cell_y * grid.width + cell_x
+		return grid.get_child(idx)
+	return null
 
 func _reset_highlight():
 	for child: Control in grid.get_children():
@@ -258,7 +271,7 @@ func _get_object_cells() -> Array:
 	return cells
 
 func _check_and_highlight_cells(objectCells: Array):
-	var isValid = true
+	isValid = true
 	var objectCellCount = (obj.rect.size.x / gridSize.x) * (obj.rect.size.y / gridSize.y)
 	
 	if objectCellCount != objectCells.size():

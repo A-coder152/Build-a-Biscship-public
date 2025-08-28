@@ -142,16 +142,16 @@ offset_right = 1145.0
 offset_bottom = 649.0
 
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]
-offset_left = 338.0
-offset_top = 105.0
-offset_right = 951.0
-offset_bottom = 491.0
+offset_left = 232.0
+offset_top = -1.0
+offset_right = 917.0
+offset_bottom = 754.0
 theme_override_constants/h_separation = 5
-columns = 9
-width = 9
-height = 6
-cellWidth = 48
-cellHeight = 48
+columns = 10
+width = 10
+height = 7
+cellWidth = 64
+cellHeight = 64
 seperation = 5
 
 [connection signal="gui_input" from="grid" to="." method="_on_grid_gui_input"]
