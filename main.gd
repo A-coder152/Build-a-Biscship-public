@@ -37,8 +37,6 @@ var isValid = false
 @onready var points_label = $UI/VBoxContainer/PointsLabel
 @onready var rocket_value_label = $UI/VBoxContainer/ValueLabel
 @onready var fail_chance_label = $UI/VBoxContainer/FailureChanceLabel
-@onready var dough_stats_label = $UI/VBoxContainer/HBoxContainer/DoughContainer/DoughStatsLabel
-@onready var filling_stats_label = $UI/VBoxContainer/HBoxContainer/FillingContainer/FillingStatsLabel
 @onready var launch_button = $UI/LaunchButton
 @onready var message_log = $UI/MessageLog
 @onready var items_container = $UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ItemsContainer
@@ -47,13 +45,9 @@ func _ready():
 	# Initial UI update and connect signals
 	reset_items_container()
 	update_ui()
-	$UI/VBoxContainer/HBoxContainer/DoughContainer/AddDoughButton.connect("pressed", _on_add_dough_button_pressed)
-	$UI/VBoxContainer/HBoxContainer/FillingContainer/AddFillingButton.connect("pressed", _on_add_filling_button_pressed)
-	$UI/VBoxContainer/UpgradeContainer/UpgradeDoughButton.connect("pressed", _on_upgrade_dough_button_pressed)
-	$UI/VBoxContainer/UpgradeContainer/UpgradeFillingButton.connect("pressed", _on_upgrade_filling_button_pressed)
 	launch_button.connect("pressed", _on_launch_button_pressed)
 	
-	gridSize = Vector2(grid.cellWidth, grid.cellHeight)
+	gridSize = Vector2(grid.cellWidth, grid.cellHeight) / 2.4
 
 
 func update_ui():
@@ -61,8 +55,6 @@ func update_ui():
 	points_label.text = "Biscuit Points: %s" % biscuit_points
 	rocket_value_label.text = "Rocket Value: %s" % rocket_value
 	fail_chance_label.text = "Rocket Success Chance: %s%%" % (round(rocket_success_chance * 100))
-	dough_stats_label.text = "Value: %s\nSuccess Chance: %s%%" % [dough_value, dough_success_chance * 100]
-	filling_stats_label.text = "Value: %s\nSuccess Chance: %s%%" % [filling_value, filling_success_chance * 100]
 	update_items_container()
 
 func _on_add_dough_button_pressed():
@@ -114,30 +106,6 @@ func _on_launch_button_pressed():
 	rocket_total_value = 0
 	rocket_total_probability = 0
 	
-	update_ui()
-
-func _on_upgrade_dough_button_pressed():
-	# Upgrade 'Dough' part for a cost in biscuit points
-	var upgrade_cost = 50
-	if biscuit_points >= upgrade_cost:
-		biscuit_points -= upgrade_cost
-		dough_value = int(dough_value * 1.2) # Increase value by 20%
-		dough_success_chance = min(0.9, dough_success_chance + 0.05) # Decrease failure chance, with a minimum of 10%
-		message_log.text = "Dough upgraded! Value: %s, Success Chance: %s%%" % [dough_value, dough_success_chance * 100]
-	else:
-		message_log.text = "Not enough Biscuit Points to upgrade Dough! You need %s." % upgrade_cost
-	update_ui()
-
-func _on_upgrade_filling_button_pressed():
-	# Upgrade 'Filling' part for a cost in biscuit points
-	var upgrade_cost = 75
-	if biscuit_points >= upgrade_cost:
-		biscuit_points -= upgrade_cost
-		filling_value = int(filling_value * 1.2) # Increase value by 20%
-		filling_success_chance = min(0.9, filling_success_chance + 0.05) # Decrease failure chance, with a minimum of 10%
-		message_log.text = "Filling upgraded! Value: %s, Success Chance: %s%%" % [filling_value, filling_success_chance * 100]
-	else:
-		message_log.text = "Not enough Biscuit Points to upgrade Filling! You need %s." % upgrade_cost
 	update_ui()
 
 func buy_item(item):
