@@ -1,6 +1,6 @@
 extends Control
 
-var item: Part
+var item
 var main_scene
 
 func setup(dict):

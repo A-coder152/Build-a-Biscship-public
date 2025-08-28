@@ -241,12 +241,14 @@ func _get_target_cell_placement(targetPosition):
 #	for child in grid.get_children():
 #		if child.get_global_rect().has_point(targetPosition):
 #			return child
-#			
+
 	var grid_pos = (targetPosition - grid.global_position) / gridSize
 	var cell_x = int(grid_pos.x)
 	var cell_y = int(grid_pos.y)
+	print(cell_x, "and",  cell_y)
 	if cell_x >= 0 and cell_x < grid.width and cell_y >= 0 and cell_y < grid.height:
 		var idx = cell_y * grid.width + cell_x
+		print(idx % grid.width)
 		return grid.get_child(idx)
 	return null
 
@@ -278,6 +280,13 @@ func _check_and_highlight_cells(objectCells: Array):
 			cell.change_color(Color.SEA_GREEN)
 		last_highlighted_cells.append(cell)
 	return isValid
+
+func _get_cell_pos(cell_idx: int) -> Vector2i:
+	var column = cell_idx % grid.width
+	var row = cell_idx / grid.width 
+	return Vector2i(column, row)
+
+
 
 func _place_thing(objectCells):
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
