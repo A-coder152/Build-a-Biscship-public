@@ -81,6 +81,10 @@ func _on_add_filling_button_pressed():
 	message_log.text = "Filling added to rocket."
 
 func add_part(part):
+	var placement = OBJ.instantiate()
+	add_child(placement)
+	placement.global_position = get_global_mouse_position()
+	obj = placement
 	# General function to add a part, update cost and failure chance
 	rocket_parts.append(part)
 	if rocket_success_chance:
@@ -136,15 +140,17 @@ func buy_item(item):
 
 func add_item_to_rocket(item):
 	var idx = items.find(item)
-	if item.owned > 0:
+	if item.owned > 0 and not obj:
 		items[idx].owned -= 1
 		add_part(item)
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
 		update_ui()
-	else:
+	elif item.owned == 0:
 		message_log.text = "You do not have any of this part! Buy the part before adding to rocket."
+	else:
+		message_log.text = "Another item is being selected!"
 
 func upgrade_value(item):
 	var idx = items.find(item)
@@ -199,21 +205,16 @@ func change_bar(new_bar):
 
 #this is for tesitng purposes. Move the function body to whatever function adds the part to rocket
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("leftClick") and not obj:
-		var placement = OBJ.instantiate()
-		add_child(placement)
-		placement.global_position = get_global_mouse_position()
-		obj = placement
-		print(obj)
-	elif Input.is_action_just_pressed("leftClick") and isValid:
+	if Input.is_action_just_pressed("leftClick") and isValid:
 		print("lefto")
 		_place_thing(objectCells)
 	elif Input.is_action_just_pressed("leftClick") and obj and not isValid:
 		print("invalid placement - destroying object")
-		obj.queue_free()
-		obj = null
-		isValid = null
-		_reset_highlight()
+		message_log.text = "Invalid object placement!"
+		#obj.queue_free()
+		#obj = null
+		#isValid = null
+		#_reset_highlight()
 
 #RIP GUI INPUT
 func _update_hover_effects():

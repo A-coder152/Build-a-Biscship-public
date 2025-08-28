@@ -94,7 +94,7 @@ offset_bottom = 649.0
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]
 offset_left = 331.0
 offset_top = 72.0
-offset_right = 933.0
+offset_right = 803.0
 offset_bottom = 536.0
 theme_override_constants/h_separation = 5
 columns = 9
