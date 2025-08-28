@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://rfu285g41yq4"]
 
-[ext_resource type="Script" uid="uid://qp3g4desxxp2" path="res://item_box.gd" id="1_2166m"]
+[ext_resource type="Script" uid="uid://cikw84civ1wcy" path="res://upgrade_box.gd" id="1_2166m"]
 [ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="2_up8vd"]
 
-[node name="ItemBox" type="Control"]
+[node name="UpgradeBox" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 200.0

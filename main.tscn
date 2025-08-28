@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3cv383fvusc5"]
+[gd_scene load_steps=10 format=3 uid="uid://c3cv383fvusc5"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="2_0xm2m"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://b62tn4snaoy0u" path="res://Resources/Filling.tres" id="4_4c57u"]
 [ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/non_risky.tres" id="5_efxa6"]
 [ext_resource type="Resource" uid="uid://cvkxopkpaq3vj" path="res://Resources/risky one.tres" id="6_dg77c"]
+[ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://scrollbar_filters.tscn" id="7_kek77"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -90,17 +91,25 @@ visible = false
 layout_mode = 2
 text = "Add Filling"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollbarFilters" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_kek77")]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="ItemsContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="ItemsContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ItemBox" parent="UI/VBoxContainer/HBoxContainer/ScrollContainer/ItemsContainer" instance=ExtResource("2_0xm2m")]
+[node name="ItemBox" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ItemsContainer" instance=ExtResource("2_0xm2m")]
 custom_minimum_size = Vector2(0, 142)
 layout_mode = 2
 
@@ -135,7 +144,7 @@ offset_bottom = 649.0
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]
 offset_left = 338.0
 offset_top = 105.0
-offset_right = 1148.0
+offset_right = 951.0
 offset_bottom = 491.0
 theme_override_constants/h_separation = 5
 columns = 9

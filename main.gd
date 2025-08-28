@@ -1,7 +1,8 @@
 extends Node2D
 
 # Game Variables
-var biscuit_points = 0
+var biscuit_points = 200
+var current_bar = "inventory"
 
 # Ingredient Stats
 var dough_value = 10
@@ -13,6 +14,7 @@ var filling_success_chance = 0.6
 @export var items: Array[Part]
 
 var items_scene = preload("res://item_box.tscn")
+var upgrades_scene = preload("res://upgrade_box.tscn")
 
 # Rocket Variables
 var rocket_parts = []
@@ -39,7 +41,7 @@ var isValid = false
 @onready var filling_stats_label = $UI/VBoxContainer/HBoxContainer/FillingContainer/FillingStatsLabel
 @onready var launch_button = $UI/LaunchButton
 @onready var message_log = $UI/MessageLog
-@onready var items_container = $UI/VBoxContainer/HBoxContainer/ScrollContainer/ItemsContainer
+@onready var items_container = $UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ItemsContainer
 
 func _ready():
 	# Initial UI update and connect signals
@@ -61,7 +63,6 @@ func update_ui():
 	dough_stats_label.text = "Value: %s\nSuccess Chance: %s%%" % [dough_value, dough_success_chance * 100]
 	filling_stats_label.text = "Value: %s\nSuccess Chance: %s%%" % [filling_value, filling_success_chance * 100]
 	update_items_container()
-	print(items)
 
 func _on_add_dough_button_pressed():
 	# Add a 'Dough' part to the rocket
@@ -85,6 +86,7 @@ func add_part(part):
 	rocket_cost += part.cost
 	rocket_value = rocket_total_value * rocket_total_probability / len(rocket_parts) / rocket_success_chance
 	if len(rocket_parts) > 1: rocket_value /= sqrt(len(rocket_parts) - 1)
+	message_log.text = "Added " + str(part.part_name) + " to rocket."
 	update_ui()
 
 func _on_launch_button_pressed():
@@ -145,7 +147,10 @@ func buy_item(item):
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
-				update_ui()
+		update_ui()
+		message_log.text = "Bought " + str(item.part_name) + " for " + str(item.cost) + " Biscuit Points."
+	else:
+		message_log.text = "Cannot afford to buy " + str(item.part_name) + ". It costs " + str(item.cost) + " Biscuit Points."
 
 func add_item_to_rocket(item):
 	var idx = items.find(item)
@@ -155,13 +160,44 @@ func add_item_to_rocket(item):
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
-				update_ui()
+		update_ui()
+	else:
+		message_log.text = "You do not have any of this part! Buy the part before adding to rocket."
+
+func upgrade_value(item):
+	var idx = items.find(item)
+	if biscuit_points > item.value_upgrade_cost:
+		message_log.text = "Upgraded value of " + str(item.part_name) + " for " + str(item.value_upgrade_cost) + " Biscuit Points."
+		biscuit_points -= item.value_upgrade_cost
+		items[idx].value *= 1.1
+		items[idx].value_upgrade_cost *= 1.3
+		for child in items_container.get_children():
+			if item == child.item:
+				child.item = items[idx]
+		update_ui()
+	else:
+		message_log.text = "Cannot afford to upgrade value of " + str(item.part_name) + ". It costs " + str(item.value_upgrade_cost) + " Biscuit Points."
+
+func upgrade_success(item):
+	var idx = items.find(item)
+	if biscuit_points > item.success_upgrade_cost:
+		message_log.text = "Upgraded success rate of " + str(item.part_name) + " for " + str(item.success_upgrade_cost) + " Biscuit Points."
+		biscuit_points -= item.success_upgrade_cost
+		items[idx].success += (1 - item.success) * 0.1
+		items[idx].success_upgrade_cost *= 1.1
+		for child in items_container.get_children():
+			if item == child.item:
+				child.item = items[idx]
+		update_ui()
+	else:
+		message_log.text = "Cannot afford to upgrade success rate of " + str(item.part_name) + ". It costs " + str(item.success_upgrade_cost) + " Biscuit Points."
 	
 func reset_items_container():
 	for child in items_container.get_children():
 		child.queue_free()
+	var scene_used = items_scene if current_bar == "inventory" else upgrades_scene
 	for item in items:
-		var item_scene = items_scene.instantiate()
+		var item_scene = scene_used.instantiate()
 		item_scene.custom_minimum_size.y = 142
 		items_container.add_child(item_scene)
 		item_scene.setup(item)
@@ -171,7 +207,10 @@ func update_items_container():
 	for child in items_container.get_children():
 		if child.item: child.update()
 
-
+func change_bar(new_bar):
+	if new_bar != current_bar:
+		current_bar = new_bar
+		reset_items_container()
 
 
 #region placement
