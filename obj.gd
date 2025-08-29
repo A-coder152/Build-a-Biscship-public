@@ -2,6 +2,7 @@ extends Sprite2D
 
 @export var rect: Rect2
 var item
+var cells_covered
 
 func setup(part):
 	item = part

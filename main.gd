@@ -37,6 +37,7 @@ var last_highlighted_cells = []
 var last_hover_cell = null
 var hover_update_timer = 0.0
 var hover_update_interval = 0.016
+var builds = []
 
 
 # UI Node References
@@ -121,6 +122,9 @@ func _on_launch_button_pressed():
 	rocket_parts.clear()
 	for obj in parts_obj:
 		obj.queue_free()
+	for child: Control in grid.get_children():
+		child.full = false
+	builds = []
 	rocket_value = 0
 	rocket_cost = 0
 	rocket_success_chance = 0.0
@@ -237,20 +241,32 @@ func _update_hover_effects():
 		else:
 			_reset_highlight()
 			isValid = false
+
+
 func _get_target_cell_placement(targetPosition):
 #	for child in grid.get_children():
 #		if child.get_global_rect().has_point(targetPosition):
 #			return child
 
 	var grid_pos = (targetPosition - grid.global_position) / gridSize
-	var cell_x = int(grid_pos.x)
-	var cell_y = int(grid_pos.y)
-	print(cell_x, "and",  cell_y)
+	return get_cell_by_coords(Vector2(int(grid_pos.x), int(grid_pos.y)))
+	#print(cell_x, "and",  cell_y)
+
+func get_cell_by_coords(coords):
+	var cell_x = coords.x
+	var cell_y = coords.y
 	if cell_x >= 0 and cell_x < grid.width and cell_y >= 0 and cell_y < grid.height:
 		var idx = cell_y * grid.width + cell_x
-		print(idx % grid.width)
+		#print(idx % grid.width)
 		return grid.get_child(idx)
 	return null
+
+func get_neighbor_cells(coords):
+	var directions = [Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0), Vector2(0, -1)]
+	var neighbor_cells = []
+	for change in directions:
+		neighbor_cells.append(get_cell_by_coords(coords + change))
+	return neighbor_cells
 
 func _reset_highlight():
 	for cell in last_highlighted_cells:
@@ -292,10 +308,30 @@ func _place_thing(objectCells):
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	print("thing placed")
 	obj.set_on_place()
+	obj.cells_covered = objectCells
 	parts_obj.append(obj)
+	var builds_in = []
+	for cell in obj.cells_covered:
+		for neighbor in get_neighbor_cells(Vector2(cell.get_index() % grid.width, cell.get_index() / grid.width)):
+			if neighbor in obj.cells_covered: continue
+			for build in builds:
+				if obj in build: continue
+				for part in build:
+					if neighbor in part.cells_covered:
+						build.append(obj)
+						builds_in.append(build)
+	if len(builds_in) == 0:
+		builds.append([obj])
+	elif len(builds_in) > 1:
+		for build in builds_in:
+			if build == builds_in[0]: continue
+			for part in build:
+				if not part in builds_in[0]:
+					builds_in[0].append(part)
+			builds.erase(build)
+
 	obj = null
-	isValid = null
-	
+	isValid = null	
 	for cell in objectCells:
 		cell.full = true
 	_reset_highlight()
