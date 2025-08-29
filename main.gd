@@ -124,6 +124,7 @@ func _on_launch_button_pressed():
 		obj.queue_free()
 	for child: Control in grid.get_children():
 		child.full = false
+	parts_obj = []
 	builds = []
 	rocket_value = 0
 	rocket_cost = 0
