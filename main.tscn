@@ -22,6 +22,10 @@ items = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("4_4c
 offset_right = 1152.0
 offset_bottom = 648.0
 
+[node name="PointsLabel2" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "STATS:"
+
 [node name="CashLabel" type="Label" parent="UI/VBoxContainer"]
 visible = false
 layout_mode = 2

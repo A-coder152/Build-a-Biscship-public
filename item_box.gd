@@ -3,6 +3,8 @@ extends Control
 var item
 var main_scene
 
+@export var click: AudioStream
+
 func setup(dict):
 	main_scene = get_tree().current_scene
 	item = dict
@@ -18,6 +20,7 @@ func update():
 
 func _on_buy_pressed() -> void:
 	main_scene.buy_item(item)
-
+	Sound.play_sfx(click)
 func _on_add_pressed() -> void:
 	main_scene.add_item_to_rocket(item)
+	Sound.play_sfx(click)

@@ -17,4 +17,5 @@ locked = false
 blocks = Vector2(2, 1)
 type = 4
 weight = 1
+special = 0.0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

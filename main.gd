@@ -49,6 +49,11 @@ var builds = []
 var build_sizes = []
 
 
+#Sound Effects
+@export var click: AudioStream
+@export var place: AudioStream
+@export var place_failed: AudioStream
+
 # UI Node References
 @onready var points_label = $UI/VBoxContainer/PointsLabel
 @onready var rocket_value_label = $UI/VBoxContainer/ValueLabel
@@ -334,9 +339,11 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("leftClick") and isValid:
 		print("lefto")
 		_place_thing(objectCells)
+		Sound.play_sfx(place)
 	elif Input.is_action_just_pressed("leftClick") and obj and not isValid:
 		print("invalid placement - destroying object")
 		message_log.new_message("Invalid object placement!")
+		Sound.play_sfx(place_failed)
 		#obj.queue_free()
 		#obj = null
 		#isValid = null
