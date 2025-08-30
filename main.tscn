@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3cv383fvusc5"]
+[gd_scene load_steps=11 format=3 uid="uid://c3cv383fvusc5"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="2_0xm2m"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/non_risky.tres" id="5_efxa6"]
 [ext_resource type="Resource" uid="uid://cvkxopkpaq3vj" path="res://Resources/risky one.tres" id="6_dg77c"]
 [ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://scrollbar_filters.tscn" id="7_kek77"]
+[ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://message_log.gd" id="9_4c57u"]
 
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
@@ -30,21 +31,21 @@ text = "Cash: $1239"
 layout_mode = 2
 text = "Biscuit Points: 0"
 
-[node name="ValueLabel" type="Label" parent="UI/VBoxContainer"]
-layout_mode = 2
-text = "Rocket value/cost: 0"
-
 [node name="FailureChanceLabel" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "Rocket Failure Chance: 1000%"
 
-[node name="Button" type="Button" parent="UI/VBoxContainer/FailureChanceLabel"]
-visible = false
-layout_mode = 0
-offset_left = 400.0
-offset_right = 408.0
-offset_bottom = 8.0
-text = "Build!"
+[node name="WeightLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Rocket Failure Chance: 1000%"
+
+[node name="DistanceLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Rocket Failure Chance: 1000%"
+
+[node name="ValueLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Rocket value/cost: 0"
 
 [node name="Control" type="Control" parent="UI/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -90,6 +91,11 @@ text = "Launch Rocket!"
 offset_top = 611.0
 offset_right = 933.0
 offset_bottom = 649.0
+text = "testdnifneinf"
+script = ExtResource("9_4c57u")
+text_delay = 0.01
+fade_out_delay = 5.0
+fade_out_duration = 5.0
 
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]
 offset_left = 331.0

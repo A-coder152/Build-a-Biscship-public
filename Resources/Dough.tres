@@ -5,14 +5,17 @@
 
 [resource]
 script = ExtResource("1_1txxf")
-part_name = "pee"
+part_name = "engineo"
 image = ExtResource("1_gpogw")
 owned = 0
-success = 0.2
+success = 0.9
 value = 50
 cost = 9
 value_upgrade_cost = 0
 success_upgrade_cost = 0
 locked = false
 blocks = Vector2(2, 2)
+type = 0
+weight = 5
+special = 20.0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

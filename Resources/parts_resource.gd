@@ -1,5 +1,5 @@
 class_name Part extends Resource 
-enum TYPE {ENGINE, FILLING}
+enum TYPE {ENGINE, FUEL, FILLING, COATING, STRUCTURE}
 @export var part_name: String
 
 @export var image: Texture2D
@@ -11,3 +11,6 @@ enum TYPE {ENGINE, FILLING}
 @export var success_upgrade_cost: int
 @export var locked: bool
 @export var blocks: Vector2
+@export var type: TYPE
+@export var weight: int
+@export var special: float
