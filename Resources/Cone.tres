@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://itu2107shofm"]
 
-[ext_resource type="Texture2D" uid="uid://dpt2rfqw0ehbl" path="res://Assets/Art/cone .png" id="1_b2hm1"]
+[ext_resource type="Texture2D" uid="uid://dgtadsf1yt10r" path="res://Assets/Ship Parts/cone .png" id="1_b2hm1"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="1_mcpdh"]
 
 [resource]
 script = ExtResource("1_mcpdh")
 part_name = "Cone"
-image = ExtResource("1_b2hm1")
+images = Array[Texture2D]([ExtResource("1_b2hm1")])
 owned = 0
 success = 0.9
 value = 15

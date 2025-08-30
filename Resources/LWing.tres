@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://b8le0rtrjv4px"]
+[gd_resource type="Resource" script_class="Part" load_steps=5 format=3 uid="uid://b8le0rtrjv4px"]
 
-[ext_resource type="Texture2D" uid="uid://crw2amhjbtbqo" path="res://Assets/Art/right wing.png" id="1_743u4"]
+[ext_resource type="Texture2D" uid="uid://cytm4i7wmkxu2" path="res://Assets/Ship Parts/left wing.png" id="1_jm8kt"]
+[ext_resource type="Texture2D" uid="uid://dfoc7ysisgcmd" path="res://Assets/Ship Parts/left wing large.png" id="2_ac5ng"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_gwxw3"]
+[ext_resource type="Texture2D" uid="uid://bswlq20dq6uhv" path="res://Assets/Ship Parts/left wing multiple.png" id="4_imhu3"]
 
 [resource]
 script = ExtResource("2_gwxw3")
-part_name = "Jam"
-image = ExtResource("1_743u4")
+part_name = "Left Wing"
+images = Array[Texture2D]([ExtResource("1_jm8kt"), ExtResource("2_ac5ng"), ExtResource("4_imhu3")])
 owned = 0
 success = 0.8
 value = 20
@@ -15,4 +17,7 @@ value_upgrade_cost = 0
 success_upgrade_cost = 0
 locked = false
 blocks = Vector2(1, 2)
+type = 4
+weight = 1
+special = 0.0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"
