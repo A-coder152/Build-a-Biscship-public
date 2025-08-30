@@ -4,14 +4,22 @@ extends Node2D
 var biscuit_points = 200
 var current_bar = "inventory"
 
-# Ingredient Stats
-var dough_value = 10
-var dough_success_chance = 0.5
-
-var filling_value = 20
-var filling_success_chance = 0.6
-
 @export var items: Array[Part]
+
+enum WARNINGS {PERFECT, GOOD, UNSTABLE_HIGH, UNSTABLE_LOW, CRITICAL_HIGH, CRITICAL_LOW, UNKNOWN}
+var warning_messages = [
+	["Engine(s) thrust perfect!", "Engine(s) thrust good!", 
+	"Engine(s) thrust high!", "Engine(s) thrust low!", 
+	"Engine(s) thrust too high!", "Engine(s) thrust too low!"],
+	["", "Fuel tanks present.", "", "", "", "No fuel tanks present!"],
+	["Horizontal center of mass perfect!", "Horizontal center of mass good!",
+	"Horizontal center of mass right!", "Horizontal center of mass left!",
+	"Horizontal center of mass too far right!", "Horizontal center of mass too far left!", "No mass!"],
+	["Vertical center of mass perfect!", "Vertical center of mass good!",
+	"Vertical center of mass high!", "Vertical center of mass low!",
+	"Vertical center of mass too high!", "Vertical center of mass too low!", "No mass!"]
+]
+var warnings = [5, 5, 6, 6]
 
 var items_scene = preload("res://item_box.tscn")
 var upgrades_scene = preload("res://upgrade_box.tscn")
@@ -47,6 +55,7 @@ var build_sizes = []
 @onready var fail_chance_label = $UI/VBoxContainer/FailureChanceLabel
 @onready var weight_label = $UI/VBoxContainer/WeightLabel
 @onready var distance_label = $UI/VBoxContainer/DistanceLabel
+@onready var warnings_container = $UI/WarningsContainer
 @onready var launch_button = $UI/LaunchButton
 @onready var message_log = $UI/MessageLog
 @onready var items_container = $UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ItemsContainer
@@ -79,6 +88,14 @@ func update_ui():
 	fail_chance_label.text = "Rocket Success Chance: %s%%" % (round(rocket_success_chance * 100))
 	distance_label.text = "Projected Rocket Distance: %s" % str(round(rocket_distance * 100) / 100.) + "m"
 	weight_label.text = "Rocket weight: %s" % str(rocket_mass)
+	for i in range(len(warnings_container.get_children())):
+		var child = warnings_container.get_child(i)
+		print(warnings[i])
+		child.text = warning_messages[i][warnings[i]]
+		if warnings[i] == 0: child.modulate = Color(0.6, 0.9, 1)
+		elif warnings[i] == 1: child.modulate = Color(0.8, 1, 0.8)
+		elif warnings[i] in [2, 3]: child.modulate = Color(1, 0.8, 0.7)
+		elif warnings[i] > 3: child.modulate = Color(1, 0.7, 0.7)
 	update_items_container()
 
 func add_part_to_grid(part):
@@ -92,6 +109,7 @@ func add_part_to_grid(part):
 
 func update_rocket_values():
 	# doing rocket science in one night for a jam game is crazy
+	rocket_success_chance = 0
 	rocket_mass = 0.0
 	rocket_distance = 0.0
 	rocket_value = 0.0
@@ -110,56 +128,72 @@ func update_rocket_values():
 		elif part.item.type == part.item.TYPE.FUEL:
 			fuels.append(part)
 	if not (len(engines) and len(fuels)):
-		rocket_success_chance = 0
+		rocket_success_chance = -1
+		warnings = [(sign(len(engines)) - 1) * -5, (sign(len(fuels)) - 1) * -5, 6, 6]
 	else:
-		rocket_success_chance = 1
-		var engines_thrust = 0
-		var fuel_on_rocket = 0
-		for part in engines:
-			rocket_success_chance *= part.item.success
-			engines_thrust += part.item.special
-		for part in fuels:
-			rocket_success_chance *= part.item.success
-			fuel_on_rocket += part.item.special
+		warnings = [0, 1, 6, 6]
+	print(rocket_mass)
 		
-		var build_size = build_sizes[builds.find(main_build)]
-		var rocket_center = Vector2((build_size[0].x + build_size[0].y) / 2.0, (build_size[1].x + build_size[1].y) / 2.0)
+	rocket_success_chance += 1
+	var engines_thrust = 0
+	var fuel_on_rocket = 0
+	var one_engine = 1.
+	var one_tank = 1.
+	for part in engines:
+		one_engine *= (1 - part.item.success)
+		engines_thrust += part.item.special
+	for part in fuels:
+		one_tank *= (1 - part.item.success)
+		fuel_on_rocket += part.item.special
+	if rocket_success_chance > 0: rocket_success_chance *= (1 - one_engine) * (1 - one_tank)
+	
+	var build_size = build_sizes[builds.find(main_build)]
+	var rocket_center = Vector2((build_size[0].x + build_size[0].y) / 2.0, (build_size[1].x + build_size[1].y) / 2.0)
+	
+	var rocket_center_tracker = Vector2.ZERO
+	for part in main_build:
+		var part_center_x = (part.cells_covered[0].get_index() % grid.width + part.cells_covered[-1].get_index() % grid.width) / 2.0
+		var part_center_y = (part.cells_covered[0].get_index() / grid.width + part.cells_covered[-1].get_index() / grid.width) / 2.0
+		rocket_center_tracker += Vector2(part_center_x, part_center_y) * part.item.weight
+	rocket_center_tracker /= rocket_mass
+	
+	if engines_thrust < rocket_mass:
+		rocket_success_chance = 0
+		warnings[0] = 5
 		
-		var rocket_center_tracker = Vector2.ZERO
-		for part in main_build:
-			var part_center_x = (part.cells_covered[0].get_index() % grid.width + part.cells_covered[-1].get_index() % grid.width) / 2.0
-			var part_center_y = (part.cells_covered[0].get_index() / grid.width + part.cells_covered[-1].get_index() / grid.width) / 2.0
-			rocket_center_tracker += Vector2(part_center_x, part_center_y) * part.item.weight
-		rocket_center_tracker /= rocket_mass
-		
-		if engines_thrust < rocket_mass:
-			rocket_success_chance = 0
-		else:
-			
-			var rocket_radius = rocket_center - Vector2(build_size[0].x, build_size[1].x)
-			var off_centerism = abs(rocket_center_tracker.x - rocket_center.x)
-			var cooked_by_mass_x = 1 - (off_centerism / rocket_radius.x)
-			rocket_success_chance *= cooked_by_mass_x
-			
-			var highest_stable_y = (build_size[1].x * 2. + build_size[1].y * 3.) / 5.
-			var lowest_stable_y = (build_size[1].x + build_size[1].y * 4.) / 5.
-			var cooked_by_mass_y = 1
-			if rocket_center_tracker.y < highest_stable_y:
-				cooked_by_mass_y = 0.5 * ((rocket_center_tracker.y - build_size[1].x) / (highest_stable_y - build_size[1].x))
-			if rocket_center_tracker.y > lowest_stable_y:
-				cooked_by_mass_y = ((build_size[1].y - rocket_center_tracker) / (build_size[1].y - lowest_stable_y))
-			rocket_success_chance *= cooked_by_mass_y
-			
-			if engines_thrust > rocket_mass * 2:
-				rocket_success_chance *= max(0, (4 - engines_thrust / rocket_mass) / 2.)
-			
-			if rocket_success_chance > 0:
-				const FUEL_DIST_MULT = 10.
-				const DRAG_DIST_MULT = 1
-				print(fuel_on_rocket, " b ", engines_thrust)
-				rocket_distance = (fuel_on_rocket / engines_thrust) * ((engines_thrust / rocket_mass) - 1) * FUEL_DIST_MULT
-				rocket_distance -= (build_size[0].y - build_size[0].x + 1) * DRAG_DIST_MULT
-				rocket_distance = max(0, rocket_distance)
+	var rocket_radius = rocket_center - Vector2(build_size[0].x, build_size[1].x)
+	var off_centerism = rocket_center_tracker.x - rocket_center.x
+	var center_factor = off_centerism / rocket_radius.x
+	var cooked_by_mass_x = 1 - (abs(center_factor))
+	if rocket_success_chance > 0: rocket_success_chance *= cooked_by_mass_x
+	print(rocket_radius, " s ", off_centerism, " b ", rocket_center_tracker, " f ", rocket_mass)
+	update_warnings(center_factor, 2)
+	
+	var highest_stable_y = (build_size[1].x * 2. + build_size[1].y * 3.) / 5.
+	var lowest_stable_y = (build_size[1].x + build_size[1].y * 4.) / 5.
+	var cooked_by_mass_y = 1
+	warnings[3] = 0
+	if rocket_center_tracker.y < highest_stable_y:
+		cooked_by_mass_y = 0.5 * ((rocket_center_tracker.y - build_size[1].x) / (highest_stable_y - build_size[1].x))
+		update_warnings((0.5 - cooked_by_mass_y) * 2, 3)
+	if rocket_center_tracker.y > lowest_stable_y:
+		cooked_by_mass_y = ((build_size[1].y - rocket_center_tracker.y) / (build_size[1].y - lowest_stable_y))
+		update_warnings(-(1 - cooked_by_mass_y), 3)
+	if rocket_success_chance > 0: rocket_success_chance *= cooked_by_mass_y
+	
+	if engines_thrust > rocket_mass * 2:
+		print("sigma")
+		var overthrust_nerf = max((4 - engines_thrust / rocket_mass) / 2., 0)
+		update_warnings(1 - overthrust_nerf, 0)
+		if rocket_success_chance > 0: rocket_success_chance *= overthrust_nerf
+	
+	if rocket_success_chance > 0:
+		const FUEL_DIST_MULT = 10.
+		const DRAG_DIST_MULT = 1
+		print(fuel_on_rocket, " b ", engines_thrust)
+		rocket_distance = (fuel_on_rocket / engines_thrust) * ((engines_thrust / rocket_mass) - 1) * FUEL_DIST_MULT
+		rocket_distance -= (build_size[0].y - build_size[0].x + 1) * DRAG_DIST_MULT
+		rocket_distance = max(0, rocket_distance)
 		
 	#rocket_parts.append(part)
 	#if rocket_success_chance:
@@ -204,6 +238,7 @@ func _on_launch_button_pressed():
 	rocket_success_chance = 0.0
 	rocket_distance = 0.0
 	rocket_mass = 0.0
+	warnings = [5, 5, 6, 6]
 	
 	update_ui()
 
@@ -282,6 +317,14 @@ func change_bar(new_bar):
 	if new_bar != current_bar:
 		current_bar = new_bar
 		reset_items_container()
+
+func update_warnings(factor, idx):
+	if factor == 0: warnings[idx] = 0
+	elif abs(factor) < 0.12: warnings[idx] = 1
+	elif factor > 0.12 and factor < 0.5: warnings[idx] = 2
+	elif factor < -0.12 and factor > -0.5: warnings[idx] = 3
+	elif factor >= 0.5: warnings[idx] = 4
+	elif factor <= -0.5: warnings[idx] = 5
 
 
 #region placement

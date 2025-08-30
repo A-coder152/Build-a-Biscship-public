@@ -97,6 +97,24 @@ text_delay = 0.01
 fade_out_delay = 5.0
 fade_out_duration = 5.0
 
+[node name="WarningsContainer" type="VBoxContainer" parent="UI"]
+offset_left = 26.0
+offset_top = 264.156
+offset_right = 302.0
+offset_bottom = 368.156
+
+[node name="Label" type="Label" parent="UI/WarningsContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="UI/WarningsContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="UI/WarningsContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="UI/WarningsContainer"]
+layout_mode = 2
+
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]
 offset_left = 331.0
 offset_top = 72.0
