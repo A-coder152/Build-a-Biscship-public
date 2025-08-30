@@ -38,6 +38,7 @@ var last_hover_cell = null
 var hover_update_timer = 0.0
 var hover_update_interval = 0.016
 var builds = []
+var build_sizes = []
 
 
 # UI Node References
@@ -76,34 +77,46 @@ func update_ui():
 	fail_chance_label.text = "Rocket Success Chance: %s%%" % (round(rocket_success_chance * 100))
 	update_items_container()
 
-func _on_add_dough_button_pressed():
-	# Add a 'Dough' part to the rocket
-	add_part({"value": dough_value, "fail_chance": dough_success_chance})
-	message_log.text = "Dough added to rocket."
-
-func _on_add_filling_button_pressed():
-	# Add a 'Filling' part to the rocket
-	add_part({"value": filling_value, "fail_chance": filling_success_chance})
-	message_log.text = "Filling added to rocket."
-
-func add_part(part):
+func add_part_to_grid(part):
 	var placement = OBJ.instantiate()
 	add_child(placement)
 	placement.global_position = get_global_mouse_position()
 	obj = placement
 	obj.setup(part)
+	message_log.text = "Added " + str(part.part_name) + " to grid."
 	# General function to add a part, update cost and failure chance
-	rocket_parts.append(part)
-	if rocket_success_chance:
-		rocket_success_chance *= part.success
+
+func update_rocket_values():
+	var main_build = builds[0]
+	if len(builds) > 1:
+		for build in builds:
+			if len(build) > len(main_build):
+				main_build = build
+	var engines = []
+	var fuels = []
+	for part in main_build:
+		if part.item.type == part.item.TYPE.ENGINE:
+			engines.append(part)
+		elif part.item.type == part.item.TYPE.FUEL:
+			fuels.append(part)
+	if not (len(engines) and len(fuels)):
+		rocket_success_chance = 0
 	else:
-		rocket_success_chance = part.success
-	rocket_total_value += part.value
-	rocket_total_probability += part.success
-	rocket_cost += part.cost
-	rocket_value = rocket_total_value * rocket_total_probability / len(rocket_parts) / rocket_success_chance
-	if len(rocket_parts) > 1: rocket_value /= sqrt(len(rocket_parts) - 1)
-	message_log.text = "Added " + str(part.part_name) + " to rocket."
+		rocket_success_chance = 1
+		for part in engines:
+			rocket_success_chance *= part.item.success
+		for part in fuels:
+			rocket_success_chance *= part.item.success
+	#rocket_parts.append(part)
+	#if rocket_success_chance:
+		#rocket_success_chance *= part.success
+	#else:
+		#rocket_success_chance = part.success
+	#rocket_total_value += part.value
+	#rocket_total_probability += part.success
+	#rocket_cost += part.cost
+	#rocket_value = rocket_total_value * rocket_total_probability / len(rocket_parts) / rocket_success_chance
+	#if len(rocket_parts) > 1: rocket_value /= sqrt(len(rocket_parts) - 1)
 	update_ui()
 
 func _on_launch_button_pressed():
@@ -155,7 +168,7 @@ func add_item_to_rocket(item):
 	var idx = items.find(item)
 	if item.owned > 0 and not obj:
 		items[idx].owned -= 1
-		add_part(item)
+		add_part_to_grid(item)
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
@@ -307,7 +320,16 @@ func _get_cell_pos(cell_idx: int) -> Vector2i:
 	var row = cell_idx / grid.width 
 	return Vector2i(column, row)
 
-
+func update_build_size(x_vector, y_vector, build_size_list):
+	if x_vector.x < build_size_list[0].x:
+		build_size_list[0].x = x_vector.x
+	if x_vector.y > build_size_list[0].y:
+		build_size_list[0].y = x_vector.y
+	if y_vector.x < build_size_list[1].x:
+		build_size_list[1].x = y_vector.x
+	if y_vector.y > build_size_list[1].y:
+		build_size_list[1].y = y_vector.y
+	return build_size_list
 
 func _place_thing(objectCells):
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -315,6 +337,8 @@ func _place_thing(objectCells):
 	obj.set_on_place()
 	obj.cells_covered = objectCells
 	parts_obj.append(obj)
+	var x_vector = Vector2(objectCells[0].get_index() % grid.width, objectCells[-1].get_index() % grid.width)
+	var y_vector = Vector2(objectCells[0].get_index() / grid.width, objectCells[-1].get_index() / grid.width)
 	var builds_in = []
 	for cell in obj.cells_covered:
 		for neighbor in get_neighbor_cells(Vector2(cell.get_index() % grid.width, cell.get_index() / grid.width)):
@@ -325,16 +349,26 @@ func _place_thing(objectCells):
 					if neighbor in part.cells_covered:
 						build.append(obj)
 						builds_in.append(build)
+						var build_size_list = update_build_size(x_vector, y_vector, build_sizes[builds.find(build)])
+						build_sizes[build.find(build)] = build_size_list
 	if len(builds_in) == 0:
 		builds.append([obj])
+		build_sizes.append([x_vector, y_vector])
 	elif len(builds_in) > 1:
 		for build in builds_in:
 			if build == builds_in[0]: continue
 			for part in build:
 				if not part in builds_in[0]:
 					builds_in[0].append(part)
+					var part_x_vector = Vector2(part.cells_covered[0].get_index() % grid.width, part.cells_covered[-1].get_index() % grid.width)
+					var part_y_vector = Vector2(part.cells_covered[0].get_index() / grid.width, part.cells_covered[-1].get_index() / grid.width)
+					var build_size_list = update_build_size(part_x_vector, part_y_vector, build_sizes[builds.find(builds_in[0])])
+					build_sizes[builds.find(builds_in[0])] = build_size_list
+			build_sizes.remove_at(builds.find(build))
 			builds.erase(build)
-
+	print(build_sizes)
+	update_rocket_values()
+	message_log.text = "Added " + str(obj.item.part_name) + " to rocket."
 	obj = null
 	isValid = null	
 	for cell in objectCells:
