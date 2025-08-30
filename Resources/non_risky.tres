@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_w21wr")
-part_name = "non risky one"
+part_name = "fuelinho"
 image = ExtResource("1_4ngou")
 owned = 0
 success = 0.97
@@ -16,5 +16,6 @@ success_upgrade_cost = 0
 locked = false
 blocks = Vector2(1, 1)
 type = 1
-weight = 30
+weight = 3
+special = 5.0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

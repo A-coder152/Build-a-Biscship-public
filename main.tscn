@@ -31,21 +31,21 @@ text = "Cash: $1239"
 layout_mode = 2
 text = "Biscuit Points: 0"
 
-[node name="ValueLabel" type="Label" parent="UI/VBoxContainer"]
-layout_mode = 2
-text = "Rocket value/cost: 0"
-
 [node name="FailureChanceLabel" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "Rocket Failure Chance: 1000%"
 
-[node name="Button" type="Button" parent="UI/VBoxContainer/FailureChanceLabel"]
-visible = false
-layout_mode = 0
-offset_left = 400.0
-offset_right = 408.0
-offset_bottom = 8.0
-text = "Build!"
+[node name="WeightLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Rocket Failure Chance: 1000%"
+
+[node name="DistanceLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Rocket Failure Chance: 1000%"
+
+[node name="ValueLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Rocket value/cost: 0"
 
 [node name="Control" type="Control" parent="UI/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)

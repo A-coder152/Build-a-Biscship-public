@@ -13,3 +13,4 @@ enum TYPE {ENGINE, FUEL, FILLING, COATING, STRUCTURE}
 @export var blocks: Vector2
 @export var type: TYPE
 @export var weight: int
+@export var special: float

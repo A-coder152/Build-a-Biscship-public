@@ -22,8 +22,8 @@ var parts_obj = []
 var rocket_value = 0
 var rocket_cost = 0
 var rocket_success_chance = 0.0
-var rocket_total_value = 0
-var rocket_total_probability = 0
+var rocket_mass = 0.0
+var rocket_distance = 0.0
 
 #Placement variables
 @onready var grid: GridContainer = $grid
@@ -45,6 +45,8 @@ var build_sizes = []
 @onready var points_label = $UI/VBoxContainer/PointsLabel
 @onready var rocket_value_label = $UI/VBoxContainer/ValueLabel
 @onready var fail_chance_label = $UI/VBoxContainer/FailureChanceLabel
+@onready var weight_label = $UI/VBoxContainer/WeightLabel
+@onready var distance_label = $UI/VBoxContainer/DistanceLabel
 @onready var launch_button = $UI/LaunchButton
 @onready var message_log = $UI/MessageLog
 @onready var items_container = $UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ItemsContainer
@@ -75,6 +77,8 @@ func update_ui():
 	points_label.text = "Biscuit Points: %s" % biscuit_points
 	rocket_value_label.text = "Rocket Value: %s" % rocket_value
 	fail_chance_label.text = "Rocket Success Chance: %s%%" % (round(rocket_success_chance * 100))
+	distance_label.text = "Projected Rocket Distance: %s" % str(round(rocket_distance * 100) / 100.) + "m"
+	weight_label.text = "Rocket weight: %s" % str(rocket_mass)
 	update_items_container()
 
 func add_part_to_grid(part):
@@ -87,6 +91,10 @@ func add_part_to_grid(part):
 	# General function to add a part, update cost and failure chance
 
 func update_rocket_values():
+	# doing rocket science in one night for a jam game is crazy
+	rocket_mass = 0.0
+	rocket_distance = 0.0
+	rocket_value = 0.0
 	var main_build = builds[0]
 	if len(builds) > 1:
 		for build in builds:
@@ -95,6 +103,8 @@ func update_rocket_values():
 	var engines = []
 	var fuels = []
 	for part in main_build:
+		rocket_mass += part.item.weight
+		rocket_value += part.item.value
 		if part.item.type == part.item.TYPE.ENGINE:
 			engines.append(part)
 		elif part.item.type == part.item.TYPE.FUEL:
@@ -103,37 +113,53 @@ func update_rocket_values():
 		rocket_success_chance = 0
 	else:
 		rocket_success_chance = 1
+		var engines_thrust = 0
+		var fuel_on_rocket = 0
 		for part in engines:
 			rocket_success_chance *= part.item.success
+			engines_thrust += part.item.special
 		for part in fuels:
 			rocket_success_chance *= part.item.success
+			fuel_on_rocket += part.item.special
 		
 		var build_size = build_sizes[builds.find(main_build)]
 		var rocket_center = Vector2((build_size[0].x + build_size[0].y) / 2.0, (build_size[1].x + build_size[1].y) / 2.0)
 		
-		var total_rocket_mass = 0.
 		var rocket_center_tracker = Vector2.ZERO
 		for part in main_build:
 			var part_center_x = (part.cells_covered[0].get_index() % grid.width + part.cells_covered[-1].get_index() % grid.width) / 2.0
 			var part_center_y = (part.cells_covered[0].get_index() / grid.width + part.cells_covered[-1].get_index() / grid.width) / 2.0
 			rocket_center_tracker += Vector2(part_center_x, part_center_y) * part.item.weight
-			total_rocket_mass += part.item.weight
-		rocket_center_tracker /= total_rocket_mass
-		print(rocket_center_tracker, " sigma ", rocket_center)
+		rocket_center_tracker /= rocket_mass
 		
-		var rocket_radius = rocket_center - Vector2(build_size[0].x, build_size[1].x)
-		var off_centerism = abs(rocket_center_tracker.x - rocket_center.x)
-		var cooked_by_mass_x = 1 - (off_centerism / rocket_radius.x)
-		rocket_success_chance *= cooked_by_mass_x
-		
-		var highest_stable_y = (build_size[1].x * 2. + build_size[1].y * 3.) / 5.
-		var lowest_stable_y = (build_size[1].x + build_size[1].y * 4.) / 5.
-		var cooked_by_mass_y = 1
-		if rocket_center_tracker.y < highest_stable_y:
-			cooked_by_mass_y = 0.5 * ((rocket_center_tracker.y - build_size[1].x) / (highest_stable_y - build_size[1].x))
-		if rocket_center_tracker.y > lowest_stable_y:
-			cooked_by_mass_y = ((build_size[1].y - rocket_center_tracker) / (build_size[1].y - lowest_stable_y))
-		rocket_success_chance *= cooked_by_mass_y
+		if engines_thrust < rocket_mass:
+			rocket_success_chance = 0
+		else:
+			
+			var rocket_radius = rocket_center - Vector2(build_size[0].x, build_size[1].x)
+			var off_centerism = abs(rocket_center_tracker.x - rocket_center.x)
+			var cooked_by_mass_x = 1 - (off_centerism / rocket_radius.x)
+			rocket_success_chance *= cooked_by_mass_x
+			
+			var highest_stable_y = (build_size[1].x * 2. + build_size[1].y * 3.) / 5.
+			var lowest_stable_y = (build_size[1].x + build_size[1].y * 4.) / 5.
+			var cooked_by_mass_y = 1
+			if rocket_center_tracker.y < highest_stable_y:
+				cooked_by_mass_y = 0.5 * ((rocket_center_tracker.y - build_size[1].x) / (highest_stable_y - build_size[1].x))
+			if rocket_center_tracker.y > lowest_stable_y:
+				cooked_by_mass_y = ((build_size[1].y - rocket_center_tracker) / (build_size[1].y - lowest_stable_y))
+			rocket_success_chance *= cooked_by_mass_y
+			
+			if engines_thrust > rocket_mass * 2:
+				rocket_success_chance *= max(0, (4 - engines_thrust / rocket_mass) / 2.)
+			
+			if rocket_success_chance > 0:
+				const FUEL_DIST_MULT = 10.
+				const DRAG_DIST_MULT = 1
+				print(fuel_on_rocket, " b ", engines_thrust)
+				rocket_distance = (fuel_on_rocket / engines_thrust) * ((engines_thrust / rocket_mass) - 1) * FUEL_DIST_MULT
+				rocket_distance -= (build_size[0].y - build_size[0].x + 1) * DRAG_DIST_MULT
+				rocket_distance = max(0, rocket_distance)
 		
 	#rocket_parts.append(part)
 	#if rocket_success_chance:
@@ -148,14 +174,15 @@ func update_rocket_values():
 	update_ui()
 
 func _on_launch_button_pressed():
-	if rocket_parts.size() == 0:
+	if builds.size() == 0:
 		message_log.new_message("You need to add parts to your rocket first!")
 		return
 		
 		# Generate a random number between 0 and 1. If it's greater than the failure chance, the launch succeeds.
 	if randf() < rocket_success_chance:
 		# Launch Success!
-		var total_points = rocket_value
+		const DIST_POINTS_MULT = 20
+		var total_points = round((rocket_distance * DIST_POINTS_MULT * randf_range(0.8, 1.2) + rocket_value) * 100) / 100.
 		
 		biscuit_points += total_points
 		message_log.new_message("Launch SUCCESS! Your rocket reached space and you earned %s Biscuit Points!" % total_points)
@@ -165,17 +192,18 @@ func _on_launch_button_pressed():
 	
 	# Reset rocket for the next launch
 	rocket_parts.clear()
-	for obj in parts_obj:
-		obj.queue_free()
+	for obje in parts_obj:
+		obje.queue_free()
 	for child: Control in grid.get_children():
 		child.full = false
 	parts_obj = []
 	builds = []
+	build_sizes = []
 	rocket_value = 0
 	rocket_cost = 0
 	rocket_success_chance = 0.0
-	rocket_total_value = 0
-	rocket_total_probability = 0
+	rocket_distance = 0.0
+	rocket_mass = 0.0
 	
 	update_ui()
 
