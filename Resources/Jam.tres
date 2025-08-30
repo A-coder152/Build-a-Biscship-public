@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://ob6tv2gxmt4l"]
+
+[ext_resource type="Texture2D" uid="uid://dtla8ub0vcftq" path="res://Assets/Art/jam.png" id="1_stgpp"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_dhj65"]
+
+[resource]
+script = ExtResource("2_dhj65")
+part_name = "Jam"
+image = ExtResource("1_stgpp")
+owned = 0
+success = 0.8
+value = 20
+cost = 10
+value_upgrade_cost = 0
+success_upgrade_cost = 0
+locked = false
+blocks = Vector2(2, 2)
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

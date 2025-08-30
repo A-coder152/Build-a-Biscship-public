@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://2owq4suucfn8"]
+
+[ext_resource type="Texture2D" uid="uid://cqhf3w5g6oir7" path="res://Assets/Art/engine.png" id="1_ibvc1"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_dgqmb"]
+
+[resource]
+script = ExtResource("2_dgqmb")
+part_name = "Engine"
+image = ExtResource("1_ibvc1")
+owned = 0
+success = 0.8
+value = 30
+cost = 15
+value_upgrade_cost = 0
+success_upgrade_cost = 0
+locked = false
+blocks = Vector2(2, 2)
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

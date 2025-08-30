@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://b8le0rtrjv4px"]
+
+[ext_resource type="Texture2D" uid="uid://crw2amhjbtbqo" path="res://Assets/Art/right wing.png" id="1_743u4"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_gwxw3"]
+
+[resource]
+script = ExtResource("2_gwxw3")
+part_name = "Jam"
+image = ExtResource("1_743u4")
+owned = 0
+success = 0.8
+value = 20
+cost = 10
+value_upgrade_cost = 0
+success_upgrade_cost = 0
+locked = false
+blocks = Vector2(1, 2)
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

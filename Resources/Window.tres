@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://bfc04o5jbhxwq"]
+
+[ext_resource type="Texture2D" uid="uid://6d5p2iuyr467" path="res://Assets/Art/ship window.png" id="1_33f85"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_pb8jy"]
+
+[resource]
+script = ExtResource("2_pb8jy")
+part_name = "Window"
+image = ExtResource("1_33f85")
+owned = 0
+success = 1.0
+value = 20
+cost = 10
+value_upgrade_cost = 0
+success_upgrade_cost = 0
+locked = false
+blocks = Vector2(2, 2)
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"
