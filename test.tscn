@@ -5,7 +5,7 @@
 
 [node name="test" type="Sprite2D"]
 modulate = Color(1, 1, 1, 0.392157)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_8uh7m")
 script = ExtResource("2_6uqi0")
 rect = Rect2(0, 0, 40, 40)
