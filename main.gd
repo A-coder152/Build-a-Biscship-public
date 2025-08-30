@@ -64,6 +64,10 @@ func _process(delta):
 	if hover_update_timer >= hover_update_interval:
 		hover_update_timer = 0.0
 		_update_hover_effects()
+	
+	if biscuit_points < 4:
+		get_tree().change_scene_to_file("res://Scene/UI/temporary_game_over_screen.tscn")
+		
 
 func update_ui():
 	# Updates all the UI labels with the current game state
