@@ -79,12 +79,12 @@ func update_ui():
 func _on_add_dough_button_pressed():
 	# Add a 'Dough' part to the rocket
 	add_part({"value": dough_value, "fail_chance": dough_success_chance})
-	message_log.text = "Dough added to rocket."
+	message_log.new_message("Dough added to rocket.")
 
 func _on_add_filling_button_pressed():
 	# Add a 'Filling' part to the rocket
 	add_part({"value": filling_value, "fail_chance": filling_success_chance})
-	message_log.text = "Filling added to rocket."
+	message_log.new_message("Filling added to rocket.")
 
 func add_part(part):
 	var placement = OBJ.instantiate()
@@ -103,12 +103,12 @@ func add_part(part):
 	rocket_cost += part.cost
 	rocket_value = rocket_total_value * rocket_total_probability / len(rocket_parts) / rocket_success_chance
 	if len(rocket_parts) > 1: rocket_value /= sqrt(len(rocket_parts) - 1)
-	message_log.text = "Added " + str(part.part_name) + " to rocket."
+	message_log.new_message("Added " + str(part.part_name) + " to rocket.")
 	update_ui()
 
 func _on_launch_button_pressed():
 	if rocket_parts.size() == 0:
-		message_log.text = "You need to add parts to your rocket first!"
+		message_log.new_message("You need to add parts to your rocket first!")
 		return
 		
 		# Generate a random number between 0 and 1. If it's greater than the failure chance, the launch succeeds.
@@ -117,10 +117,10 @@ func _on_launch_button_pressed():
 		var total_points = rocket_value
 		
 		biscuit_points += total_points
-		message_log.text = "Launch SUCCESS! Your rocket reached space and you earned %s Biscuit Points!" % total_points
+		message_log.new_message("Launch SUCCESS! Your rocket reached space and you earned %s Biscuit Points!" % total_points)
 	else:
 		# Launch Failure
-		message_log.text = "Launch FAILED! The rocket exploded and you lost %s Biscuit Points." % rocket_cost
+		message_log.new_message("Launch FAILED! The rocket exploded and you lost %s Biscuit Points." % rocket_cost)
 	
 	# Reset rocket for the next launch
 	rocket_parts.clear()
@@ -147,9 +147,9 @@ func buy_item(item):
 			if item == child.item:
 				child.item = items[idx]
 		update_ui()
-		message_log.text = "Bought " + str(item.part_name) + " for " + str(item.cost) + " Biscuit Points."
+		message_log.new_message("Bought " + str(item.part_name) + " for " + str(item.cost) + " Biscuit Points.")
 	else:
-		message_log.text = "Cannot afford to buy " + str(item.part_name) + ". It costs " + str(item.cost) + " Biscuit Points."
+		message_log.new_message("Cannot afford to buy " + str(item.part_name) + ". It costs " + str(item.cost) + " Biscuit Points.")
 
 func add_item_to_rocket(item):
 	var idx = items.find(item)
@@ -162,14 +162,14 @@ func add_item_to_rocket(item):
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		update_ui()
 	elif item.owned == 0:
-		message_log.text = "You do not have any of this part! Buy the part before adding to rocket."
+		message_log.new_message("You do not have any of this part! Buy the part before adding to rocket.")
 	else:
-		message_log.text = "Another item is being selected!"
+		message_log.new_message("Another item is being selected!")
 
 func upgrade_value(item):
 	var idx = items.find(item)
 	if biscuit_points >= item.value_upgrade_cost:
-		message_log.text = "Upgraded value of " + str(item.part_name) + " for " + str(item.value_upgrade_cost) + " Biscuit Points."
+		message_log.new_message("Upgraded value of " + str(item.part_name) + " for " + str(item.value_upgrade_cost) + " Biscuit Points.")
 		biscuit_points -= item.value_upgrade_cost
 		items[idx].value *= 1.1
 		items[idx].value_upgrade_cost *= 1.3
