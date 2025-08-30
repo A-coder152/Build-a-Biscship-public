@@ -17,6 +17,9 @@ func play_music(stream: AudioStream):
 	music.play()
 
 func play_sfx(stream: AudioStream, pitch: float = 1.0, loudness_adjustment:float = 0.0):
+	if !stream:
+		print("sfx not connected")
+		return
 	if !sfx_on:
 		return
 	SFX = AudioStreamPlayer2D.new()
