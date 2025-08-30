@@ -107,6 +107,34 @@ func update_rocket_values():
 			rocket_success_chance *= part.item.success
 		for part in fuels:
 			rocket_success_chance *= part.item.success
+		
+		var build_size = build_sizes[builds.find(main_build)]
+		var rocket_center = Vector2((build_size[0].x + build_size[0].y) / 2.0, (build_size[1].x + build_size[1].y) / 2.0)
+		
+		var total_rocket_mass = 0.
+		var rocket_center_tracker = Vector2.ZERO
+		for part in main_build:
+			var part_center_x = (part.cells_covered[0].get_index() % grid.width + part.cells_covered[-1].get_index() % grid.width) / 2.0
+			var part_center_y = (part.cells_covered[0].get_index() / grid.width + part.cells_covered[-1].get_index() / grid.width) / 2.0
+			rocket_center_tracker += Vector2(part_center_x, part_center_y) * part.item.weight
+			total_rocket_mass += part.item.weight
+		rocket_center_tracker /= total_rocket_mass
+		print(rocket_center_tracker, " sigma ", rocket_center)
+		
+		var rocket_radius = rocket_center - Vector2(build_size[0].x, build_size[1].x)
+		var off_centerism = abs(rocket_center_tracker.x - rocket_center.x)
+		var cooked_by_mass_x = 1 - (off_centerism / rocket_radius.x)
+		rocket_success_chance *= cooked_by_mass_x
+		
+		var highest_stable_y = (build_size[1].x * 2. + build_size[1].y * 3.) / 5.
+		var lowest_stable_y = (build_size[1].x + build_size[1].y * 4.) / 5.
+		var cooked_by_mass_y = 1
+		if rocket_center_tracker.y < highest_stable_y:
+			cooked_by_mass_y = 0.5 * ((rocket_center_tracker.y - build_size[1].x) / (highest_stable_y - build_size[1].x))
+		if rocket_center_tracker.y > lowest_stable_y:
+			cooked_by_mass_y = ((build_size[1].y - rocket_center_tracker) / (build_size[1].y - lowest_stable_y))
+		rocket_success_chance *= cooked_by_mass_y
+		
 	#rocket_parts.append(part)
 	#if rocket_success_chance:
 		#rocket_success_chance *= part.success

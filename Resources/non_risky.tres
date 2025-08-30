@@ -16,5 +16,5 @@ success_upgrade_cost = 0
 locked = false
 blocks = Vector2(1, 1)
 type = 1
-weight = 3
+weight = 30
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"
