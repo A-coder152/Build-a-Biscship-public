@@ -1,20 +1,23 @@
-[gd_scene load_steps=11 format=3 uid="uid://c3cv383fvusc5"]
+[gd_scene load_steps=14 format=3 uid="uid://c3cv383fvusc5"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_5vw27"]
 [ext_resource type="PackedScene" uid="uid://bjhqyckc5l2cu" path="res://Scene/Gridmap/grid.tscn" id="3_h2yge"]
 [ext_resource type="Resource" uid="uid://itu2107shofm" path="res://Resources/Cone.tres" id="3_kek77"]
-[ext_resource type="Resource" uid="uid://b62tn4snaoy0u" path="res://Resources/Filling.tres" id="4_4c57u"]
-[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/non_risky.tres" id="5_efxa6"]
-[ext_resource type="Resource" uid="uid://cvkxopkpaq3vj" path="res://Resources/risky one.tres" id="6_dg77c"]
+[ext_resource type="Resource" uid="uid://cw8ig06rbmwew" path="res://Resources/Dough.tres" id="4_w48qg"]
+[ext_resource type="Resource" uid="uid://2owq4suucfn8" path="res://Resources/Engine.tres" id="5_ycdy4"]
+[ext_resource type="Resource" uid="uid://b8le0rtrjv4px" path="res://Resources/LWing.tres" id="6_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://scrollbar_filters.tscn" id="7_kek77"]
+[ext_resource type="Resource" uid="uid://n7p2i8ht0ylb" path="res://Resources/RWing.tres" id="7_w48qg"]
+[ext_resource type="Resource" uid="uid://dguwjwdd2nshu" path="res://Resources/Sugar.tres" id="8_vivmo"]
+[ext_resource type="Resource" uid="uid://bfc04o5jbhxwq" path="res://Resources/Window.tres" id="9_2cqfq"]
 [ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://message_log.gd" id="9_4c57u"]
 
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
 script = ExtResource("1_ig7tw")
-items = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("4_4c57u"), ExtResource("5_efxa6"), ExtResource("6_dg77c")])
+items = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("4_w48qg"), ExtResource("5_ycdy4"), ExtResource("6_ycdy4"), ExtResource("7_w48qg"), ExtResource("8_vivmo"), ExtResource("9_2cqfq")])
 
 [node name="UI" type="Node2D" parent="."]
 

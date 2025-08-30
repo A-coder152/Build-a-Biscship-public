@@ -7,7 +7,7 @@ func setup(dict):
 	main_scene = get_tree().current_scene
 	item = dict
 	$Name.text = item.part_name
-	$img.texture = item.image
+	$img.texture = item.images[item.upgrade_counter]
 	update()
 
 func update():

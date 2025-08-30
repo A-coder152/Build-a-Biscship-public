@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://2owq4suucfn8"]
+[gd_resource type="Resource" script_class="Part" load_steps=5 format=3 uid="uid://2owq4suucfn8"]
 
-[ext_resource type="Texture2D" uid="uid://cqhf3w5g6oir7" path="res://Assets/Art/engine.png" id="1_ibvc1"]
+[ext_resource type="Texture2D" uid="uid://b3qm6eyju3b1s" path="res://Assets/Ship Parts/engine.png" id="1_0aofk"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_dgqmb"]
+[ext_resource type="Texture2D" uid="uid://qua0e5hqk8jw" path="res://Assets/Ship Parts/engine large.png" id="2_uheoh"]
+[ext_resource type="Texture2D" uid="uid://supwqboqdn7j" path="res://Assets/Ship Parts/engine dual.png" id="3_utdog"]
 
 [resource]
 script = ExtResource("2_dgqmb")
 part_name = "Engine"
-image = ExtResource("1_ibvc1")
+images = Array[Texture2D]([ExtResource("1_0aofk"), ExtResource("2_uheoh"), ExtResource("3_utdog")])
 owned = 0
 success = 0.8
 value = 30
@@ -15,4 +17,7 @@ value_upgrade_cost = 0
 success_upgrade_cost = 0
 locked = false
 blocks = Vector2(2, 2)
+type = 0
+weight = 0
+special = 0.0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

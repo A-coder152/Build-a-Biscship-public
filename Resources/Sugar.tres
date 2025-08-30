@@ -1,18 +1,21 @@
 [gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://dguwjwdd2nshu"]
 
-[ext_resource type="Texture2D" uid="uid://wgnl7pk6pi6t" path="res://Assets/Art/sugar.png" id="1_mii54"]
+[ext_resource type="Texture2D" uid="uid://cgiapwxj4j7ou" path="res://Assets/Ship Parts/sugar.png" id="1_mii54"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_3ox6u"]
 
 [resource]
 script = ExtResource("2_3ox6u")
 part_name = "Sugar"
-image = ExtResource("1_mii54")
+images = Array[Texture2D]([ExtResource("1_mii54")])
 owned = 0
 success = 0.8
 value = 20
 cost = 10
 value_upgrade_cost = 0
 success_upgrade_cost = 0
-locked = false
+locked = true
 blocks = Vector2(2, 2)
+type = 0
+weight = 0
+special = 0.0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

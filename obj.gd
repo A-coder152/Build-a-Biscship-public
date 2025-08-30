@@ -6,13 +6,13 @@ var cells_covered
 var godot_face = preload("res://icon.svg")
 var scale_tween
 var default_scale
-func setup(part):
+func setup(part: Part):
 	item = part
 	var dumb = Vector2(item.blocks.x - 1, item.blocks.y - 1)
-	texture = item.image
+	texture = item.images[item.upgrade_counter]
 	scale = Vector2(item.blocks.x * 1.5, item.blocks.y * 1.5) + dumb * 0.15
 	default_scale =scale
-	if texture == godot_face: scale /= 4.0
+	if texture == godot_face: scale /= 4.0 #LOOOLL????
 	print(scale)
 	rect.size = Vector2(item.blocks.x * 20, item.blocks.y * 20) + dumb * 2
 	scale_tween = create_tween()

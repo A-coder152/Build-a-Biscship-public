@@ -75,7 +75,8 @@ func _process(delta):
 	
 	if biscuit_points < 4:
 		get_tree().change_scene_to_file("res://Scene/UI/temporary_game_over_screen.tscn")
-		
+	
+	
 
 func update_ui():
 	# Updates all the UI labels with the current game state
@@ -247,9 +248,16 @@ func upgrade_value(item):
 		biscuit_points -= item.value_upgrade_cost
 		items[idx].value *= 1.1
 		items[idx].value_upgrade_cost *= 1.3
+		items[idx].level += 1
+	# uncomment to use!!!	
+	#	if items[idx].level % 20 == 0 and items[idx].upgrade_counter < items[idx].images.size():
+	#		items[idx].upgrade_counter += 1
+	#		print(items[idx].images)
+	#		update_ui()
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
+		
 		update_ui()
 	else:
 		message_log.new_message("Cannot afford to upgrade value of " + str(item.part_name) + ". It costs " + str(item.value_upgrade_cost) + " Biscuit Points.")

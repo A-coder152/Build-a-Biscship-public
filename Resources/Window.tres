@@ -1,12 +1,15 @@
-[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://bfc04o5jbhxwq"]
+[gd_resource type="Resource" script_class="Part" load_steps=6 format=3 uid="uid://bfc04o5jbhxwq"]
 
-[ext_resource type="Texture2D" uid="uid://6d5p2iuyr467" path="res://Assets/Art/ship window.png" id="1_33f85"]
+[ext_resource type="Texture2D" uid="uid://d4c4xi6ct1hwg" path="res://Assets/Ship Parts/ship window.png" id="1_5k55a"]
+[ext_resource type="Texture2D" uid="uid://c2fd53axgjmck" path="res://Assets/Ship Parts/ship window dual.png" id="2_d2p5n"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_pb8jy"]
+[ext_resource type="Texture2D" uid="uid://cmpyemrci7quq" path="res://Assets/Ship Parts/ship window large.png" id="3_s8kpy"]
+[ext_resource type="Texture2D" uid="uid://nbs2q4sp06ik" path="res://Assets/Ship Parts/ship window multiple.png" id="4_byuu4"]
 
 [resource]
 script = ExtResource("2_pb8jy")
 part_name = "Window"
-image = ExtResource("1_33f85")
+images = Array[Texture2D]([ExtResource("1_5k55a"), ExtResource("2_d2p5n"), ExtResource("3_s8kpy"), ExtResource("4_byuu4")])
 owned = 0
 success = 1.0
 value = 20
@@ -15,4 +18,7 @@ value_upgrade_cost = 0
 success_upgrade_cost = 0
 locked = false
 blocks = Vector2(2, 2)
+type = 0
+weight = 0
+special = 0.0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

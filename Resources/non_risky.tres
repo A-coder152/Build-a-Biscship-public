@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://bjt0h21m27ogt"]
 
-[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="1_4ngou"]
+[ext_resource type="Texture2D" uid="uid://ck060t3ancush" path="res://Assets/Ship Parts/teapot fuel tank.png" id="1_4ngou"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_w21wr"]
 
 [resource]
 script = ExtResource("2_w21wr")
-part_name = "fuelinho"
-image = ExtResource("1_4ngou")
+part_name = "Teapot Fuel"
+images = Array[Texture2D]([ExtResource("1_4ngou")])
 owned = 0
 success = 0.97
 value = 21
