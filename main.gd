@@ -87,7 +87,7 @@ func add_part_to_grid(part):
 	placement.global_position = get_global_mouse_position()
 	obj = placement
 	obj.setup(part)
-	message_log.text = "Added " + str(part.part_name) + " to grid."
+	message_log.new_message("Added " + str(part.part_name) + " to grid.")
 	# General function to add a part, update cost and failure chance
 
 func update_rocket_values():
@@ -247,7 +247,7 @@ func upgrade_value(item):
 				child.item = items[idx]
 		update_ui()
 	else:
-		message_log.text = "Cannot afford to upgrade value of " + str(item.part_name) + ". It costs " + str(item.value_upgrade_cost) + " Biscuit Points."
+		message_log.new_message("Cannot afford to upgrade value of " + str(item.part_name) + ". It costs " + str(item.value_upgrade_cost) + " Biscuit Points.")
 
 func upgrade_success(item):
 	var idx = items.find(item)
@@ -261,7 +261,7 @@ func upgrade_success(item):
 				child.item = items[idx]
 		update_ui()
 	else:
-		message_log.text = "Cannot afford to upgrade success rate of " + str(item.part_name) + ". It costs " + str(item.success_upgrade_cost) + " Biscuit Points."
+		message_log.new_message("Cannot afford to upgrade success rate of " + str(item.part_name) + ". It costs " + str(item.success_upgrade_cost) + " Biscuit Points.")
 	
 func reset_items_container():
 	for child in items_container.get_children():
@@ -293,7 +293,7 @@ func _input(event: InputEvent) -> void:
 		_place_thing(objectCells)
 	elif Input.is_action_just_pressed("leftClick") and obj and not isValid:
 		print("invalid placement - destroying object")
-		message_log.text = "Invalid object placement!"
+		message_log.new_message("Invalid object placement!")
 		#obj.queue_free()
 		#obj = null
 		#isValid = null
@@ -424,7 +424,7 @@ func _place_thing(objectCells):
 			builds.erase(build)
 	print(build_sizes)
 	update_rocket_values()
-	message_log.text = "Added " + str(obj.item.part_name) + " to rocket."
+	message_log.new_message("Added " + str(obj.item.part_name) + " to rocket.")
 	obj = null
 	isValid = null	
 	for cell in objectCells:
