@@ -1,0 +1,152 @@
+[gd_scene load_steps=16 format=3 uid="uid://de340xq0pvp72"]
+
+[ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_34nkb"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_71bs7"]
+[ext_resource type="Resource" uid="uid://itu2107shofm" path="res://Resources/Cone.tres" id="3_wrrb7"]
+[ext_resource type="Resource" uid="uid://cw8ig06rbmwew" path="res://Resources/Dough.tres" id="4_5hgbd"]
+[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/non_risky.tres" id="5_mxerl"]
+[ext_resource type="Resource" uid="uid://2owq4suucfn8" path="res://Resources/Engine.tres" id="6_s3eb0"]
+[ext_resource type="Resource" uid="uid://b8le0rtrjv4px" path="res://Resources/LWing.tres" id="7_wkla4"]
+[ext_resource type="Resource" uid="uid://n7p2i8ht0ylb" path="res://Resources/RWing.tres" id="8_vqo8m"]
+[ext_resource type="Resource" uid="uid://dguwjwdd2nshu" path="res://Resources/Sugar.tres" id="9_u06uw"]
+[ext_resource type="Resource" uid="uid://bfc04o5jbhxwq" path="res://Resources/Window.tres" id="10_l35cm"]
+[ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://message_log.gd" id="11_1m78v"]
+[ext_resource type="PackedScene" uid="uid://bjhqyckc5l2cu" path="res://Scene/Gridmap/grid.tscn" id="12_q2fyk"]
+[ext_resource type="Texture2D" uid="uid://plex6b1t0ul7" path="res://Assets/ui/Selection.png" id="13_71bs7"]
+[ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://scrollbar_filters.tscn" id="13_ga0dm"]
+[ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="14_u3owc"]
+
+[node name="Main" type="Node2D"]
+scale = Vector2(0.417, 0.417)
+script = ExtResource("1_34nkb")
+items = Array[ExtResource("2_71bs7")]([ExtResource("3_wrrb7"), ExtResource("4_5hgbd"), ExtResource("5_mxerl"), ExtResource("6_s3eb0"), ExtResource("7_wkla4"), ExtResource("8_vqo8m"), ExtResource("9_u06uw"), ExtResource("10_l35cm")])
+
+[node name="LaunchButton" type="Button" parent="."]
+offset_left = 1000.0
+offset_right = 1126.0
+offset_bottom = 31.0
+text = "Launch Rocket!"
+
+[node name="MessageLog" type="RichTextLabel" parent="."]
+offset_top = 611.0
+offset_right = 933.0
+offset_bottom = 649.0
+text = "testdnifneinf"
+script = ExtResource("11_1m78v")
+text_delay = 0.01
+fade_out_delay = 5.0
+fade_out_duration = 5.0
+
+[node name="WarningsContainer" type="VBoxContainer" parent="."]
+offset_left = 26.0
+offset_top = 264.156
+offset_right = 302.0
+offset_bottom = 368.156
+
+[node name="Label" type="Label" parent="WarningsContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="WarningsContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="WarningsContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="WarningsContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1151.0
+offset_bottom = 647.0
+color = Color(1, 0.952941, 0.654902, 1)
+
+[node name="grid" parent="." instance=ExtResource("12_q2fyk")]
+modulate = Color(1, 0.952941, 0.654902, 1)
+offset_left = 331.0
+offset_top = 72.0
+offset_right = 803.0
+offset_bottom = 536.0
+theme_override_constants/h_separation = 5
+columns = 9
+width = 9
+height = 9
+cellWidth = 48
+cellHeight = 48
+seperation = 5
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_top = 110.0
+offset_right = 310.0
+offset_bottom = 648.0
+texture = ExtResource("13_71bs7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_vertical = 3
+
+[node name="Sidebar" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollbarFilters" parent="HBoxContainer/Sidebar" instance=ExtResource("13_ga0dm")]
+custom_minimum_size = Vector2(0, 103)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ItemsContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/ScrollContainer"]
+custom_minimum_size = Vector2(308, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemBox" parent="HBoxContainer/Sidebar/ScrollContainer/ItemsContainer" instance=ExtResource("14_u3owc")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ItemBox2" parent="HBoxContainer/Sidebar/ScrollContainer/ItemsContainer" instance=ExtResource("14_u3owc")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Spacer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelsContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Useless?" type="Label" parent="HBoxContainer/LabelsContainer"]
+layout_mode = 2
+text = "STATS:"
+
+[node name="CashLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+visible = false
+layout_mode = 2
+text = "Cash: $1239"
+
+[node name="PointsLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+layout_mode = 2
+text = "Biscuit Points: 0"
+
+[node name="FailureChanceLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+layout_mode = 2
+text = "Rocket Failure Chance: 1000%"
+
+[node name="WeightLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+layout_mode = 2
+text = "Rocket Failure Chance: 1000%"
+
+[node name="DistanceLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+layout_mode = 2
+text = "Rocket Failure Chance: 1000%"
+
+[node name="ValueLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+layout_mode = 2
+text = "Rocket value/cost: 0"
+
+[connection signal="gui_input" from="grid" to="." method="_on_grid_gui_input"]
