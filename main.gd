@@ -47,6 +47,7 @@ var hover_update_timer = 0.0
 var hover_update_interval = 0.016
 var builds = []
 var build_sizes = []
+@onready var rocket: Node2D = $rocket
 
 
 #Sound Effects
@@ -69,12 +70,12 @@ func _ready():
 	# Initial UI update and connect signals
 	reset_items_container()
 	update_ui()
+	rocket.reparent(Global)
 	launch_button.connect("pressed", _on_launch_button_pressed)
-	
+	clear_rocket()
 	gridSize = Vector2(grid.cellWidth, grid.cellHeight) / 2.4
 	for cell in grid.get_children():
 		cell.change_color(Color(0.5, 0.5, 0.5, 0.5))
-
 func _process(delta):
 	# added this stupid thing because godot is a fucking bitch
 	hover_update_timer += delta
@@ -106,7 +107,7 @@ func update_ui():
 
 func add_part_to_grid(part):
 	var placement = OBJ.instantiate()
-	add_child(placement)
+	rocket.add_child(placement)
 	placement.global_position = get_global_mouse_position()
 	obj = placement
 	obj.setup(part)
@@ -214,23 +215,35 @@ func update_rocket_values():
 	update_ui()
 
 func _on_launch_button_pressed():
+	Global.thatrocket = get_tree().get_first_node_in_group("rocket")
+	print(rocket)
 	if builds.size() == 0:
 		message_log.new_message("You need to add parts to your rocket first!")
 		return
-		
+	
 		# Generate a random number between 0 and 1. If it's greater than the failure chance, the launch succeeds.
 	if randf() < rocket_success_chance:
 		# Launch Success!
 		const DIST_POINTS_MULT = 20
 		var total_points = round((rocket_distance * DIST_POINTS_MULT * randf_range(0.8, 1.2) + rocket_value) * 100) / 100.
+		await get_tree().create_timer(0.5).timeout
+		Global.fail = false
+		get_tree().change_scene_to_file("res://animation.tscn")
+		
 		
 		biscuit_points += total_points
-		message_log.new_message("Launch SUCCESS! Your rocket reached space and you earned %s Biscuit Points!" % total_points)
+	#	message_log.new_message("Launch SUCCESS! Your rocket reached space and you earned %s Biscuit Points!" % total_points)
 	else:
 		# Launch Failure
-		message_log.new_message("Launch FAILED! The rocket exploded and you lost %s Biscuit Points." % rocket_cost)
+		#why am I dealing with abysmal code twin
+		await get_tree().create_timer(0.5).timeout
+		Global.fail = true
+		get_tree().change_scene_to_file("res://animation.tscn")
+	#	message_log.new_message("Launch FAILED! The rocket exploded and you lost %s Biscuit Points." % rocket_cost)
 	
 	# Reset rocket for the next launch
+
+func clear_rocket():
 	rocket_parts.clear()
 	for obje in parts_obj:
 		obje.queue_free()
@@ -357,6 +370,8 @@ func _input(event: InputEvent) -> void:
 		#isValid = null
 		#_reset_highlight()
 
+
+
 #RIP GUI INPUT
 func _update_hover_effects():
 	if not obj:
@@ -454,7 +469,7 @@ func _place_thing(objectCells):
 	var x_vector = Vector2(objectCells[0].get_index() % grid.width, objectCells[-1].get_index() % grid.width)
 	var y_vector = Vector2(objectCells[0].get_index() / grid.width, objectCells[-1].get_index() / grid.width)
 	var builds_in = []
-	for cell in obj.cells_covered:
+	for cell in obj.cells_covered: # I DONT KNOW WHAT THIS SHIT DOES
 		for neighbor in get_neighbor_cells(Vector2(cell.get_index() % grid.width, cell.get_index() / grid.width)):
 			if neighbor in obj.cells_covered: continue
 			for build in builds:
@@ -488,4 +503,9 @@ func _place_thing(objectCells):
 	for cell in objectCells:
 		cell.full = true
 	_reset_highlight()
+	
+
+func remove_thing():
+	
+	pass
 #endregion
