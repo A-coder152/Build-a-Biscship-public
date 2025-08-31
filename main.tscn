@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c3cv383fvusc5"]
+[gd_scene load_steps=19 format=3 uid="uid://c3cv383fvusc5"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="2_0xm2m"]
@@ -14,6 +14,16 @@
 [ext_resource type="Resource" uid="uid://dguwjwdd2nshu" path="res://Resources/Sugar.tres" id="8_vivmo"]
 [ext_resource type="Resource" uid="uid://bfc04o5jbhxwq" path="res://Resources/Window.tres" id="9_2cqfq"]
 [ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://message_log.gd" id="9_4c57u"]
+[ext_resource type="FontFile" uid="uid://dyjqguvcceo4q" path="res://kenney-pixel-square.otf" id="11_vivmo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2cqfq"]
+font = ExtResource("11_vivmo")
+
+[sub_resource type="LabelSettings" id="LabelSettings_yaehf"]
+font = ExtResource("11_vivmo")
+
+[sub_resource type="LabelSettings" id="LabelSettings_074og"]
+font = ExtResource("11_vivmo")
 
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
@@ -29,31 +39,38 @@ offset_bottom = 648.0
 [node name="PointsLabel2" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "STATS:"
+label_settings = SubResource("LabelSettings_2cqfq")
 
 [node name="CashLabel" type="Label" parent="UI/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Cash: $1239"
+label_settings = SubResource("LabelSettings_yaehf")
 
 [node name="PointsLabel" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "Biscuit Points: 0"
+label_settings = SubResource("LabelSettings_yaehf")
 
 [node name="FailureChanceLabel" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "Rocket Failure Chance: 1000%"
+label_settings = SubResource("LabelSettings_yaehf")
 
 [node name="WeightLabel" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "Rocket Failure Chance: 1000%"
+label_settings = SubResource("LabelSettings_yaehf")
 
 [node name="DistanceLabel" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "Rocket Failure Chance: 1000%"
+label_settings = SubResource("LabelSettings_yaehf")
 
 [node name="ValueLabel" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
 text = "Rocket value/cost: 0"
+label_settings = SubResource("LabelSettings_yaehf")
 
 [node name="Control" type="Control" parent="UI/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -93,6 +110,7 @@ layout_mode = 2
 offset_left = 1000.0
 offset_right = 1126.0
 offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("11_vivmo")
 text = "Launch Rocket!"
 
 [node name="MessageLog" type="RichTextLabel" parent="UI"]
@@ -113,15 +131,19 @@ offset_bottom = 368.156
 
 [node name="Label" type="Label" parent="UI/WarningsContainer"]
 layout_mode = 2
+label_settings = SubResource("LabelSettings_074og")
 
 [node name="Label2" type="Label" parent="UI/WarningsContainer"]
 layout_mode = 2
+label_settings = SubResource("LabelSettings_074og")
 
 [node name="Label3" type="Label" parent="UI/WarningsContainer"]
 layout_mode = 2
+label_settings = SubResource("LabelSettings_074og")
 
 [node name="Label4" type="Label" parent="UI/WarningsContainer"]
 layout_mode = 2
+label_settings = SubResource("LabelSettings_074og")
 
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]
 offset_left = 331.0
@@ -135,5 +157,7 @@ height = 9
 cellWidth = 48
 cellHeight = 48
 seperation = 5
+
+[node name="rocket" type="Node2D" parent="." groups=["rocket"]]
 
 [connection signal="gui_input" from="grid" to="." method="_on_grid_gui_input"]

@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Sound="*res://sound.gd"
+Signalbus="*res://signalbus.gd"
+Global="*res://global.gd"
 
 [display]
 
