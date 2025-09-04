@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjhqyckc5l2cu" path="res://Scene/Gridmap/grid.tscn" id="3_h2yge"]
 [ext_resource type="Resource" uid="uid://itu2107shofm" path="res://Resources/Cone.tres" id="3_kek77"]
 [ext_resource type="Resource" uid="uid://cw8ig06rbmwew" path="res://Resources/Dough.tres" id="4_w48qg"]
-[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/non_risky.tres" id="5_w48qg"]
+[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/Teapot.tres" id="5_w48qg"]
 [ext_resource type="Resource" uid="uid://2owq4suucfn8" path="res://Resources/Engine.tres" id="5_ycdy4"]
 [ext_resource type="Resource" uid="uid://b8le0rtrjv4px" path="res://Resources/LWing.tres" id="6_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://scrollbar_filters.tscn" id="7_kek77"]
@@ -29,6 +29,11 @@ font = ExtResource("11_vivmo")
 scale = Vector2(0.417, 0.417)
 script = ExtResource("1_ig7tw")
 items = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("4_w48qg"), ExtResource("5_w48qg"), ExtResource("5_ycdy4"), ExtResource("6_ycdy4"), ExtResource("7_w48qg"), ExtResource("8_vivmo"), ExtResource("9_2cqfq")])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1151.0
+offset_bottom = 647.0
+color = Color(1, 0.952941, 0.654902, 1)
 
 [node name="UI" type="Node2D" parent="."]
 
@@ -98,6 +103,7 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="ItemsContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(308, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -146,6 +152,7 @@ layout_mode = 2
 label_settings = SubResource("LabelSettings_074og")
 
 [node name="grid" parent="." instance=ExtResource("3_h2yge")]
+modulate = Color(1, 0.952941, 0.654902, 1)
 offset_left = 331.0
 offset_top = 72.0
 offset_right = 803.0

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://cc77k12s8es5g"]
+
+[ext_resource type="Texture2D" uid="uid://djo7xiw3n81mf" path="res://Assets/Ship Parts/cone 2.png" id="1_3hgi7"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_phd2d"]
+
+[resource]
+script = ExtResource("2_phd2d")
+part_name = "Choc Cone"
+images = Array[Texture2D]([ExtResource("1_3hgi7")])
+owned = 0
+success = 0.9
+value = 24
+cost = 20
+value_upgrade_cost = 100
+success_upgrade_cost = 100
+locked = false
+blocks = Vector2(2, 2)
+type = 4
+weight = 2.0
+weight_upgrade_cost = 40
+special = 0.5
+special_name = "drag"
+special_upgrade_cost = 10
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

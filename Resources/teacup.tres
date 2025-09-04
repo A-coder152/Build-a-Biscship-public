@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://bphqh0bk72tnr"]
+
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="1_7tx3x"]
+[ext_resource type="Texture2D" uid="uid://s6i2okb6l4jm" path="res://Assets/Ship Parts/teacup.png" id="1_rg3ud"]
+
+[resource]
+script = ExtResource("1_7tx3x")
+part_name = "Teacup"
+images = Array[Texture2D]([ExtResource("1_rg3ud")])
+owned = 0
+success = 0.8
+value = 10
+cost = 10
+value_upgrade_cost = 50
+success_upgrade_cost = 150
+locked = false
+blocks = Vector2(1, 1)
+type = 1
+weight = 2.0
+weight_upgrade_cost = 100
+special = 5.0
+special_name = ""
+special_upgrade_cost = 0
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

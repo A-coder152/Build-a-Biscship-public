@@ -1,5 +1,7 @@
 class_name Part extends Resource 
 enum TYPE {ENGINE, FUEL, FILLING, COATING, STRUCTURE}
+const SPECIAL_UPPERS = ["thrust", "fuel"]
+const SPECIAL_DOWNERS = ["drag", "risk"]
 var level = 0
 var upgrade_counter = 0
 @export var part_name: String
@@ -13,5 +15,8 @@ var upgrade_counter = 0
 @export var locked: bool
 @export var blocks: Vector2
 @export var type: TYPE
-@export var weight: int
+@export var weight: float
+@export var weight_upgrade_cost: int
 @export var special: float
+@export var special_name: String
+@export var special_upgrade_cost: int

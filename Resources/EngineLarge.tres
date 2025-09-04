@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://pahu1e51xog1"]
+
+[ext_resource type="Texture2D" uid="uid://qua0e5hqk8jw" path="res://Assets/Ship Parts/engine large.png" id="2_5385g"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="4_h611g"]
+
+[resource]
+script = ExtResource("4_h611g")
+part_name = "Large Engine"
+images = Array[Texture2D]([ExtResource("2_5385g")])
+owned = 0
+success = 0.7
+value = 50
+cost = 40
+value_upgrade_cost = 100
+success_upgrade_cost = 200
+locked = false
+blocks = Vector2(3, 3)
+type = 0
+weight = 10.0
+weight_upgrade_cost = 0
+special = 35.0
+special_name = ""
+special_upgrade_cost = 200
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

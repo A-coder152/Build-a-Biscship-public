@@ -1,16 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccfs4roteess3"]
+[gd_scene load_steps=8 format=3 uid="uid://ccfs4roteess3"]
 
 [ext_resource type="Script" uid="uid://dumijclocfgeo" path="res://animation.gd" id="1_nlgr8"]
+[ext_resource type="AudioStream" uid="uid://cwcw6rlwj8k61" path="res://rocket-launch-76003.mp3" id="2_4b1b3"]
 [ext_resource type="PackedScene" uid="uid://dgup3x7eeahog" path="res://explosion.tscn" id="2_ij1m1"]
 [ext_resource type="Texture2D" uid="uid://cqhf3w5g6oir7" path="res://Assets/Art/engine.png" id="2_ljyfo"]
 [ext_resource type="PackedScene" uid="uid://w2o58mvkbhmj" path="res://camera_2d.tscn" id="3_ljyfo"]
+[ext_resource type="AudioStream" uid="uid://lgrus441r5gh" path="res://nuclear-explosion-386181.mp3" id="3_vpcml"]
+[ext_resource type="AudioStream" uid="uid://puue4qgu12i7" path="res://sample_confirm_success.mp3" id="4_sryvc"]
 
 [node name="animation" type="Node2D"]
 script = ExtResource("1_nlgr8")
+fly_sound = ExtResource("2_4b1b3")
+explosion_sound = ExtResource("3_vpcml")
+success_sound = ExtResource("4_sryvc")
 
 [node name="explosion" parent="." instance=ExtResource("2_ij1m1")]
 visible = false
-position = Vector2(240, 320)
+position = Vector2(576, 323)
+scale = Vector2(10, 10)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -36,7 +43,8 @@ grow_vertical = 2
 position = Vector2(240, 320)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+visible = false
 texture = ExtResource("2_ljyfo")
 
 [node name="Camera2D" parent="." instance=ExtResource("3_ljyfo")]
-position = Vector2(242, 134)
+position = Vector2(576, 324)

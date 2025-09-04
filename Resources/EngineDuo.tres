@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://chifyjstxkebr"]
+
+[ext_resource type="Texture2D" uid="uid://supwqboqdn7j" path="res://Assets/Ship Parts/engine dual.png" id="3_pjnhd"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="4_igd2s"]
+
+[resource]
+script = ExtResource("4_igd2s")
+part_name = "Dual Engine"
+images = Array[Texture2D]([ExtResource("3_pjnhd")])
+owned = 0
+success = 0.8
+value = 30
+cost = 30
+value_upgrade_cost = 100
+success_upgrade_cost = 200
+locked = false
+blocks = Vector2(4, 2)
+type = 0
+weight = 9.0
+weight_upgrade_cost = 0
+special = 30.0
+special_name = ""
+special_upgrade_cost = 200
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

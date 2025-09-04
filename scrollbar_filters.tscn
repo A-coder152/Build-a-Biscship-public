@@ -1,45 +1,119 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6ncgbnxv26pe"]
+[gd_scene load_steps=8 format=3 uid="uid://c6ncgbnxv26pe"]
 
 [ext_resource type="Script" uid="uid://f1k3ixya2q0g" path="res://scrollbar_filters.gd" id="1_1rbry"]
+[ext_resource type="Texture2D" uid="uid://kwbo3v62slcc" path="res://Assets/ui/InventoryUpgradeButton.png" id="2_2cdmv"]
+[ext_resource type="Texture2D" uid="uid://cblpibuv5otkm" path="res://Assets/ui/CoatingButton.png" id="3_g37ye"]
+[ext_resource type="Texture2D" uid="uid://b0h2emlovdh65" path="res://Assets/ui/StructureButton.png" id="3_sa03p"]
+[ext_resource type="Texture2D" uid="uid://c53y26crjpsqf" path="res://Assets/ui/Eginebuton.png" id="4_esuxo"]
+[ext_resource type="Texture2D" uid="uid://c2jpm1xtcyypd" path="res://Assets/ui/FuelButton.png" id="5_tqxjf"]
+[ext_resource type="Texture2D" uid="uid://cahpxt3jotc0" path="res://Assets/ui/FillingButton.png" id="6_88hbw"]
 
 [node name="ScrollbarFilters" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 200.0
-offset_bottom = 45.0
+offset_right = 308.0
+offset_bottom = 103.0
 script = ExtResource("1_1rbry")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Inventory" type="TextureButton" parent="."]
+layout_mode = 1
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 147.0
+offset_bottom = 36.0
+toggle_mode = true
+button_pressed = true
+texture_normal = ExtResource("2_2cdmv")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Inventory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.27451, 0.27451, 0.27451, 1)
-
-[node name="Inventory" type="Button" parent="."]
-layout_mode = 1
-offset_left = 5.0
-offset_top = 6.0
-offset_right = 95.0
-offset_bottom = 37.0
-toggle_mode = true
-button_pressed = true
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
 text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Upgrades" type="Button" parent="."]
+[node name="Upgrades" type="TextureButton" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -95.0
-offset_top = 6.0
-offset_right = -5.0
-offset_bottom = 37.0
-grow_horizontal = 0
+offset_left = 161.0
+offset_top = 5.0
+offset_right = 301.0
+offset_bottom = 36.0
 toggle_mode = true
+texture_normal = ExtResource("2_2cdmv")
+stretch_mode = 0
+
+[node name="Label2" type="Label" parent="Upgrades"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
 text = "Upgrades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Structure" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 47.0
+offset_right = 57.0
+offset_bottom = 97.0
+toggle_mode = true
+texture_normal = ExtResource("3_sa03p")
+stretch_mode = 0
+
+[node name="Engine" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 47.0
+offset_right = 118.0
+offset_bottom = 97.0
+toggle_mode = true
+texture_normal = ExtResource("4_esuxo")
+stretch_mode = 0
+
+[node name="Fuel" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 47.0
+offset_right = 179.0
+offset_bottom = 97.0
+toggle_mode = true
+texture_normal = ExtResource("5_tqxjf")
+stretch_mode = 0
+
+[node name="Filling" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 47.0
+offset_right = 240.0
+offset_bottom = 97.0
+toggle_mode = true
+texture_normal = ExtResource("6_88hbw")
+stretch_mode = 0
+
+[node name="Coating" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 47.0
+offset_right = 301.0
+offset_bottom = 97.0
+toggle_mode = true
+texture_normal = ExtResource("3_g37ye")
+stretch_mode = 0
 
 [connection signal="pressed" from="Inventory" to="." method="_on_inventory_pressed"]
 [connection signal="pressed" from="Upgrades" to="." method="_on_upgrades_pressed"]
+[connection signal="pressed" from="Structure" to="." method="_on_structure_pressed"]
+[connection signal="pressed" from="Engine" to="." method="_on_engine_pressed"]
+[connection signal="pressed" from="Fuel" to="." method="_on_fuel_pressed"]
+[connection signal="pressed" from="Filling" to="." method="_on_filling_pressed"]
+[connection signal="pressed" from="Coating" to="." method="_on_coating_pressed"]

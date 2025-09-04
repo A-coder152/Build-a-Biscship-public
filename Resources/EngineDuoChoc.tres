@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://dbyyqgxikr6do"]
+
+[ext_resource type="Texture2D" uid="uid://crtkee3gp1lra" path="res://Assets/Ship Parts/engine 2 dual.png" id="1_7a5rk"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="4_268rs"]
+
+[resource]
+script = ExtResource("4_268rs")
+part_name = "Dual Choc Engine"
+images = Array[Texture2D]([ExtResource("1_7a5rk")])
+owned = 0
+success = 0.7
+value = 40
+cost = 40
+value_upgrade_cost = 100
+success_upgrade_cost = 300
+locked = false
+blocks = Vector2(4, 2)
+type = 0
+weight = 5
+weight_upgrade_cost = 0
+special = 50.0
+special_name = ""
+special_upgrade_cost = 300
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

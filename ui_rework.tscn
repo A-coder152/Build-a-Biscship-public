@@ -1,64 +1,76 @@
-[gd_scene load_steps=16 format=3 uid="uid://de340xq0pvp72"]
+[gd_scene load_steps=38 format=3 uid="uid://de340xq0pvp72"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_34nkb"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_71bs7"]
 [ext_resource type="Resource" uid="uid://itu2107shofm" path="res://Resources/Cone.tres" id="3_wrrb7"]
 [ext_resource type="Resource" uid="uid://cw8ig06rbmwew" path="res://Resources/Dough.tres" id="4_5hgbd"]
-[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/non_risky.tres" id="5_mxerl"]
+[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/Teapot.tres" id="5_mxerl"]
 [ext_resource type="Resource" uid="uid://2owq4suucfn8" path="res://Resources/Engine.tres" id="6_s3eb0"]
 [ext_resource type="Resource" uid="uid://b8le0rtrjv4px" path="res://Resources/LWing.tres" id="7_wkla4"]
 [ext_resource type="Resource" uid="uid://n7p2i8ht0ylb" path="res://Resources/RWing.tres" id="8_vqo8m"]
 [ext_resource type="Resource" uid="uid://dguwjwdd2nshu" path="res://Resources/Sugar.tres" id="9_u06uw"]
 [ext_resource type="Resource" uid="uid://bfc04o5jbhxwq" path="res://Resources/Window.tres" id="10_l35cm"]
 [ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://message_log.gd" id="11_1m78v"]
+[ext_resource type="Resource" uid="uid://ob6tv2gxmt4l" path="res://Resources/Jam.tres" id="11_s3eb0"]
 [ext_resource type="PackedScene" uid="uid://bjhqyckc5l2cu" path="res://Scene/Gridmap/grid.tscn" id="12_q2fyk"]
+[ext_resource type="Resource" uid="uid://bphqh0bk72tnr" path="res://Resources/teacup.tres" id="12_wkla4"]
+[ext_resource type="Texture2D" uid="uid://k1gmk8dr08c" path="res://Assets/ui/StatsContainer.png" id="13_5hgbd"]
 [ext_resource type="Texture2D" uid="uid://plex6b1t0ul7" path="res://Assets/ui/Selection.png" id="13_71bs7"]
 [ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://scrollbar_filters.tscn" id="13_ga0dm"]
+[ext_resource type="Resource" uid="uid://cc77k12s8es5g" path="res://Resources/choccone.tres" id="13_l35cm"]
+[ext_resource type="Resource" uid="uid://brj2s3eb3vk4o" path="res://Resources/ConeBug.tres" id="14_1m78v"]
+[ext_resource type="Texture2D" uid="uid://bqu56quea1mto" path="res://Assets/ui/AlienAstronaut.png" id="14_mxerl"]
 [ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="14_u3owc"]
+[ext_resource type="Resource" uid="uid://dbyyqgxikr6do" path="res://Resources/EngineDuoChoc.tres" id="15_q2fyk"]
+[ext_resource type="Resource" uid="uid://3d4sv208gt4g" path="res://Resources/EngineChoc.tres" id="16_u3owc"]
+[ext_resource type="Resource" uid="uid://03pyxfgigmdu" path="res://Resources/EngineChocMulti.tres" id="17_hijsa"]
+[ext_resource type="Texture2D" uid="uid://cstfm5so0tib5" path="res://Assets/ui/LaunchButton.png" id="17_mxerl"]
+[ext_resource type="Resource" uid="uid://chifyjstxkebr" path="res://Resources/EngineDuo.tres" id="18_nggmv"]
+[ext_resource type="Resource" uid="uid://pahu1e51xog1" path="res://Resources/EngineLarge.tres" id="19_ctnfu"]
+[ext_resource type="Resource" uid="uid://byyfkfdysyubk" path="res://Resources/EngineMulti.tres" id="20_cdmcp"]
+[ext_resource type="Resource" uid="uid://b6ildeg4uucpe" path="res://Resources/JamPink.tres" id="21_yhadh"]
+[ext_resource type="Resource" uid="uid://bwt05tro1w7j3" path="res://Resources/SugarPink.tres" id="22_3xnof"]
+[ext_resource type="AudioStream" uid="uid://d06fu0vikyf1a" path="res://computer-mouse-click.mp3" id="23_3xnof"]
+[ext_resource type="AudioStream" uid="uid://cs33q8cg3ovrr" path="res://short biscircuit.wav" id="23_yhadh"]
+[ext_resource type="AudioStream" uid="uid://cbgx1dekcs3s2" path="res://sample_error_fail.mp3" id="24_63tgn"]
+[ext_resource type="Texture2D" uid="uid://cvbmairca8x1g" path="res://Assets/ui/CookieCounter.png" id="28_hijsa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63tgn"]
+bg_color = Color(0.85098, 0.631373, 0.443137, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esmn7"]
+bg_color = Color(0.85098, 0.631373, 0.443137, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0uv0"]
+bg_color = Color(0.85098, 0.631373, 0.443137, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 6
 
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
 script = ExtResource("1_34nkb")
-items = Array[ExtResource("2_71bs7")]([ExtResource("3_wrrb7"), ExtResource("4_5hgbd"), ExtResource("5_mxerl"), ExtResource("6_s3eb0"), ExtResource("7_wkla4"), ExtResource("8_vqo8m"), ExtResource("9_u06uw"), ExtResource("10_l35cm")])
-
-[node name="LaunchButton" type="Button" parent="."]
-offset_left = 1000.0
-offset_right = 1126.0
-offset_bottom = 31.0
-text = "Launch Rocket!"
-
-[node name="MessageLog" type="RichTextLabel" parent="."]
-offset_top = 611.0
-offset_right = 933.0
-offset_bottom = 649.0
-text = "testdnifneinf"
-script = ExtResource("11_1m78v")
-text_delay = 0.01
-fade_out_delay = 5.0
-fade_out_duration = 5.0
-
-[node name="WarningsContainer" type="VBoxContainer" parent="."]
-offset_left = 26.0
-offset_top = 264.156
-offset_right = 302.0
-offset_bottom = 368.156
-
-[node name="Label" type="Label" parent="WarningsContainer"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="WarningsContainer"]
-layout_mode = 2
-
-[node name="Label3" type="Label" parent="WarningsContainer"]
-layout_mode = 2
-
-[node name="Label4" type="Label" parent="WarningsContainer"]
-layout_mode = 2
+items = Array[ExtResource("2_71bs7")]([ExtResource("3_wrrb7"), ExtResource("4_5hgbd"), ExtResource("5_mxerl"), ExtResource("6_s3eb0"), ExtResource("7_wkla4"), ExtResource("8_vqo8m"), ExtResource("9_u06uw"), ExtResource("10_l35cm"), ExtResource("11_s3eb0"), ExtResource("12_wkla4"), ExtResource("13_l35cm"), ExtResource("14_1m78v"), ExtResource("15_q2fyk"), ExtResource("16_u3owc"), ExtResource("17_hijsa"), ExtResource("18_nggmv"), ExtResource("19_ctnfu"), ExtResource("20_cdmcp"), ExtResource("21_yhadh"), ExtResource("22_3xnof")])
+place = ExtResource("23_3xnof")
+place_failed = ExtResource("24_63tgn")
+bg_music = ExtResource("23_yhadh")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 1151.0
 offset_bottom = 647.0
-color = Color(1, 0.952941, 0.654902, 1)
+color = Color(1, 0.972549, 0.694118, 1)
 
 [node name="grid" parent="." instance=ExtResource("12_q2fyk")]
 modulate = Color(1, 0.952941, 0.654902, 1)
@@ -80,6 +92,21 @@ offset_right = 310.0
 offset_bottom = 648.0
 texture = ExtResource("13_71bs7")
 
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 820.0
+offset_top = 70.0
+offset_right = 1120.0
+offset_bottom = 496.0
+texture = ExtResource("13_5hgbd")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = 330.796
+offset_top = 546.99
+offset_right = 399.796
+offset_bottom = 635.99
+texture = ExtResource("14_mxerl")
+flip_h = true
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -97,6 +124,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="ItemsContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/ScrollContainer"]
 custom_minimum_size = Vector2(308, 0)
@@ -116,37 +144,197 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LabelsContainer" type="VBoxContainer" parent="HBoxContainer"]
-layout_mode = 2
+[node name="LabelsContainer" type="VBoxContainer" parent="."]
+offset_left = 832.0
+offset_top = 84.0
+offset_right = 1108.0
+offset_bottom = 482.0
 alignment = 1
 
-[node name="Useless?" type="Label" parent="HBoxContainer/LabelsContainer"]
+[node name="Useless?" type="Label" parent="LabelsContainer"]
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
-text = "STATS:"
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Rocket STATS:"
+horizontal_alignment = 1
 
-[node name="CashLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+[node name="CashLabel" type="Label" parent="LabelsContainer"]
 visible = false
 layout_mode = 2
 text = "Cash: $1239"
 
-[node name="PointsLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+[node name="FailureChanceLabel" type="Label" parent="LabelsContainer"]
 layout_mode = 2
-text = "Biscuit Points: 0"
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 14
+text = "Rocket Failure Chance: 10%"
+horizontal_alignment = 1
 
-[node name="FailureChanceLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+[node name="WeightLabel" type="Label" parent="LabelsContainer"]
 layout_mode = 2
-text = "Rocket Failure Chance: 1000%"
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 14
+text = "Rocket Failure Chance: 1%"
+horizontal_alignment = 1
 
-[node name="WeightLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+[node name="DistanceLabel" type="Label" parent="LabelsContainer"]
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
-text = "Rocket Failure Chance: 1000%"
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 14
+text = "Rocket Failure Chance: 10%"
+horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="DistanceLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
+[node name="ValueLabel" type="Label" parent="LabelsContainer"]
 layout_mode = 2
-text = "Rocket Failure Chance: 1000%"
-
-[node name="ValueLabel" type="Label" parent="HBoxContainer/LabelsContainer"]
-layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 14
 text = "Rocket value/cost: 0"
+horizontal_alignment = 1
+
+[node name="Spacer" type="BoxContainer" parent="LabelsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ValueLabel2" type="Label" parent="LabelsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Notes:"
+horizontal_alignment = 1
+
+[node name="WarningsContainer" type="VBoxContainer" parent="LabelsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LabelsContainer/WarningsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="LabelsContainer/WarningsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="LabelsContainer/WarningsContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label4" type="Label" parent="LabelsContainer/WarningsContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MessageLog" type="RichTextLabel" parent="."]
+offset_left = 417.0
+offset_top = 556.0
+offset_right = 1130.0
+offset_bottom = 638.0
+theme_override_colors/default_color = Color(0.85098, 0.631373, 0.443137, 1)
+text = "welcome to build a biscship!"
+vertical_alignment = 2
+script = ExtResource("11_1m78v")
+text_delay = 0.01
+fade_out_delay = 5.0
+fade_out_duration = 5.0
+
+[node name="LaunchButton" type="TextureButton" parent="."]
+offset_left = 820.0
+offset_top = 504.0
+offset_right = 1120.0
+offset_bottom = 537.0
+texture_normal = ExtResource("17_mxerl")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="LaunchButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+text = "Launch Rocket!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+offset_left = 861.573
+offset_top = 11.1942
+offset_right = 1081.57
+offset_bottom = 57.1942
+texture = ExtResource("28_hijsa")
+stretch_mode = 4
+
+[node name="PointsLabel" type="Label" parent="TextureRect4"]
+layout_mode = 2
+offset_left = 50.0
+offset_top = 3.0
+offset_right = 218.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+text = "0"
+vertical_alignment = 1
+
+[node name="rocket" type="Node2D" parent="." groups=["rocket"]]
+
+[node name="popup" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="TextureRect" type="TextureRect" parent="popup"]
+layout_mode = 0
+offset_left = 131.894
+offset_top = 184.652
+offset_right = 1042.89
+offset_bottom = 455.652
+texture = ExtResource("17_mxerl")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="popup/TextureRect"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 19.0
+offset_right = 892.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 40
+text = "Welcome!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="popup/TextureRect"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 86.8154
+offset_right = 890.0
+offset_bottom = 157.815
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 22
+text = "Please ensure your audio is on and you can 
+hear the music before building your biscships."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PopupButton" type="Button" parent="popup/TextureRect"]
+layout_mode = 0
+offset_left = 323.777
+offset_top = 191.806
+offset_right = 582.777
+offset_bottom = 229.806
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "I can hear the music!"
 
 [connection signal="gui_input" from="grid" to="." method="_on_grid_gui_input"]
+[connection signal="pressed" from="popup/TextureRect/PopupButton" to="." method="_on_popup_button_pressed"]

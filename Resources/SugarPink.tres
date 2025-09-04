@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://bwt05tro1w7j3"]
+
+[ext_resource type="Texture2D" uid="uid://ckkeohjlqjdab" path="res://Assets/Ship Parts/sugar2.png" id="1_2setp"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_04by7"]
+
+[resource]
+script = ExtResource("2_04by7")
+part_name = "Pink Sugar"
+images = Array[Texture2D]([ExtResource("1_2setp")])
+owned = 0
+success = 0.8
+value = 100
+cost = 25
+value_upgrade_cost = 300
+success_upgrade_cost = 50
+locked = true
+blocks = Vector2(2, 2)
+type = 3
+weight = 8.0
+weight_upgrade_cost = 300
+special = 0.0
+special_name = ""
+special_upgrade_cost = 0
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

@@ -11,9 +11,11 @@ func setup(part: Part):
 	var dumb = Vector2(item.blocks.x - 1, item.blocks.y - 1)
 	texture = item.images[item.upgrade_counter]
 	scale = Vector2(item.blocks.x * 1.5, item.blocks.y * 1.5) + dumb * 0.15
+	scale.y /= texture.get_height() / 32. * 1.1
+	scale.x /= texture.get_width() / 32. * 1.1
 	default_scale =scale
+	print(scale, texture)
 	if texture == godot_face: scale /= 4.0 #LOOOLL????
-	print(scale)
 	rect.size = Vector2(item.blocks.x * 20, item.blocks.y * 20) + dumb * 2
 	scale_tween = create_tween()
 	scale_tween.tween_property(self, "scale", default_scale*1.1,0.1).set_trans(Tween.TRANS_QUINT)

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://3d4sv208gt4g"]
+
+[ext_resource type="Texture2D" uid="uid://bnubj2igsufnp" path="res://Assets/Ship Parts/engine 2.png" id="1_4x4qf"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="4_a4unh"]
+
+[resource]
+script = ExtResource("4_a4unh")
+part_name = "Choc Engine"
+images = Array[Texture2D]([ExtResource("1_4x4qf")])
+owned = 0
+success = 0.7
+value = 25
+cost = 20
+value_upgrade_cost = 80
+success_upgrade_cost = 200
+locked = false
+blocks = Vector2(2, 2)
+type = 0
+weight = 0.0
+weight_upgrade_cost = 0
+special = 25.0
+special_name = "thrust"
+special_upgrade_cost = 150
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

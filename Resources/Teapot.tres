@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Part" load_steps=3 format=3 uid="uid://bjt0h21m27ogt"]
+
+[ext_resource type="Texture2D" uid="uid://ck060t3ancush" path="res://Assets/Ship Parts/teapot fuel tank.png" id="1_spydb"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_hprxn"]
+
+[resource]
+script = ExtResource("2_hprxn")
+part_name = "Teapot"
+images = Array[Texture2D]([ExtResource("1_spydb")])
+owned = 0
+success = 0.9
+value = 20
+cost = 20
+value_upgrade_cost = 50
+success_upgrade_cost = 100
+locked = false
+blocks = Vector2(2, 2)
+type = 1
+weight = 3.0
+weight_upgrade_cost = 150
+special = 10.0
+special_name = "fuel"
+special_upgrade_cost = 50
+metadata/_custom_type_script = "uid://bfqm5t7ekjk02"
