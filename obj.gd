@@ -3,9 +3,13 @@ extends Sprite2D
 @export var rect: Rect2
 var item
 var cells_covered
+var neighbors = []
 var godot_face = preload("res://icon.svg")
+var explosion_scene = preload("res://explosion.tscn")
+var explosion_sound = preload("res://nuclear-explosion-386181.mp3")
 var scale_tween
 var default_scale
+var exploded = false
 func setup(part: Part):
 	item = part
 	var dumb = Vector2(item.blocks.x - 1, item.blocks.y - 1)
@@ -30,3 +34,11 @@ func set_on_place():
 	scale_tween = create_tween()
 	scale_tween.tween_property(self, "scale", default_scale,0.1).set_trans(Tween.TRANS_QUINT)
 	modulate.a = 1
+
+func explode():
+	await get_tree().create_timer(randf()).timeout
+	var explosion = explosion_scene.instantiate()
+	add_child(explosion)
+	Sound.play_sfx2(explosion_sound, 0, 1, -2)
+	await get_tree().create_timer(1).timeout
+	queue_free()

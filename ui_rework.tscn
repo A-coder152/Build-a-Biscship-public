@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://de340xq0pvp72"]
+[gd_scene load_steps=41 format=3 uid="uid://de340xq0pvp72"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_34nkb"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_71bs7"]
@@ -59,6 +59,30 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 corner_detail = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2kneu"]
+bg_color = Color(0.996078, 0.898039, 0.584314, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0wjc"]
+bg_color = Color(1, 0.901961, 0.584314, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ql8yx"]
+bg_color = Color(1, 0.901961, 0.584314, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 6
+
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
 script = ExtResource("1_34nkb")
@@ -86,20 +110,20 @@ cellWidth = 48
 cellHeight = 48
 seperation = 5
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="ShopBg" type="TextureRect" parent="."]
 offset_top = 110.0
 offset_right = 310.0
 offset_bottom = 648.0
 texture = ExtResource("13_71bs7")
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="NotesBg" type="TextureRect" parent="."]
 offset_left = 820.0
 offset_top = 70.0
 offset_right = 1120.0
 offset_bottom = 496.0
 texture = ExtResource("13_5hgbd")
 
-[node name="TextureRect3" type="TextureRect" parent="."]
+[node name="LarryMain" type="TextureRect" parent="."]
 offset_left = 330.796
 offset_top = 546.99
 offset_right = 399.796
@@ -238,7 +262,10 @@ offset_top = 556.0
 offset_right = 1130.0
 offset_bottom = 638.0
 theme_override_colors/default_color = Color(0.85098, 0.631373, 0.443137, 1)
-text = "welcome to build a biscship!"
+text = "welcome to build a biscship!
+Do you want a tutorial?
+
+"
 vertical_alignment = 2
 script = ExtResource("11_1m78v")
 text_delay = 0.01
@@ -285,12 +312,422 @@ vertical_alignment = 1
 
 [node name="rocket" type="Node2D" parent="." groups=["rocket"]]
 
-[node name="popup" type="ColorRect" parent="."]
+[node name="TutorialChoice" type="Node2D" parent="."]
+
+[node name="NoTutorial" type="Button" parent="TutorialChoice"]
+offset_left = 584.777
+offset_top = 616.0
+offset_right = 678.777
+offset_bottom = 642.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "No"
+
+[node name="Tutorial" type="Button" parent="TutorialChoice"]
+offset_left = 457.678
+offset_top = 616.0
+offset_right = 551.678
+offset_bottom = 642.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_2kneu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q0wjc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ql8yx")
+text = "yes!"
+
+[node name="TutorialPanels" type="Node2D" parent="."]
+visible = false
+
+[node name="Slide1" type="Node2D" parent="TutorialPanels"]
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide1"]
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.835294)
 
-[node name="TextureRect" type="TextureRect" parent="popup"]
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide1"]
+offset_left = 131.894
+offset_top = 184.652
+offset_right = 1042.89
+offset_bottom = 455.652
+texture = ExtResource("17_mxerl")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide1/PanelThing"]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 19.0
+offset_right = 892.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 40
+text = "Biscuits and rockets!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide1/PanelThing"]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 87.0
+offset_right = 890.0
+offset_bottom = 158.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 22
+text = "Welcome to build a biscship! you'll be using
+different biscuits to build rockets that fly
+to space! "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide1/PanelThing"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 26.0
+offset_right = 192.0
+offset_bottom = 243.0
+texture = ExtResource("14_mxerl")
+flip_h = true
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide1/PanelThing"]
+layout_mode = 0
+offset_left = 489.146
+offset_top = 213.602
+offset_right = 609.146
+offset_bottom = 241.602
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
+[node name="Slide2" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide2"]
+offset_left = 305.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide2"]
+offset_left = 343.0
+offset_top = 224.0
+offset_right = 1048.0
+offset_bottom = 427.0
+texture = ExtResource("17_mxerl")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide2/PanelThing"]
+layout_mode = 0
+offset_left = 21.2998
+offset_top = 14.0
+offset_right = 527.3
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 30
+text = "Biscuit Parts"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide2/PanelThing"]
+layout_mode = 0
+offset_left = 16.9017
+offset_top = 62.0
+offset_right = 532.902
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 16
+text = "On the left, you can buy and add biscuit parts
+to your biscships! Different parts have unique
+roles on the biscship."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide2/PanelThing"]
+layout_mode = 0
+offset_left = 539.707
+offset_top = 28.4293
+offset_right = 647.707
+offset_bottom = 168.429
+texture = ExtResource("14_mxerl")
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide2/PanelThing"]
+layout_mode = 0
+offset_left = 237.3
+offset_top = 153.0
+offset_right = 309.3
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
+[node name="Slide3" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide3"]
+offset_left = 305.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide3"]
+offset_left = 343.0
+offset_top = 3.37649
+offset_right = 1048.0
+offset_bottom = 206.376
+texture = ExtResource("17_mxerl")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide3/PanelThing"]
+layout_mode = 0
+offset_left = 26.0959
+offset_top = 14.0
+offset_right = 532.096
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 30
+text = "Upgrades!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide3/PanelThing"]
+layout_mode = 0
+offset_left = 16.9017
+offset_top = 64.3981
+offset_right = 532.902
+offset_bottom = 142.398
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 16
+text = "You can spend your biscuit points on upgrading
+your parts! Different stats can be upgraded, as
+well as unique upgrades for specific parts."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide3/PanelThing"]
+layout_mode = 0
+offset_left = 539.707
+offset_top = 28.4293
+offset_right = 647.707
+offset_bottom = 168.429
+texture = ExtResource("14_mxerl")
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide3/PanelThing"]
+layout_mode = 0
+offset_left = 237.3
+offset_top = 153.0
+offset_right = 309.3
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
+[node name="Slide4" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide4"]
+offset_left = 305.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide4"]
+offset_left = 343.0
+offset_top = 51.3381
+offset_right = 1048.0
+offset_bottom = 254.338
+texture = ExtResource("17_mxerl")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide4/PanelThing"]
+layout_mode = 0
+offset_left = 26.0959
+offset_top = 14.0
+offset_right = 532.096
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 30
+text = "Biscuit types"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide4/PanelThing"]
+layout_mode = 0
+offset_left = 16.9017
+offset_top = 64.3981
+offset_right = 532.902
+offset_bottom = 142.398
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 16
+text = "Each biscuit has a type. A biscuit's type
+determines the impact it has on the biscship. 
+You can filter the sidebar by a specific type."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide4/PanelThing"]
+layout_mode = 0
+offset_left = 539.707
+offset_top = 28.4293
+offset_right = 647.707
+offset_bottom = 168.429
+texture = ExtResource("14_mxerl")
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide4/PanelThing"]
+layout_mode = 0
+offset_left = 237.3
+offset_top = 153.0
+offset_right = 309.3
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
+[node name="Slide5" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide5"]
+offset_right = 813.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide5"]
+offset_left = 86.3309
+offset_top = 67.1463
+offset_right = 791.331
+offset_bottom = 270.146
+texture = ExtResource("17_mxerl")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide5/PanelThing"]
+layout_mode = 0
+offset_left = 162.787
+offset_top = 14.0
+offset_right = 668.787
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 30
+text = "Biscship info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide5/PanelThing"]
+layout_mode = 0
+offset_left = 153.592
+offset_top = 64.3981
+offset_right = 669.592
+offset_bottom = 142.398
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 16
+text = "Here is where you'll find important statistics
+about your current biscship. This includes
+success chance, value, and projected distance."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide5/PanelThing"]
+layout_mode = 0
+offset_left = 26.3789
+offset_top = 26.3789
+offset_right = 134.379
+offset_bottom = 166.379
+texture = ExtResource("14_mxerl")
+flip_h = true
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide5/PanelThing"]
+layout_mode = 0
+offset_left = 369.194
+offset_top = 153.0
+offset_right = 441.194
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
+[node name="Slide6" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide6"]
+offset_right = 813.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide6"]
+offset_left = 86.331
+offset_top = 335.732
+offset_right = 791.331
+offset_bottom = 538.732
+texture = ExtResource("17_mxerl")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide6/PanelThing"]
+layout_mode = 0
+offset_left = 162.787
+offset_top = 14.0
+offset_right = 668.787
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 30
+text = "Biscship notes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide6/PanelThing"]
+layout_mode = 0
+offset_left = 153.592
+offset_top = 64.3981
+offset_right = 669.592
+offset_bottom = 142.398
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 16
+text = "These notes will provide general pointers on
+how you can improve your biscship's success
+chance. Once you're satisfied, click launch!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide6/PanelThing"]
+layout_mode = 0
+offset_left = 26.3789
+offset_top = 26.3789
+offset_right = 134.379
+offset_bottom = 166.379
+texture = ExtResource("14_mxerl")
+flip_h = true
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide6/PanelThing"]
+layout_mode = 0
+offset_left = 283.0
+offset_top = 153.0
+offset_right = 530.0
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "That's it for the tutorial!"
+
+[node name="AudioPopup" type="ColorRect" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="P1" type="TextureRect" parent="AudioPopup"]
 layout_mode = 0
 offset_left = 131.894
 offset_top = 184.652
@@ -299,7 +736,7 @@ offset_bottom = 455.652
 texture = ExtResource("17_mxerl")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="popup/TextureRect"]
+[node name="Label" type="Label" parent="AudioPopup/P1"]
 layout_mode = 0
 offset_left = 19.0
 offset_top = 19.0
@@ -311,7 +748,7 @@ text = "Welcome!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="popup/TextureRect"]
+[node name="Label2" type="Label" parent="AudioPopup/P1"]
 layout_mode = 0
 offset_left = 17.0
 offset_top = 86.8154
@@ -324,7 +761,16 @@ hear the music before building your biscships."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PopupButton" type="Button" parent="popup/TextureRect"]
+[node name="LarryMain2" type="TextureRect" parent="AudioPopup/P1"]
+layout_mode = 0
+offset_left = 23.9813
+offset_top = 131.895
+offset_right = 109.981
+offset_bottom = 242.895
+texture = ExtResource("14_mxerl")
+flip_h = true
+
+[node name="PopupButton" type="Button" parent="AudioPopup/P1"]
 layout_mode = 0
 offset_left = 323.777
 offset_top = 191.806
@@ -337,4 +783,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
 text = "I can hear the music!"
 
 [connection signal="gui_input" from="grid" to="." method="_on_grid_gui_input"]
-[connection signal="pressed" from="popup/TextureRect/PopupButton" to="." method="_on_popup_button_pressed"]
+[connection signal="pressed" from="TutorialChoice/NoTutorial" to="." method="_on_no_tutorial_pressed"]
+[connection signal="pressed" from="TutorialChoice/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide1/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide2/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide3/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide4/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide5/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide6/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="AudioPopup/P1/PopupButton" to="." method="_on_popup_button_pressed"]

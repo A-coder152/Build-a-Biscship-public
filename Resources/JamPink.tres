@@ -21,4 +21,7 @@ weight_upgrade_cost = 700
 special = 700.0
 special_name = ""
 special_upgrade_cost = 0
+tile_type = 0
+special_tiles = Array[Vector2]([])
+tile_rules = 0
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

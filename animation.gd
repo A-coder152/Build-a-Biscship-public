@@ -15,7 +15,7 @@ func _ready() -> void:
 	rocket = Global.thatrocket
 	explosion.reparent(rocket)
 	var main_build_size = mainscene.build_sizes[mainscene.main_build_idx]
-	explosion.scale = Vector2(5, 5) + Vector2(main_build_size[0].y - main_build_size[0].x, main_build_size[1].y - main_build_size[1].x) * 4
+	explosion.scale = Vector2(5, 5) + max(main_build_size[0].y - main_build_size[0].x, main_build_size[1].y - main_build_size[1].x) * Vector2(4, 4)
 	explosion.position = mainscene.rocket_center_a + Vector2(50, 50)
 	rocket.reparent(self)
 

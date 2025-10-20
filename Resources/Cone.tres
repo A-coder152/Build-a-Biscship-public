@@ -21,4 +21,7 @@ weight_upgrade_cost = 40
 special = 0.5
 special_name = "drag"
 special_upgrade_cost = 10
+tile_type = 1
+special_tiles = Array[Vector2]([Vector2(-1, 0), Vector2(-1, 1), Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1)])
+tile_rules = 2
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"

@@ -25,12 +25,15 @@ var warnings = [5, 5, 6, 6]
 var items_scene = preload("res://item_box.tscn")
 var upgrades_scene = preload("res://upgrade_box.tscn")
 
+var tutorial_slide = 0
+
 # Rocket Variables
 var rocket_parts = []
 var parts_obj = []
 var rocket_value = 0
 var rocket_cost = 0
 var rocket_success_chance = 0.0
+var rocket_switch_chance = 1.0
 var rocket_mass = 0.0
 var rocket_distance = 0.0
 var rocket_center_a = Vector2.ZERO
@@ -71,6 +74,7 @@ var main_build_idx = 0
 @onready var launch_button = $LaunchButton
 @onready var message_log = $MessageLog
 @onready var items_container = $HBoxContainer/Sidebar/ScrollContainer/ItemsContainer
+@onready var tutorial = $TutorialPanels
 
 func _ready():
 	# Initial UI update and connect signals
@@ -99,7 +103,7 @@ func update_ui():
 	# Updates all the UI labels with the current game state
 	points_label.text = str(biscuit_points) #"Biscuit Points: %s" % biscuit_points
 	rocket_value_label.text = "Rocket Value: %s" % rocket_value
-	fail_chance_label.text = "Rocket Success Chance: %s%%" % (round(rocket_success_chance * 100))
+	fail_chance_label.text = "Rocket Success Chance: %s%%" % (round(rocket_success_chance * 1000 * (1 - 0))/10.)
 	distance_label.text = "Projected Rocket Distance: %s" % str(round(rocket_distance * 100) / 100.) + "m"
 	weight_label.text = "Rocket weight: %s" % str(rocket_mass)
 	for i in range(len(warnings_container.get_children())):
@@ -112,18 +116,22 @@ func update_ui():
 	update_items_container()
 
 func add_part_to_grid(part):
+	if is_launching:
+		message_log.new_message("Cannot add parts while rocket is launching!")
+		return
 	var placement = OBJ.instantiate()
 	rocket.add_child(placement)
 	placement.global_position = get_global_mouse_position()
 	obj = placement
 	obj.setup(part)
 	obj.z_index = 2
-	message_log.new_message("Added " + str(part.part_name) + " to grid.")
+	message_log.new_message("Added " + str(part.part_name) + " to grid. Right click to cancel.")
 	# General function to add a part, update cost and failure chance
 
 func update_rocket_values():
 	# doing rocket science in one night for a jam game is crazy
 	rocket_success_chance = 0
+	rocket_switch_chance = 1
 	rocket_mass = 0.0
 	rocket_distance = 0.0
 	rocket_value = 0.0
@@ -157,10 +165,14 @@ func update_rocket_values():
 	var one_engine = 1.
 	var one_tank = 1.
 	for part in engines:
-		one_engine *= (1 - part.item.success)
+		var non_break_chance = 1 - part.item.success
+		if len(part.neighbors) == 1: rocket_switch_chance *= non_break_chance / (1- part.item.success * part.neighbors[0].item.success)
+		one_engine *= non_break_chance
 		engines_thrust += part.item.special
 	for part in fuels:
-		one_tank *= (1 - part.item.success)
+		var non_break_chance = 1 - part.item.success
+		if len(part.neighbors) == 1: rocket_switch_chance *= non_break_chance / (1- part.item.success * part.neighbors[0].item.success)
+		one_tank *= non_break_chance
 		fuel_on_rocket += part.item.special
 	if rocket_success_chance > 0: rocket_success_chance *= (1 - one_engine) * (1 - one_tank)
 	
@@ -185,7 +197,7 @@ func update_rocket_values():
 	var center_factor = off_centerism / rocket_radius.x
 	var cooked_by_mass_x = 1 - (abs(center_factor))
 	if rocket_success_chance > 0: rocket_success_chance *= cooked_by_mass_x
-	print(rocket_radius, " s ", off_centerism, " b ", rocket_center_tracker, " f ", rocket_mass)
+	print(rocket_center, " g ", rocket_radius, " s ", off_centerism, " b ", rocket_center_tracker, " f ", rocket_mass)
 	update_warnings(center_factor, 2)
 	
 	var highest_stable_y = (build_size[1].x * 2. + build_size[1].y * 3.) / 5.
@@ -213,7 +225,7 @@ func update_rocket_values():
 		rocket_distance = (fuel_on_rocket / engines_thrust) * ((engines_thrust / rocket_mass) - 1) * FUEL_DIST_MULT
 		rocket_distance -= (build_size[0].y - build_size[0].x + 1) * DRAG_DIST_MULT
 		rocket_distance = max(0, rocket_distance)
-		
+			
 	#rocket_parts.append(part)
 	#if rocket_success_chance:
 		#rocket_success_chance *= part.success
@@ -225,6 +237,24 @@ func update_rocket_values():
 	#rocket_value = rocket_total_value * rocket_total_probability / len(rocket_parts) / rocket_success_chance
 	#if len(rocket_parts) > 1: rocket_value /= sqrt(len(rocket_parts) - 1)
 	update_ui()
+
+func check_for_explosions():
+	for part in builds[main_build_idx]:
+		if randf() > part.item.success:
+			print("boooooom")
+			part.explode()
+			part.reparent(self)
+			for neighbor in part.neighbors:
+				print("oy", len(neighbor.neighbors))
+				if len(neighbor.neighbors) == 1:
+					print("reeeee")
+					neighbor.explode()
+					neighbor.reparent(self)
+				neighbor.neighbors.erase(part)
+	if len(rocket.get_children()) == 0:
+		return false
+	print(rocket.get_children())
+	return true
 
 func _on_launch_button_pressed():
 	if is_launching:
@@ -246,7 +276,14 @@ func _on_launch_button_pressed():
 	print(build_sizes[main_build_idx])
 		# Generate a random number between 0 and 1. If it's greater than the failure chance, the launch succeeds.
 	if randf() < rocket_success_chance:
-		# Launch Success!
+		if not check_for_explosions():
+			await get_tree().create_timer(1).timeout
+			message_log.new_message("Your launch succeeded... until all rocket parts exploded! You lost %s Biscuit Points." % rocket_cost)
+			clear_rocket()
+			is_launching = false
+			return
+			
+				
 		const DIST_POINTS_MULT = 20
 		var total_points = round((rocket_distance * DIST_POINTS_MULT * randf_range(0.8, 1.2) + rocket_value) * 100) / 100.
 		grid.visible = false
@@ -276,7 +313,7 @@ func _on_launch_button_pressed():
 func clear_rocket():
 	rocket_parts.clear()
 	for obje in parts_obj:
-		obje.queue_free()
+		if obje: obje.queue_free()
 	for child: Control in grid.get_children():
 		child.full = false
 	parts_obj = []
@@ -285,6 +322,7 @@ func clear_rocket():
 	rocket_value = 0
 	rocket_cost = 0
 	rocket_success_chance = 0.0
+	rocket_switch_chance = 1
 	rocket_distance = 0.0
 	rocket_mass = 0.0
 	warnings = [5, 5, 6, 6]
@@ -324,6 +362,7 @@ func add_item_to_rocket(item):
 		message_log.new_message("Another item is being selected!")
 
 func remove_part(part):
+	if not part: return
 	rocket.remove_child(part)
 	for build in builds:
 		if part in build:
@@ -333,12 +372,16 @@ func remove_part(part):
 			for cell in part.cells_covered:
 				cell.full = false
 			build.erase(part)
-			build_sizes[builds.find(build)] = [Vector2.ZERO, Vector2.ZERO]
+			print(build_sizes[builds.find(build)])
+			build_sizes[builds.find(build)] = [Vector2(8, 0), Vector2(8, 0)]
+			print(build_sizes[builds.find(build)])
 			for sigma in build:
 				var part_x_vector = Vector2(sigma.cells_covered[0].get_index() % grid.width, sigma.cells_covered[-1].get_index() % grid.width)
 				var part_y_vector = Vector2(sigma.cells_covered[0].get_index() / grid.width, sigma.cells_covered[-1].get_index() / grid.width)
 				build_sizes[builds.find(build)] = update_build_size(part_x_vector, part_y_vector, build_sizes[builds.find(build)])
+				print(build_sizes[builds.find(build)])
 			update_rocket_values()
+	Sound.play_sfx(place_failed, 0, 1, 3)
 
 func upgrade_value(item):
 	var idx = items.find(item)
@@ -455,18 +498,20 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("leftClick") and obj and not isValid:
 		print("invalid placement - destroying object")
 		message_log.new_message("Invalid object placement!")
-		Sound.play_sfx(place_failed, 0, 1, 2)
+		Sound.play_sfx(place_failed, 0, 1, 3)
+	elif Input.is_action_just_pressed("rightClick") and obj:
+		var item = obj.item
+		obj.queue_free()
+		reset_placement()
+		item.owned += 1
+		rocket_cost -= item.cost
+		Sound.play_sfx(place_failed, 0, 1, 3)
+		message_log.new_message("Cancelled " + item.part_name + " placement.")
+		update_ui()
 	elif Input.is_action_just_pressed("leftClick") and not obj:
 		var cell = _get_target_cell_placement(get_global_mouse_position() - Vector2(8, 8))
-		if cell and cell.full:
-			for build in builds:
-				for part in build:
-					if cell in part.cells_covered:
-						remove_part(part)
-		#obj.queue_free()
-		#obj = null
-		#isValid = null
-		#_reset_highlight()
+		remove_part(get_part_from_cell(cell))
+
 
 
 
@@ -540,6 +585,21 @@ func _check_and_highlight_cells(objectCells: Array):
 		else:
 			cell.change_color(Color.SEA_GREEN)
 		last_highlighted_cells.append(cell)
+		
+	var first_coords = Vector2(objectCells[0].get_index() % grid.width, objectCells[0].get_index() / grid.width)
+	
+	if obj.item.tile_type != Part.TILE.NONE:
+		obj.item.tiles_empty = true
+		var cell_color = Color.DARK_KHAKI if obj.item.tile_type == Part.TILE.RULE else Color.CORNFLOWER_BLUE
+		for pos in obj.item.special_tiles:
+			var cell = get_cell_by_coords(first_coords + pos)
+			if cell: 
+				cell.change_color(cell_color)
+				last_highlighted_cells.append(cell)
+				if obj.item.tile_type == Part.TILE.RULE and cell.full:
+					obj.item.tiles_empty = false
+					if obj.item.tile_rules == Part.TILE_RULES.ENGINE:
+						isValid = false
 	return isValid
 
 func _get_cell_pos(cell_idx: int) -> Vector2i:
@@ -558,8 +618,15 @@ func update_build_size(x_vector, y_vector, build_size_list):
 		build_size_list[1].y = y_vector.y
 	return build_size_list
 
+func get_part_from_cell(cell):
+	if cell and cell.full:
+		for build in builds:
+			for part in build:
+				if cell in part.cells_covered:
+					return part
+	return null
+
 func _place_thing(objectCells):
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	print("thing placed")
 	obj.set_on_place()
 	print(obj.texture, obj.scale, obj.global_position)
@@ -575,6 +642,8 @@ func _place_thing(objectCells):
 				if obj in build: continue
 				for part in build:
 					if neighbor in part.cells_covered:
+						if part not in obj.neighbors: obj.neighbors.append(part)
+						if obj not in part.neighbors: part.neighbors.append(part)
 						build.append(obj)
 						builds_in.append(build)
 						var build_size_list = update_build_size(x_vector, y_vector, build_sizes[builds.find(build)])
@@ -594,21 +663,40 @@ func _place_thing(objectCells):
 					build_sizes[builds.find(builds_in[0])] = build_size_list
 			build_sizes.remove_at(builds.find(build))
 			builds.erase(build)
+			main_build_idx = 0
 	print(build_sizes)
-	update_rocket_values()
-	message_log.new_message("Added " + str(obj.item.part_name) + " to rocket.")
-	obj = null
-	isValid = null	
 	for cell in objectCells:
 		cell.full = true
+	update_rocket_values()
+	message_log.new_message("Added " + str(obj.item.part_name) + " to rocket.")
+	reset_placement()
+
+func reset_placement():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	obj = null
+	isValid = null	
 	_reset_highlight()
 	
-
-func remove_thing():
-	
-	pass
 #endregion
 
 
 func _on_popup_button_pressed() -> void:
-	$popup.queue_free()
+	$AudioPopup.queue_free()
+
+func _on_no_tutorial_pressed() -> void:
+	$TutorialChoice.queue_free()
+	message_log.new_message("Alright then! Off to building your biscships!")
+
+func _on_tutorial_pressed() -> void:
+	$TutorialChoice.queue_free()
+	tutorial.visible = true
+	message_log.new_message("Tutorial active!")
+
+func _on_next_slide_pressed() -> void:
+	tutorial.get_child(tutorial_slide).visible = false
+	if tutorial_slide < 5:
+		tutorial_slide += 1
+		tutorial.get_child(tutorial_slide).visible = true
+	else:
+		tutorial.queue_free()
+		message_log.new_message("Tutorial completed! Good luck building your biscships!")
