@@ -1,34 +1,34 @@
 [gd_scene load_steps=19 format=3 uid="uid://c3cv383fvusc5"]
 
-[ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="2_0xm2m"]
-[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_5vw27"]
-[ext_resource type="PackedScene" uid="uid://bjhqyckc5l2cu" path="res://Scene/Gridmap/grid.tscn" id="3_h2yge"]
-[ext_resource type="Resource" uid="uid://itu2107shofm" path="res://Resources/Cone.tres" id="3_kek77"]
-[ext_resource type="Resource" uid="uid://cw8ig06rbmwew" path="res://Resources/Dough.tres" id="4_w48qg"]
-[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/Teapot.tres" id="5_w48qg"]
-[ext_resource type="Resource" uid="uid://2owq4suucfn8" path="res://Resources/Engine.tres" id="5_ycdy4"]
-[ext_resource type="Resource" uid="uid://b8le0rtrjv4px" path="res://Resources/LWing.tres" id="6_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://scrollbar_filters.tscn" id="7_kek77"]
-[ext_resource type="Resource" uid="uid://n7p2i8ht0ylb" path="res://Resources/RWing.tres" id="7_w48qg"]
-[ext_resource type="Resource" uid="uid://dguwjwdd2nshu" path="res://Resources/Sugar.tres" id="8_vivmo"]
-[ext_resource type="Resource" uid="uid://bfc04o5jbhxwq" path="res://Resources/Window.tres" id="9_2cqfq"]
-[ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://message_log.gd" id="9_4c57u"]
-[ext_resource type="FontFile" uid="uid://dyjqguvcceo4q" path="res://kenney-pixel-square.otf" id="11_vivmo"]
+[ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://Scripts/main.gd" id="1_j63at"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_6njx3"]
+[ext_resource type="Resource" uid="uid://itu2107shofm" path="res://Resources/Cone.tres" id="3_0y2cb"]
+[ext_resource type="Resource" uid="uid://cw8ig06rbmwew" path="res://Resources/Dough.tres" id="4_2ix4a"]
+[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/Teapot.tres" id="5_p2wc2"]
+[ext_resource type="Resource" uid="uid://2owq4suucfn8" path="res://Resources/Engine.tres" id="6_jbas8"]
+[ext_resource type="Resource" uid="uid://b8le0rtrjv4px" path="res://Resources/LWing.tres" id="7_p4j74"]
+[ext_resource type="Resource" uid="uid://n7p2i8ht0ylb" path="res://Resources/RWing.tres" id="8_hiice"]
+[ext_resource type="Resource" uid="uid://dguwjwdd2nshu" path="res://Resources/Sugar.tres" id="9_sor6r"]
+[ext_resource type="Resource" uid="uid://bfc04o5jbhxwq" path="res://Resources/Window.tres" id="10_pqe63"]
+[ext_resource type="FontFile" uid="uid://dyjqguvcceo4q" path="res://kenney-pixel-square.otf" id="11_aam5o"]
+[ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://Scene/scrollbar_filters.tscn" id="12_nyb1q"]
+[ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://Scene/item_box.tscn" id="13_xw8bv"]
+[ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://Scripts/message_log.gd" id="14_wimqa"]
+[ext_resource type="PackedScene" uid="uid://bjhqyckc5l2cu" path="res://Scene/Gridmap/grid.tscn" id="15_t372l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2cqfq"]
-font = ExtResource("11_vivmo")
+font = ExtResource("11_aam5o")
 
 [sub_resource type="LabelSettings" id="LabelSettings_yaehf"]
-font = ExtResource("11_vivmo")
+font = ExtResource("11_aam5o")
 
 [sub_resource type="LabelSettings" id="LabelSettings_074og"]
-font = ExtResource("11_vivmo")
+font = ExtResource("11_aam5o")
 
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
-script = ExtResource("1_ig7tw")
-items = Array[ExtResource("2_5vw27")]([ExtResource("3_kek77"), ExtResource("4_w48qg"), ExtResource("5_w48qg"), ExtResource("5_ycdy4"), ExtResource("6_ycdy4"), ExtResource("7_w48qg"), ExtResource("8_vivmo"), ExtResource("9_2cqfq")])
+script = ExtResource("1_j63at")
+items = Array[ExtResource("2_6njx3")]([ExtResource("3_0y2cb"), ExtResource("4_2ix4a"), ExtResource("5_p2wc2"), ExtResource("6_jbas8"), ExtResource("7_p4j74"), ExtResource("8_hiice"), ExtResource("9_sor6r"), ExtResource("10_pqe63")])
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 1151.0
@@ -92,7 +92,7 @@ size_flags_horizontal = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="ScrollbarFilters" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_kek77")]
+[node name="ScrollbarFilters" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("12_nyb1q")]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 
@@ -108,7 +108,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ItemBox" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ItemsContainer" instance=ExtResource("2_0xm2m")]
+[node name="ItemBox" parent="UI/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer/ItemsContainer" instance=ExtResource("13_xw8bv")]
 custom_minimum_size = Vector2(0, 142)
 layout_mode = 2
 
@@ -116,7 +116,7 @@ layout_mode = 2
 offset_left = 1000.0
 offset_right = 1126.0
 offset_bottom = 31.0
-theme_override_fonts/font = ExtResource("11_vivmo")
+theme_override_fonts/font = ExtResource("11_aam5o")
 text = "Launch Rocket!"
 
 [node name="MessageLog" type="RichTextLabel" parent="UI"]
@@ -124,7 +124,7 @@ offset_top = 611.0
 offset_right = 933.0
 offset_bottom = 649.0
 text = "testdnifneinf"
-script = ExtResource("9_4c57u")
+script = ExtResource("14_wimqa")
 text_delay = 0.01
 fade_out_delay = 5.0
 fade_out_duration = 5.0
@@ -151,7 +151,7 @@ label_settings = SubResource("LabelSettings_074og")
 layout_mode = 2
 label_settings = SubResource("LabelSettings_074og")
 
-[node name="grid" parent="." instance=ExtResource("3_h2yge")]
+[node name="grid" parent="." instance=ExtResource("15_t372l")]
 modulate = Color(1, 0.952941, 0.654902, 1)
 offset_left = 331.0
 offset_top = 72.0

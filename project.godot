@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Sound="*res://sound.gd"
-Signalbus="*res://signalbus.gd"
-Global="*res://global.gd"
+Sound="*res://Scripts/sound.gd"
+Signalbus="*res://Scripts/signalbus.gd"
+Global="*res://Scripts/global.gd"
 
 [display]
 

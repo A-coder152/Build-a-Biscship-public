@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgup3x7eeahog"]
+
+[ext_resource type="Texture2D" uid="uid://y4sc63n8i7ly" path="res://Assets/Art/MBiscuit.png" id="1_kt3rl"]
+[ext_resource type="Texture2D" uid="uid://0ut74470bvjy" path="res://Assets/Art/YellowBoom.png" id="2_hj3og"]
+[ext_resource type="Texture2D" uid="uid://dwvfbsshrd4nc" path="res://Assets/Art/OrangeBoom.png" id="3_bk7pk"]
+[ext_resource type="Texture2D" uid="uid://ba26ruxgql2rf" path="res://Assets/Art/SBiscuit.png" id="4_x5ycu"]
+[ext_resource type="Texture2D" uid="uid://cmoatc62li3l7" path="res://Assets/Art/LBiscuit.png" id="5_rv7c4"]
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+
+[node name="MBiscuit" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_kt3rl")
+
+[node name="YellowBoom" type="Sprite2D" parent="."]
+z_index = 2
+scale = Vector2(3, 3)
+texture = ExtResource("2_hj3og")
+
+[node name="OrangeBoom" type="Sprite2D" parent="."]
+z_index = 2
+scale = Vector2(3, 3)
+texture = ExtResource("3_bk7pk")
+
+[node name="SBiscuit" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(3, 3)
+texture = ExtResource("4_x5ycu")
+
+[node name="LBiscuit" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("5_rv7c4")

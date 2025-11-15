@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccfs4roteess3"]
+
+[ext_resource type="Script" uid="uid://dumijclocfgeo" path="res://Scripts/animation.gd" id="1_oiwev"]
+[ext_resource type="AudioStream" uid="uid://cwcw6rlwj8k61" path="res://Assets/sounds/rocket-launch-76003.mp3" id="2_vunbi"]
+[ext_resource type="AudioStream" uid="uid://lgrus441r5gh" path="res://Assets/sounds/nuclear-explosion-386181.mp3" id="3_x8yiu"]
+[ext_resource type="AudioStream" uid="uid://puue4qgu12i7" path="res://Assets/sounds/sample_confirm_success.mp3" id="4_cwd8s"]
+[ext_resource type="PackedScene" uid="uid://dgup3x7eeahog" path="res://Scene/explosion.tscn" id="5_mmw7m"]
+[ext_resource type="Texture2D" uid="uid://cqhf3w5g6oir7" path="res://Assets/Art/engine.png" id="6_53wlt"]
+[ext_resource type="PackedScene" uid="uid://w2o58mvkbhmj" path="res://Scene/camera_2d.tscn" id="7_d8fi2"]
+
+[node name="animation" type="Node2D"]
+script = ExtResource("1_oiwev")
+fly_sound = ExtResource("2_vunbi")
+explosion_sound = ExtResource("3_x8yiu")
+success_sound = ExtResource("4_cwd8s")
+
+[node name="explosion" parent="." instance=ExtResource("5_mmw7m")]
+visible = false
+position = Vector2(576, 323)
+scale = Vector2(10, 10)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 479.0
+offset_bottom = 271.0
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(240, 320)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+visible = false
+texture = ExtResource("6_53wlt")
+
+[node name="Camera2D" parent="." instance=ExtResource("7_d8fi2")]
+position = Vector2(576, 324)

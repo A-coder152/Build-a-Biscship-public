@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c6ncgbnxv26pe"]
 
-[ext_resource type="Script" uid="uid://f1k3ixya2q0g" path="res://scrollbar_filters.gd" id="1_1rbry"]
+[ext_resource type="Script" uid="uid://f1k3ixya2q0g" path="res://Scripts/scrollbar_filters.gd" id="1_1rbry"]
 [ext_resource type="Texture2D" uid="uid://kwbo3v62slcc" path="res://Assets/ui/InventoryUpgradeButton.png" id="2_2cdmv"]
 [ext_resource type="Texture2D" uid="uid://cblpibuv5otkm" path="res://Assets/ui/CoatingButton.png" id="3_g37ye"]
 [ext_resource type="Texture2D" uid="uid://b0h2emlovdh65" path="res://Assets/ui/StructureButton.png" id="3_sa03p"]

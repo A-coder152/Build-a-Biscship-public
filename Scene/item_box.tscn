@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://b8a05vr1e1je1"]
 
-[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="1_hcbu1"]
-[ext_resource type="Script" uid="uid://qp3g4desxxp2" path="res://item_box.gd" id="1_kmrrg"]
-[ext_resource type="AudioStream" uid="uid://cn5bsnh075duc" path="res://cash-register-fake-88639.mp3" id="2_klfni"]
-[ext_resource type="Texture2D" uid="uid://dswieppr8agw3" path="res://Assets/ui/Shippartunlocked.png" id="2_tudev"]
-[ext_resource type="AudioStream" uid="uid://brq24j3p6m0et" path="res://pop-cartoon-328167.mp3" id="3_mj830"]
+[ext_resource type="Script" uid="uid://qp3g4desxxp2" path="res://Scripts/item_box.gd" id="1_remor"]
+[ext_resource type="AudioStream" uid="uid://cn5bsnh075duc" path="res://Assets/sounds/cash-register-fake-88639.mp3" id="2_l2cl6"]
+[ext_resource type="AudioStream" uid="uid://brq24j3p6m0et" path="res://Assets/sounds/pop-cartoon-328167.mp3" id="3_i36wn"]
+[ext_resource type="Texture2D" uid="uid://dswieppr8agw3" path="res://Assets/ui/Shippartunlocked.png" id="4_0rnxc"]
+[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="5_ruw8c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tudev"]
 bg_color = Color(0.85098, 0.631373, 0.443137, 1)
@@ -26,15 +26,15 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 308.0
 offset_bottom = 100.0
-script = ExtResource("1_kmrrg")
-click = ExtResource("2_klfni")
-add_sound = ExtResource("3_mj830")
+script = ExtResource("1_remor")
+click = ExtResource("2_l2cl6")
+add_sound = ExtResource("3_i36wn")
 
 [node name="bg" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 308.0
 offset_bottom = 100.0
-texture = ExtResource("2_tudev")
+texture = ExtResource("4_0rnxc")
 expand_mode = 1
 stretch_mode = 4
 
@@ -52,7 +52,7 @@ offset_left = 18.0
 offset_top = 7.0
 offset_right = 103.0
 offset_bottom = 92.0
-texture = ExtResource("1_hcbu1")
+texture = ExtResource("5_ruw8c")
 expand_mode = 1
 
 [node name="Name" type="Label" parent="."]

@@ -5,8 +5,8 @@ var item
 var cells_covered
 var neighbors = []
 var godot_face = preload("res://icon.svg")
-var explosion_scene = preload("res://explosion.tscn")
-var explosion_sound = preload("res://nuclear-explosion-386181.mp3")
+var explosion_scene = preload("res://Scene/explosion.tscn")
+var explosion_sound = preload("res://Assets/sounds/nuclear-explosion-386181.mp3")
 var scale_tween
 var default_scale
 var impacter

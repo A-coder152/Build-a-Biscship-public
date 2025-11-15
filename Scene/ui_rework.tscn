@@ -1,39 +1,39 @@
 [gd_scene load_steps=41 format=3 uid="uid://de340xq0pvp72"]
 
-[ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://main.gd" id="1_34nkb"]
-[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_71bs7"]
-[ext_resource type="Resource" uid="uid://itu2107shofm" path="res://Resources/Cone.tres" id="3_wrrb7"]
-[ext_resource type="Resource" uid="uid://cw8ig06rbmwew" path="res://Resources/Dough.tres" id="4_5hgbd"]
-[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/Teapot.tres" id="5_mxerl"]
-[ext_resource type="Resource" uid="uid://2owq4suucfn8" path="res://Resources/Engine.tres" id="6_s3eb0"]
-[ext_resource type="Resource" uid="uid://b8le0rtrjv4px" path="res://Resources/LWing.tres" id="7_wkla4"]
-[ext_resource type="Resource" uid="uid://n7p2i8ht0ylb" path="res://Resources/RWing.tres" id="8_vqo8m"]
-[ext_resource type="Resource" uid="uid://dguwjwdd2nshu" path="res://Resources/Sugar.tres" id="9_u06uw"]
-[ext_resource type="Resource" uid="uid://bfc04o5jbhxwq" path="res://Resources/Window.tres" id="10_l35cm"]
-[ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://message_log.gd" id="11_1m78v"]
-[ext_resource type="Resource" uid="uid://ob6tv2gxmt4l" path="res://Resources/Jam.tres" id="11_s3eb0"]
-[ext_resource type="PackedScene" uid="uid://bjhqyckc5l2cu" path="res://Scene/Gridmap/grid.tscn" id="12_q2fyk"]
-[ext_resource type="Resource" uid="uid://bphqh0bk72tnr" path="res://Resources/teacup.tres" id="12_wkla4"]
-[ext_resource type="Texture2D" uid="uid://k1gmk8dr08c" path="res://Assets/ui/StatsContainer.png" id="13_5hgbd"]
-[ext_resource type="Texture2D" uid="uid://plex6b1t0ul7" path="res://Assets/ui/Selection.png" id="13_71bs7"]
-[ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://scrollbar_filters.tscn" id="13_ga0dm"]
-[ext_resource type="Resource" uid="uid://cc77k12s8es5g" path="res://Resources/choccone.tres" id="13_l35cm"]
-[ext_resource type="Resource" uid="uid://brj2s3eb3vk4o" path="res://Resources/ConeBug.tres" id="14_1m78v"]
-[ext_resource type="Texture2D" uid="uid://bqu56quea1mto" path="res://Assets/ui/AlienAstronaut.png" id="14_mxerl"]
-[ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://item_box.tscn" id="14_u3owc"]
-[ext_resource type="Resource" uid="uid://dbyyqgxikr6do" path="res://Resources/EngineDuoChoc.tres" id="15_q2fyk"]
-[ext_resource type="Resource" uid="uid://3d4sv208gt4g" path="res://Resources/EngineChoc.tres" id="16_u3owc"]
-[ext_resource type="Resource" uid="uid://03pyxfgigmdu" path="res://Resources/EngineChocMulti.tres" id="17_hijsa"]
-[ext_resource type="Texture2D" uid="uid://cstfm5so0tib5" path="res://Assets/ui/LaunchButton.png" id="17_mxerl"]
-[ext_resource type="Resource" uid="uid://chifyjstxkebr" path="res://Resources/EngineDuo.tres" id="18_nggmv"]
-[ext_resource type="Resource" uid="uid://pahu1e51xog1" path="res://Resources/EngineLarge.tres" id="19_ctnfu"]
-[ext_resource type="Resource" uid="uid://byyfkfdysyubk" path="res://Resources/EngineMulti.tres" id="20_cdmcp"]
-[ext_resource type="Resource" uid="uid://b6ildeg4uucpe" path="res://Resources/JamPink.tres" id="21_yhadh"]
-[ext_resource type="Resource" uid="uid://bwt05tro1w7j3" path="res://Resources/SugarPink.tres" id="22_3xnof"]
-[ext_resource type="AudioStream" uid="uid://d06fu0vikyf1a" path="res://computer-mouse-click.mp3" id="23_3xnof"]
-[ext_resource type="AudioStream" uid="uid://cs33q8cg3ovrr" path="res://short biscircuit.wav" id="23_yhadh"]
-[ext_resource type="AudioStream" uid="uid://cbgx1dekcs3s2" path="res://sample_error_fail.mp3" id="24_63tgn"]
-[ext_resource type="Texture2D" uid="uid://cvbmairca8x1g" path="res://Assets/ui/CookieCounter.png" id="28_hijsa"]
+[ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://Scripts/main.gd" id="1_gxbyj"]
+[ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_0yb8q"]
+[ext_resource type="Resource" uid="uid://itu2107shofm" path="res://Resources/Cone.tres" id="3_phte7"]
+[ext_resource type="Resource" uid="uid://cw8ig06rbmwew" path="res://Resources/Dough.tres" id="4_w4a3s"]
+[ext_resource type="Resource" uid="uid://bjt0h21m27ogt" path="res://Resources/Teapot.tres" id="5_ghexx"]
+[ext_resource type="Resource" uid="uid://2owq4suucfn8" path="res://Resources/Engine.tres" id="6_e5uxo"]
+[ext_resource type="Resource" uid="uid://b8le0rtrjv4px" path="res://Resources/LWing.tres" id="7_i2hn7"]
+[ext_resource type="Resource" uid="uid://n7p2i8ht0ylb" path="res://Resources/RWing.tres" id="8_8wpmw"]
+[ext_resource type="Resource" uid="uid://dguwjwdd2nshu" path="res://Resources/Sugar.tres" id="9_fbwua"]
+[ext_resource type="Resource" uid="uid://bfc04o5jbhxwq" path="res://Resources/Window.tres" id="10_4i7ik"]
+[ext_resource type="Resource" uid="uid://ob6tv2gxmt4l" path="res://Resources/Jam.tres" id="11_yhrec"]
+[ext_resource type="Resource" uid="uid://bphqh0bk72tnr" path="res://Resources/teacup.tres" id="12_0uyhx"]
+[ext_resource type="Resource" uid="uid://cc77k12s8es5g" path="res://Resources/choccone.tres" id="13_ri4il"]
+[ext_resource type="Resource" uid="uid://brj2s3eb3vk4o" path="res://Resources/ConeBug.tres" id="14_ysdpp"]
+[ext_resource type="Resource" uid="uid://dbyyqgxikr6do" path="res://Resources/EngineDuoChoc.tres" id="15_0f800"]
+[ext_resource type="Resource" uid="uid://3d4sv208gt4g" path="res://Resources/EngineChoc.tres" id="16_4qdul"]
+[ext_resource type="Resource" uid="uid://03pyxfgigmdu" path="res://Resources/EngineChocMulti.tres" id="17_ebohf"]
+[ext_resource type="Resource" uid="uid://chifyjstxkebr" path="res://Resources/EngineDuo.tres" id="18_au06s"]
+[ext_resource type="Resource" uid="uid://pahu1e51xog1" path="res://Resources/EngineLarge.tres" id="19_2jua4"]
+[ext_resource type="Resource" uid="uid://byyfkfdysyubk" path="res://Resources/EngineMulti.tres" id="20_ytmur"]
+[ext_resource type="Resource" uid="uid://b6ildeg4uucpe" path="res://Resources/JamPink.tres" id="21_ovqpe"]
+[ext_resource type="Resource" uid="uid://bwt05tro1w7j3" path="res://Resources/SugarPink.tres" id="22_i7sae"]
+[ext_resource type="AudioStream" uid="uid://d06fu0vikyf1a" path="res://Assets/sounds/computer-mouse-click.mp3" id="23_wtyp8"]
+[ext_resource type="AudioStream" uid="uid://cbgx1dekcs3s2" path="res://Assets/sounds/sample_error_fail.mp3" id="24_0rux8"]
+[ext_resource type="AudioStream" uid="uid://cs33q8cg3ovrr" path="res://Assets/sounds/short biscircuit.wav" id="25_34vog"]
+[ext_resource type="PackedScene" uid="uid://bjhqyckc5l2cu" path="res://Scene/Gridmap/grid.tscn" id="26_mcnhj"]
+[ext_resource type="Texture2D" uid="uid://plex6b1t0ul7" path="res://Assets/ui/Selection.png" id="27_ymgj7"]
+[ext_resource type="Texture2D" uid="uid://k1gmk8dr08c" path="res://Assets/ui/StatsContainer.png" id="28_kpyoy"]
+[ext_resource type="Texture2D" uid="uid://bqu56quea1mto" path="res://Assets/ui/AlienAstronaut.png" id="29_51puf"]
+[ext_resource type="PackedScene" uid="uid://c6ncgbnxv26pe" path="res://Scene/scrollbar_filters.tscn" id="30_1bls7"]
+[ext_resource type="PackedScene" uid="uid://b8a05vr1e1je1" path="res://Scene/item_box.tscn" id="31_af57n"]
+[ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://Scripts/message_log.gd" id="32_aw5su"]
+[ext_resource type="Texture2D" uid="uid://cstfm5so0tib5" path="res://Assets/ui/LaunchButton.png" id="33_5ej0n"]
+[ext_resource type="Texture2D" uid="uid://cvbmairca8x1g" path="res://Assets/ui/CookieCounter.png" id="34_xcxrc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63tgn"]
 bg_color = Color(0.85098, 0.631373, 0.443137, 1)
@@ -85,18 +85,18 @@ corner_detail = 6
 
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
-script = ExtResource("1_34nkb")
-items = Array[ExtResource("2_71bs7")]([ExtResource("3_wrrb7"), ExtResource("4_5hgbd"), ExtResource("5_mxerl"), ExtResource("6_s3eb0"), ExtResource("7_wkla4"), ExtResource("8_vqo8m"), ExtResource("9_u06uw"), ExtResource("10_l35cm"), ExtResource("11_s3eb0"), ExtResource("12_wkla4"), ExtResource("13_l35cm"), ExtResource("14_1m78v"), ExtResource("15_q2fyk"), ExtResource("16_u3owc"), ExtResource("17_hijsa"), ExtResource("18_nggmv"), ExtResource("19_ctnfu"), ExtResource("20_cdmcp"), ExtResource("21_yhadh"), ExtResource("22_3xnof")])
-place = ExtResource("23_3xnof")
-place_failed = ExtResource("24_63tgn")
-bg_music = ExtResource("23_yhadh")
+script = ExtResource("1_gxbyj")
+items = Array[ExtResource("2_0yb8q")]([ExtResource("3_phte7"), ExtResource("4_w4a3s"), ExtResource("5_ghexx"), ExtResource("6_e5uxo"), ExtResource("7_i2hn7"), ExtResource("8_8wpmw"), ExtResource("9_fbwua"), ExtResource("10_4i7ik"), ExtResource("11_yhrec"), ExtResource("12_0uyhx"), ExtResource("13_ri4il"), ExtResource("14_ysdpp"), ExtResource("15_0f800"), ExtResource("16_4qdul"), ExtResource("17_ebohf"), ExtResource("18_au06s"), ExtResource("19_2jua4"), ExtResource("20_ytmur"), ExtResource("21_ovqpe"), ExtResource("22_i7sae")])
+place = ExtResource("23_wtyp8")
+place_failed = ExtResource("24_0rux8")
+bg_music = ExtResource("25_34vog")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 1151.0
 offset_bottom = 647.0
 color = Color(1, 0.972549, 0.694118, 1)
 
-[node name="grid" parent="." instance=ExtResource("12_q2fyk")]
+[node name="grid" parent="." instance=ExtResource("26_mcnhj")]
 modulate = Color(1, 0.952941, 0.654902, 1)
 offset_left = 331.0
 offset_top = 72.0
@@ -114,21 +114,21 @@ seperation = 5
 offset_top = 110.0
 offset_right = 310.0
 offset_bottom = 648.0
-texture = ExtResource("13_71bs7")
+texture = ExtResource("27_ymgj7")
 
 [node name="NotesBg" type="TextureRect" parent="."]
 offset_left = 820.0
 offset_top = 70.0
 offset_right = 1120.0
 offset_bottom = 496.0
-texture = ExtResource("13_5hgbd")
+texture = ExtResource("28_kpyoy")
 
 [node name="LarryMain" type="TextureRect" parent="."]
 offset_left = 330.796
 offset_top = 546.99
 offset_right = 399.796
 offset_bottom = 635.99
-texture = ExtResource("14_mxerl")
+texture = ExtResource("29_51puf")
 flip_h = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -139,7 +139,7 @@ size_flags_vertical = 3
 [node name="Sidebar" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="ScrollbarFilters" parent="HBoxContainer/Sidebar" instance=ExtResource("13_ga0dm")]
+[node name="ScrollbarFilters" parent="HBoxContainer/Sidebar" instance=ExtResource("30_1bls7")]
 custom_minimum_size = Vector2(0, 103)
 layout_mode = 2
 
@@ -156,11 +156,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ItemBox" parent="HBoxContainer/Sidebar/ScrollContainer/ItemsContainer" instance=ExtResource("14_u3owc")]
+[node name="ItemBox" parent="HBoxContainer/Sidebar/ScrollContainer/ItemsContainer" instance=ExtResource("31_af57n")]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="ItemBox2" parent="HBoxContainer/Sidebar/ScrollContainer/ItemsContainer" instance=ExtResource("14_u3owc")]
+[node name="ItemBox2" parent="HBoxContainer/Sidebar/ScrollContainer/ItemsContainer" instance=ExtResource("31_af57n")]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -267,7 +267,7 @@ Do you want a tutorial?
 
 "
 vertical_alignment = 2
-script = ExtResource("11_1m78v")
+script = ExtResource("32_aw5su")
 text_delay = 0.01
 fade_out_delay = 5.0
 fade_out_duration = 5.0
@@ -277,7 +277,7 @@ offset_left = 820.0
 offset_top = 504.0
 offset_right = 1120.0
 offset_bottom = 537.0
-texture_normal = ExtResource("17_mxerl")
+texture_normal = ExtResource("33_5ej0n")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="LaunchButton"]
@@ -297,7 +297,7 @@ offset_left = 861.573
 offset_top = 11.1942
 offset_right = 1081.57
 offset_bottom = 57.1942
-texture = ExtResource("28_hijsa")
+texture = ExtResource("34_xcxrc")
 stretch_mode = 4
 
 [node name="PointsLabel" type="Label" parent="TextureRect4"]
@@ -351,7 +351,7 @@ offset_left = 131.894
 offset_top = 184.652
 offset_right = 1042.89
 offset_bottom = 455.652
-texture = ExtResource("17_mxerl")
+texture = ExtResource("33_5ej0n")
 stretch_mode = 4
 
 [node name="Title" type="Label" parent="TutorialPanels/Slide1/PanelThing"]
@@ -386,7 +386,7 @@ offset_left = 24.0
 offset_top = 26.0
 offset_right = 192.0
 offset_bottom = 243.0
-texture = ExtResource("14_mxerl")
+texture = ExtResource("29_51puf")
 flip_h = true
 
 [node name="NextSlide" type="Button" parent="TutorialPanels/Slide1/PanelThing"]
@@ -415,7 +415,7 @@ offset_left = 343.0
 offset_top = 224.0
 offset_right = 1048.0
 offset_bottom = 427.0
-texture = ExtResource("17_mxerl")
+texture = ExtResource("33_5ej0n")
 stretch_mode = 4
 
 [node name="Title" type="Label" parent="TutorialPanels/Slide2/PanelThing"]
@@ -450,7 +450,7 @@ offset_left = 539.707
 offset_top = 28.4293
 offset_right = 647.707
 offset_bottom = 168.429
-texture = ExtResource("14_mxerl")
+texture = ExtResource("29_51puf")
 
 [node name="NextSlide" type="Button" parent="TutorialPanels/Slide2/PanelThing"]
 layout_mode = 0
@@ -479,7 +479,7 @@ offset_left = 343.0
 offset_top = 3.37649
 offset_right = 1048.0
 offset_bottom = 206.376
-texture = ExtResource("17_mxerl")
+texture = ExtResource("33_5ej0n")
 stretch_mode = 4
 
 [node name="Title" type="Label" parent="TutorialPanels/Slide3/PanelThing"]
@@ -514,7 +514,7 @@ offset_left = 539.707
 offset_top = 28.4293
 offset_right = 647.707
 offset_bottom = 168.429
-texture = ExtResource("14_mxerl")
+texture = ExtResource("29_51puf")
 
 [node name="NextSlide" type="Button" parent="TutorialPanels/Slide3/PanelThing"]
 layout_mode = 0
@@ -543,7 +543,7 @@ offset_left = 343.0
 offset_top = 51.3381
 offset_right = 1048.0
 offset_bottom = 254.338
-texture = ExtResource("17_mxerl")
+texture = ExtResource("33_5ej0n")
 stretch_mode = 4
 
 [node name="Title" type="Label" parent="TutorialPanels/Slide4/PanelThing"]
@@ -578,7 +578,7 @@ offset_left = 539.707
 offset_top = 28.4293
 offset_right = 647.707
 offset_bottom = 168.429
-texture = ExtResource("14_mxerl")
+texture = ExtResource("29_51puf")
 
 [node name="NextSlide" type="Button" parent="TutorialPanels/Slide4/PanelThing"]
 layout_mode = 0
@@ -606,7 +606,7 @@ offset_left = 86.3309
 offset_top = 67.1463
 offset_right = 791.331
 offset_bottom = 270.146
-texture = ExtResource("17_mxerl")
+texture = ExtResource("33_5ej0n")
 stretch_mode = 4
 
 [node name="Title" type="Label" parent="TutorialPanels/Slide5/PanelThing"]
@@ -641,7 +641,7 @@ offset_left = 26.3789
 offset_top = 26.3789
 offset_right = 134.379
 offset_bottom = 166.379
-texture = ExtResource("14_mxerl")
+texture = ExtResource("29_51puf")
 flip_h = true
 
 [node name="NextSlide" type="Button" parent="TutorialPanels/Slide5/PanelThing"]
@@ -670,7 +670,7 @@ offset_left = 86.331
 offset_top = 335.732
 offset_right = 791.331
 offset_bottom = 538.732
-texture = ExtResource("17_mxerl")
+texture = ExtResource("33_5ej0n")
 stretch_mode = 4
 
 [node name="Title" type="Label" parent="TutorialPanels/Slide6/PanelThing"]
@@ -705,7 +705,7 @@ offset_left = 26.3789
 offset_top = 26.3789
 offset_right = 134.379
 offset_bottom = 166.379
-texture = ExtResource("14_mxerl")
+texture = ExtResource("29_51puf")
 flip_h = true
 
 [node name="NextSlide" type="Button" parent="TutorialPanels/Slide6/PanelThing"]
@@ -733,7 +733,7 @@ offset_left = 131.894
 offset_top = 184.652
 offset_right = 1042.89
 offset_bottom = 455.652
-texture = ExtResource("17_mxerl")
+texture = ExtResource("33_5ej0n")
 stretch_mode = 4
 
 [node name="Label" type="Label" parent="AudioPopup/P1"]
@@ -767,7 +767,7 @@ offset_left = 23.9813
 offset_top = 131.895
 offset_right = 109.981
 offset_bottom = 242.895
-texture = ExtResource("14_mxerl")
+texture = ExtResource("29_51puf")
 flip_h = true
 
 [node name="PopupButton" type="Button" parent="AudioPopup/P1"]

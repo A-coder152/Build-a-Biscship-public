@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://rfu285g41yq4"]
 
-[ext_resource type="Script" uid="uid://cikw84civ1wcy" path="res://upgrade_box.gd" id="1_2166m"]
-[ext_resource type="AudioStream" uid="uid://cn5bsnh075duc" path="res://cash-register-fake-88639.mp3" id="2_h7fpx"]
-[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="2_up8vd"]
+[ext_resource type="Script" uid="uid://cikw84civ1wcy" path="res://Scripts/upgrade_box.gd" id="1_43oa8"]
+[ext_resource type="AudioStream" uid="uid://cn5bsnh075duc" path="res://Assets/sounds/cash-register-fake-88639.mp3" id="2_nn45a"]
+[ext_resource type="Texture2D" uid="uid://b66r7he7nuj55" path="res://icon.svg" id="3_ns8kc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2166m"]
 bg_color = Color(0.85098, 0.631373, 0.443137, 1)
@@ -57,8 +57,8 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 308.0
 offset_bottom = 100.0
-script = ExtResource("1_2166m")
-click = ExtResource("2_h7fpx")
+script = ExtResource("1_43oa8")
+click = ExtResource("2_nn45a")
 
 [node name="bg" type="ColorRect" parent="."]
 layout_mode = 1
@@ -80,7 +80,7 @@ offset_top = -30.0
 offset_right = 80.0
 offset_bottom = 42.0
 grow_vertical = 2
-texture = ExtResource("2_up8vd")
+texture = ExtResource("3_ns8kc")
 expand_mode = 1
 
 [node name="Name" type="Label" parent="."]

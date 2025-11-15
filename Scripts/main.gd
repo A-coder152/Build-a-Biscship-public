@@ -22,8 +22,8 @@ var warning_messages = [
 ]
 var warnings = [5, 5, 6, 6]
 
-var items_scene = preload("res://item_box.tscn")
-var upgrades_scene = preload("res://upgrade_box.tscn")
+var items_scene = preload("res://Scene/item_box.tscn")
+var upgrades_scene = preload("res://Scene/upgrade_box.tscn")
 
 var tutorial_slide = 0
 
@@ -42,7 +42,7 @@ var is_launching = false
 
 #Placement variables
 @onready var grid: GridContainer = $grid
-const OBJ = preload("res://test.tscn")
+const OBJ = preload("res://Scene/test.tscn")
 var gridSize: Vector2
 var targetcell
 var obj
@@ -291,7 +291,7 @@ func _on_launch_button_pressed():
 		grid.visible = false
 		await get_tree().create_timer(0.5).timeout
 		Global.fail = false
-		add_child(preload("res://animation.tscn").instantiate())
+		add_child(preload("res://Scene/animation.tscn").instantiate())
 		await get_tree().create_timer(5).timeout
 		grid.visible = true
 		
@@ -303,7 +303,7 @@ func _on_launch_button_pressed():
 		grid.visible = false
 		Global.fail = true
 		await get_tree().create_timer(0.5).timeout
-		add_child(preload("res://animation.tscn").instantiate())
+		add_child(preload("res://Scene/animation.tscn").instantiate())
 		await get_tree().create_timer(6).timeout
 		grid.visible = true
 		message_log.new_message("Launch FAILED! The rocket exploded and you lost %s Biscuit Points." % rocket_cost)
