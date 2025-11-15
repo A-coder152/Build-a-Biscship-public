@@ -9,6 +9,7 @@ var explosion_scene = preload("res://explosion.tscn")
 var explosion_sound = preload("res://nuclear-explosion-386181.mp3")
 var scale_tween
 var default_scale
+var impacter
 var exploded = false
 func setup(part: Part):
 	item = part

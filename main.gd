@@ -49,6 +49,7 @@ var obj
 var objectCells
 var isValid = false
 var last_highlighted_cells = []
+var special_color_cells = []
 var last_hover_cell = null
 var hover_update_timer = 0.0
 var hover_update_interval = 0.016
@@ -333,6 +334,7 @@ func clear_rocket():
 	update_ui()
 
 func buy_item(item):
+	if $TutorialChoice.visible: $TutorialChoice.hide()
 	var idx = items.find(item)
 	if biscuit_points >= item.cost:
 		items[idx].owned += 1
@@ -572,6 +574,7 @@ func _get_object_cells() -> Array:
 	return cells
 
 func _check_and_highlight_cells(objectCells: Array):
+	special_color_cells = []
 	isValid = true
 	var objectCellCount = obj.item.blocks.x * obj.item.blocks.y
 	
@@ -590,15 +593,38 @@ func _check_and_highlight_cells(objectCells: Array):
 	
 	if obj.item.tile_type != Part.TILE.NONE:
 		obj.item.tiles_empty = true
-		var cell_color = Color.DARK_KHAKI if obj.item.tile_type == Part.TILE.RULE else Color.CORNFLOWER_BLUE
+		var cell_color
+		match obj.item.tile_type:
+			Part.TILE.EFFECT:
+				cell_color = Color.DARK_KHAKI
+			Part.TILE.BENEFIT:
+				cell_color = Color.CORNFLOWER_BLUE
+			Part.TILE.RULE:
+				cell_color = Color(0.8, 0.6, 0.3)
 		for pos in obj.item.special_tiles:
 			var cell = get_cell_by_coords(first_coords + pos)
 			if cell: 
 				cell.change_color(cell_color)
 				last_highlighted_cells.append(cell)
+				special_color_cells.append([cell, cell_color])
 				if obj.item.tile_type == Part.TILE.RULE and cell.full:
 					obj.item.tiles_empty = false
-					if obj.item.tile_rules == Part.TILE_RULES.ENGINE:
+					var cell_obj = get_part_from_cell(cell)
+					if cell_obj and cell_obj.item.type != Part.TYPE.STRUCTURE:
+						isValid = cell_obj.item.type == Part.TYPE.ENGINE and obj.item.type == Part.TYPE.ENGINE
+				elif obj.item.tile_type == Part.TILE.EFFECT and cell.full:
+					obj.item.tiles_empty = false
+		if obj.item.type == Part.TYPE.ENGINE:
+			var nono_list = []
+			for i in range(obj.item.blocks.x):
+				nono_list.append(Vector2(i, obj.item.blocks.y))
+			for pos in nono_list:
+				var cell = get_cell_by_coords(first_coords + pos)
+				if cell:
+					cell.change_color(Color(0.7, 0.3, 0.3))
+					last_highlighted_cells.append(cell)
+					special_color_cells.append([cell, Color(0.7, 0.3, 0.3)])
+					if cell.full:
 						isValid = false
 	return isValid
 

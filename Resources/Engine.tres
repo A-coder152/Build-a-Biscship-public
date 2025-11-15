@@ -25,5 +25,5 @@ special_name = "thrust"
 special_upgrade_cost = 100
 tile_type = 1
 special_tiles = Array[Vector2]([Vector2(0, -1), Vector2(1, -1), Vector2(2, 0), Vector2(2, 1), Vector2(-1, 0), Vector2(-1, 1)])
-tile_rules = 0
+tile_rules = 1
 metadata/_custom_type_script = "uid://bfqm5t7ekjk02"
