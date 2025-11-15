@@ -50,6 +50,7 @@ var objectCells
 var isValid = false
 var last_highlighted_cells = []
 var special_color_cells = []
+var special_cells_placed = []
 var last_hover_cell = null
 var hover_update_timer = 0.0
 var hover_update_interval = 0.016
@@ -383,6 +384,15 @@ func remove_part(part):
 				build_sizes[builds.find(build)] = update_build_size(part_x_vector, part_y_vector, build_sizes[builds.find(build)])
 				print(build_sizes[builds.find(build)])
 			update_rocket_values()
+	if part.item.tile_type != Part.TILE_RULES.NONE:
+		var special_cells_copy = special_cells_placed.duplicate()
+		for chicken in special_cells_placed:
+			if chicken[2] == part:
+				if chicken[1] == Color(0.7, 0.3, 0.3): chicken[0].full = false 
+				special_cells_copy.erase(chicken)
+				last_highlighted_cells.append(chicken[0])
+		special_cells_placed = special_cells_copy
+		_reset_highlight()
 	Sound.play_sfx(place_failed, 0, 1, 3)
 
 func upgrade_value(item):
@@ -564,6 +574,8 @@ func _reset_highlight():
 	for cell in last_highlighted_cells:
 		cell.change_color(Color(0.5, 0.5, 0.5, 0.5))
 	last_highlighted_cells.clear()
+	for i in special_cells_placed:
+		i[0].change_color(i[1])
 
 #check if placement is valid or if theres another part in the way
 func _get_object_cells() -> Array:
@@ -587,6 +599,12 @@ func _check_and_highlight_cells(objectCells: Array):
 			cell.change_color(Color.CRIMSON)
 		else:
 			cell.change_color(Color.SEA_GREEN)
+			for i in special_cells_placed:
+				if i[0] == cell and i[1] == Color(0.8, 0.6, 0.3):
+					if obj.item.type != Part.TYPE.STRUCTURE:
+						isValid = obj.item.type == i[2].item.type
+						if not isValid: cell.change_color(Color.CRIMSON)
+					
 		last_highlighted_cells.append(cell)
 		
 	var first_coords = Vector2(objectCells[0].get_index() % grid.width, objectCells[0].get_index() / grid.width)
@@ -606,12 +624,13 @@ func _check_and_highlight_cells(objectCells: Array):
 			if cell: 
 				cell.change_color(cell_color)
 				last_highlighted_cells.append(cell)
-				special_color_cells.append([cell, cell_color])
+				special_color_cells.append([cell, cell_color, obj])
 				if obj.item.tile_type == Part.TILE.RULE and cell.full:
 					obj.item.tiles_empty = false
 					var cell_obj = get_part_from_cell(cell)
 					if cell_obj and cell_obj.item.type != Part.TYPE.STRUCTURE:
-						isValid = cell_obj.item.type == Part.TYPE.ENGINE and obj.item.type == Part.TYPE.ENGINE
+						isValid = isValid and cell_obj.item.type == Part.TYPE.ENGINE and obj.item.type == Part.TYPE.ENGINE
+						if not isValid: cell.change_color(Color.CRIMSON)
 				elif obj.item.tile_type == Part.TILE.EFFECT and cell.full:
 					obj.item.tiles_empty = false
 		if obj.item.type == Part.TYPE.ENGINE:
@@ -623,9 +642,10 @@ func _check_and_highlight_cells(objectCells: Array):
 				if cell:
 					cell.change_color(Color(0.7, 0.3, 0.3))
 					last_highlighted_cells.append(cell)
-					special_color_cells.append([cell, Color(0.7, 0.3, 0.3)])
+					special_color_cells.append([cell, Color(0.7, 0.3, 0.3), obj])
 					if cell.full:
 						isValid = false
+						cell.change_color(Color.CRIMSON)
 	return isValid
 
 func _get_cell_pos(cell_idx: int) -> Vector2i:
@@ -695,6 +715,11 @@ func _place_thing(objectCells):
 		cell.full = true
 	update_rocket_values()
 	message_log.new_message("Added " + str(obj.item.part_name) + " to rocket.")
+	for i in special_color_cells:
+		special_cells_placed.append(i)
+	special_color_cells = []
+	for i in special_cells_placed:
+		if i[1] == Color(0.7, 0.3, 0.3): i[0].full = true
 	reset_placement()
 
 func reset_placement():
