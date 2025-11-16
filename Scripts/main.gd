@@ -270,8 +270,6 @@ func _on_launch_button_pressed():
 		message_log.new_message("You need to add parts to your rocket first!")
 		return
 	
-	special_cells_placed = []
-	
 	for build in builds:
 		if builds.find(build) != main_build_idx:
 			for part in build:
@@ -312,11 +310,15 @@ func _on_launch_button_pressed():
 		message_log.new_message("Launch FAILED! The rocket exploded and you lost %s Biscuit Points." % rocket_cost)
 	
 	# Reset rocket for thge next launch
+	for i in special_cells_placed:
+		last_highlighted_cells.append(i[0])
+	special_cells_placed = []
 	clear_rocket()
 	is_launching = false
 
 func clear_rocket():
 	rocket_parts.clear()
+	_reset_highlight()
 	for obje in parts_obj:
 		if obje: obje.queue_free()
 	for child: Control in grid.get_children():
@@ -735,6 +737,13 @@ func reset_placement():
 	
 #endregion
 
+func unlock_item(item):
+	if biscuit_points < 50:
+		message_log.new_message("Cannot afford to unlock this item!")
+		return
+	biscuit_points -= 50
+	item.locked = false
+	reset_items_container()
 
 func _on_popup_button_pressed() -> void:
 	$AudioPopup.queue_free()

@@ -162,6 +162,36 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_klfni")
 text = "Add To Rocket
 "
 
+[node name="lockscreen" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 308.0
+offset_bottom = 101.0
+color = Color(0.364706, 0.266667, 0.192157, 0.823529)
+
+[node name="Label" type="Label" parent="lockscreen"]
+layout_mode = 0
+offset_top = 9.0
+offset_right = 306.0
+offset_bottom = 59.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+text = "This item is locked"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="unlock" type="Button" parent="lockscreen"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 55.0
+offset_right = 280.0
+offset_bottom = 78.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover = SubResource("StyleBoxFlat_tudev")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tudev")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tudev")
+text = "  Unlock for 50 biscuit points  "
+
 [connection signal="pressed" from="Button" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Buy" to="." method="_on_buy_pressed"]
 [connection signal="pressed" from="Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="lockscreen/unlock" to="." method="_on_unlock_pressed"]

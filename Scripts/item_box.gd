@@ -11,6 +11,7 @@ var main_scene
 func setup(dict):
 	main_scene = get_tree().current_scene
 	item = dict
+	$lockscreen.visible = item.locked
 	if len(item.part_name) > 10: $Name.set("theme_override_font_sizes/font_size", 160/len(item.part_name))
 	$Name.text = item.part_name
 	$Type.text = item.TYPE.keys()[item.type]
@@ -37,3 +38,6 @@ func _on_add_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	main_scene.encyclopedia_time(item)
+
+func _on_unlock_pressed() -> void:
+	main_scene.unlock_item(item)
