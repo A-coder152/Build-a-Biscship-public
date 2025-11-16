@@ -311,6 +311,24 @@ theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
 text = "0"
 vertical_alignment = 1
 
+[node name="eventrect" type="TextureRect" parent="."]
+offset_left = 373.602
+offset_top = 11.6019
+offset_right = 757.602
+offset_bottom = 57.6019
+texture = ExtResource("33_5ej0n")
+
+[node name="Label" type="Label" parent="eventrect"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 375.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+text = "Choc engine x2 value for 2:45!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="rocket" type="Node2D" parent="." groups=["rocket"]]
 
 [node name="Encyclopedia" parent="." instance=ExtResource("35_0yb8q")]
@@ -793,7 +811,9 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
 theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
 text = "I can hear the music!"
 
-[connection signal="gui_input" from="grid" to="." method="_on_grid_gui_input"]
+[node name="onesectimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="pressed" from="TutorialChoice/NoTutorial" to="." method="_on_no_tutorial_pressed"]
 [connection signal="pressed" from="TutorialChoice/Tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide1/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
@@ -803,3 +823,4 @@ text = "I can hear the music!"
 [connection signal="pressed" from="TutorialPanels/Slide5/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide6/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="AudioPopup/P1/PopupButton" to="." method="_on_popup_button_pressed"]
+[connection signal="timeout" from="onesectimer" to="." method="_on_onesectimer_timeout"]

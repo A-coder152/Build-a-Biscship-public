@@ -27,6 +27,9 @@ var upgrades_scene = preload("res://Scene/upgrade_box.tscn")
 
 var tutorial_slide = 0
 
+var current_event = []
+var event_time_remaining = [0, 0]
+
 # Rocket Variables
 var rocket_parts = []
 var parts_obj = []
@@ -405,7 +408,9 @@ func upgrade_value(item):
 	if biscuit_points >= item.value_upgrade_cost:
 		message_log.new_message("Upgraded value of " + str(item.part_name) + " for " + str(item.value_upgrade_cost) + " Biscuit Points.")
 		biscuit_points -= item.value_upgrade_cost
+		@warning_ignore("narrowing_conversion")
 		items[idx].value *= 1.1
+		@warning_ignore("narrowing_conversion")
 		items[idx].value_upgrade_cost *= 1.3
 		items[idx].level += 1
 	# uncomment to use!!!	
@@ -427,6 +432,7 @@ func upgrade_success(item):
 		message_log.text = "Upgraded success rate of " + str(item.part_name) + " for " + str(item.success_upgrade_cost) + " Biscuit Points."
 		biscuit_points -= item.success_upgrade_cost
 		items[idx].success += (1 - item.success) * 0.1
+		@warning_ignore("narrowing_conversion")
 		items[idx].success_upgrade_cost *= 1.1
 		for child in items_container.get_children():
 			if item == child.item:
@@ -442,6 +448,7 @@ func upgrade_weight(item):
 		message_log.text = "Upgraded weight of " + str(item.part_name) + " for " + str(item.weight_upgrade_cost) + " Biscuit Points."
 		biscuit_points -= item.weight_upgrade_cost
 		items[idx].weight *= 0.9
+		@warning_ignore("narrowing_conversion")
 		items[idx].weight_upgrade_cost *= 1.1
 		for child in items_container.get_children():
 			if item == child.item:
@@ -458,9 +465,11 @@ func upgrade_special(item):
 		biscuit_points -= item.special_upgrade_cost
 		if item.special_name in Part.SPECIAL_UPPERS:
 			items[idx].special *= 1.1
+			@warning_ignore("narrowing_conversion")
 			items[idx].special_upgrade_cost *= 1.3
 		elif item.special_name in Part.SPECIAL_DOWNERS:
 			items[idx].special *= 0.9
+			@warning_ignore("narrowing_conversion")
 			items[idx].special_upgrade_cost *= 1.1
 		for child in items_container.get_children():
 			if item == child.item:
@@ -507,10 +516,10 @@ func update_warnings(factor, idx):
 #region placement
 
 #this is for tesitng purposes. Move the function body to whatever function adds the part to rocket
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("leftClick") and isValid:
 		print("lefto")
-		_place_thing(objectCells)
+		_place_thing()
 		Sound.play_sfx(place, 0.15, 1, 3)
 	elif Input.is_action_just_pressed("leftClick") and encyclopedia.visible:
 		encyclopedia.hide()
@@ -546,7 +555,7 @@ func _update_hover_effects():
 			obj.global_position = newtarget.global_position + obj.rect.size/2
 			_reset_highlight()
 			objectCells = _get_object_cells()
-			isValid = _check_and_highlight_cells(objectCells)
+			isValid = _check_and_highlight_cells()
 		else:
 			_reset_highlight()
 			isValid = false
@@ -592,7 +601,7 @@ func _get_object_cells() -> Array:
 			cells.append(child)
 	return cells
 
-func _check_and_highlight_cells(objectCells: Array):
+func _check_and_highlight_cells():
 	special_color_cells = []
 	isValid = true
 	var objectCellCount = obj.item.blocks.x * obj.item.blocks.y
@@ -679,7 +688,7 @@ func get_part_from_cell(cell):
 					return part
 	return null
 
-func _place_thing(objectCells):
+func _place_thing():
 	print("thing placed")
 	obj.set_on_place()
 	print(obj.texture, obj.scale, obj.global_position)
@@ -769,3 +778,38 @@ func _on_next_slide_pressed() -> void:
 func encyclopedia_time(item):
 	encyclopedia.change_content(item)
 	encyclopedia.show()
+
+func _on_onesectimer_timeout() -> void:
+	if len(current_event):
+		if event_time_remaining[1]: 
+			event_time_remaining[1] -= 1
+		else:
+			if event_time_remaining[0]:
+				event_time_remaining[0] -= 1
+				event_time_remaining[1] += 59
+			else:
+				end_event()
+				return
+	else:
+		if randf() > 0.996:
+			start_event()
+
+func start_event():
+	var selection = randf()
+	if selection < 0.1:
+		current_event = ["firesale"]
+		for item in items:
+			item.cost = round(item.cost * 0.85)
+	elif selection < 0.2:
+		current_event = ["upgradesale"]
+		for item in items:
+			item.value_upgrade_cost = round(item.value_upgrade_cost * 0.9)
+			item.weight_upgrade_cost = round(item.weight_upgrade_cost * 0.9)
+			item.special_upgrade_cost = round(item.special_upgrade_cost * 0.9)
+			item.success_upgrade_cost = round(item.success_upgrade_cost * 0.9)
+	else:
+		var event_item = items[round((selection - 0.2) * 1.25 * len(items))]
+		
+
+func end_event():
+	pass
