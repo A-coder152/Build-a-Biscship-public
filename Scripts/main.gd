@@ -155,13 +155,17 @@ func update_rocket_values():
 				main_build_idx = builds.find(build)
 	var engines = []
 	var fuels = []
+	var aerodynamics = []
 	for part in main_build:
 		rocket_mass += part.item.weight
-		rocket_value += part.item.value
+		if not part.item.part_name.contains("Jam"): rocket_value += part.item.value
+		elif part.tiles_full: rocket_value += part.item.value
 		if part.item.type == part.item.TYPE.ENGINE:
 			engines.append(part)
 		elif part.item.type == part.item.TYPE.FUEL:
 			fuels.append(part)
+		elif part.item.special_name == "drag":
+			aerodynamics.append(part)
 	if not (len(engines) and len(fuels)):
 		rocket_success_chance = -1
 		warnings = [(sign(len(engines)) - 1) * -5, (sign(len(fuels)) - 1) * -4 + 1, 6, 6]
@@ -235,7 +239,11 @@ func update_rocket_values():
 		const DRAG_DIST_MULT = 1
 		print(fuel_on_rocket, " b ", engines_thrust)
 		rocket_distance = (fuel_on_rocket / engines_thrust) * ((engines_thrust / rocket_mass) - 1) * FUEL_DIST_MULT
-		rocket_distance -= (build_size[0].y - build_size[0].x + 1) * DRAG_DIST_MULT
+		var drag_tiles = (build_size[0].y - build_size[0].x + 1)
+		for part in aerodynamics:
+			drag_tiles -= (1 - part.item.special) * part.item.blocks.x if part.tiles_empty else 0
+		print(drag_tiles, " jijiji")
+		rocket_distance -= drag_tiles * DRAG_DIST_MULT
 		rocket_distance = max(0, rocket_distance)
 			
 	#rocket_parts.append(part)
@@ -263,10 +271,8 @@ func check_for_explosions():
 					neighbor.explode()
 					neighbor.reparent(self)
 				neighbor.neighbors.erase(part)
-	if len(rocket.get_children()) == 0:
-		return false
 	print(rocket.get_children())
-	return true
+	return len(rocket.get_children())
 
 func _on_launch_button_pressed():
 	if is_launching:
@@ -380,6 +386,7 @@ func add_item_to_rocket(item):
 
 func remove_part(part):
 	if not part: return
+	print("neigborly ", part.neighbors)
 	rocket.remove_child(part)
 	for build in builds:
 		if part in build:
@@ -388,6 +395,17 @@ func remove_part(part):
 			message_log.new_message("Removed " + part.item.part_name + " from rocket.")
 			for cell in part.cells_covered:
 				cell.full = false
+			for nobj in part.neighbors:
+				if nobj.item.tile_type != nobj.item.TILE.NONE:
+					nobj.tiles_full = false
+					nobj.tiles_empty = true
+					var zero_cell_pos = _get_cell_pos(nobj.cells_covered[0].get_index())
+					var cell_uncovered = false
+					for i in nobj.item.special_tiles:
+						if get_cell_by_coords(zero_cell_pos + Vector2i(i)).full:
+							nobj.tiles_empty = false
+						else: cell_uncovered = true
+					if not cell_uncovered: nobj.tiles_full = true
 			build.erase(part)
 			print(build_sizes[builds.find(build)])
 			build_sizes[builds.find(build)] = [Vector2(8, 0), Vector2(8, 0)]
@@ -588,7 +606,7 @@ func get_cell_by_coords(coords):
 	return null
 
 func get_neighbor_cells(coords):
-	var directions = [Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0), Vector2(0, -1)]
+	var directions = [Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(0, -1)]
 	var neighbor_cells = []
 	for change in directions:
 		neighbor_cells.append(get_cell_by_coords(coords + change))
@@ -634,7 +652,8 @@ func _check_and_highlight_cells():
 	var first_coords = Vector2(objectCells[0].get_index() % grid.width, objectCells[0].get_index() / grid.width)
 	
 	if obj.item.tile_type != Part.TILE.NONE:
-		obj.item.tiles_empty = true
+		var empty_tile_seen = false
+		obj.tiles_empty = true
 		var cell_color
 		match obj.item.tile_type:
 			Part.TILE.EFFECT:
@@ -650,13 +669,16 @@ func _check_and_highlight_cells():
 				last_highlighted_cells.append(cell)
 				special_color_cells.append([cell, cell_color, obj])
 				if obj.item.tile_type == Part.TILE.RULE and cell.full:
-					obj.item.tiles_empty = false
+					obj.tiles_empty = false
 					var cell_obj = get_part_from_cell(cell)
 					if cell_obj and cell_obj.item.type != Part.TYPE.STRUCTURE:
 						isValid = isValid and cell_obj.item.type == Part.TYPE.ENGINE and obj.item.type == Part.TYPE.ENGINE
 						if not isValid: cell.change_color(Color.CRIMSON)
-				elif obj.item.tile_type == Part.TILE.EFFECT and cell.full:
-					obj.item.tiles_empty = false
+				elif obj.item.tile_type == Part.TILE.EFFECT:
+					if cell.full: obj.tiles_empty = false
+					else: empty_tile_seen = true
+		if not empty_tile_seen: obj.tiles_full = true
+		
 		if obj.item.type == Part.TYPE.ENGINE:
 			var nono_list = []
 			for i in range(obj.item.blocks.x):
@@ -706,18 +728,24 @@ func _place_thing():
 	var y_vector = Vector2(objectCells[0].get_index() / grid.width, objectCells[-1].get_index() / grid.width)
 	var builds_in = []
 	for cell in obj.cells_covered: # I DONT KNOW WHAT THIS SHIT DOES
-		for neighbor in get_neighbor_cells(Vector2(cell.get_index() % grid.width, cell.get_index() / grid.width)):
+		for neighbor in get_neighbor_cells(_get_cell_pos(cell.get_index())):
 			if neighbor in obj.cells_covered: continue
 			for build in builds:
-				if obj in build: continue
+				var build_neighboring = false
+				if obj in build and not build_neighboring: 
+					for part in build:
+						if part not in obj.neighbors: obj.neighbors.append(part)
+						if obj not in part.neighbors: part.neighbors.append(obj)
+					build_neighboring = true
+					continue
+				elif obj in build and build_neighboring: continue
 				for part in build:
 					if neighbor in part.cells_covered:
-						if part not in obj.neighbors: obj.neighbors.append(part)
-						if obj not in part.neighbors: part.neighbors.append(part)
 						build.append(obj)
 						builds_in.append(build)
 						var build_size_list = update_build_size(x_vector, y_vector, build_sizes[builds.find(build)])
 						build_sizes[build.find(build)] = build_size_list
+	
 	if len(builds_in) == 0:
 		builds.append([obj])
 		build_sizes.append([x_vector, y_vector])
@@ -737,6 +765,22 @@ func _place_thing():
 	print(build_sizes)
 	for cell in objectCells:
 		cell.full = true
+	var cellwatch = []
+	for erer in special_cells_placed:
+		cellwatch.append(erer[0])
+	for special_cell in cellwatch:
+		if not special_cell in objectCells: continue
+		var special_blok = special_cells_placed[cellwatch.find(special_cell)][2]
+		var zero_cell_pos = _get_cell_pos(special_blok.cells_covered[0].get_index())
+		var cell_uncovered = false
+		print(special_blok.item.special_tiles)
+		for pos in special_blok.item.special_tiles:
+			if not get_cell_by_coords(zero_cell_pos + Vector2i(pos)).full: 
+				cell_uncovered = true
+			else: special_blok.tiles_empty = false
+		if not cell_uncovered: special_blok.tiles_full = true
+		# remember blue guy logic!!!!!
+	
 	update_rocket_values()
 	message_log.new_message("Added " + str(obj.item.part_name) + " to rocket.")
 	for i in special_color_cells:
@@ -854,7 +898,7 @@ func start_event():
 				event_popup_text.text = "A huge oversupply in " + current_event[0] + " has occurred, and the biscuit shop wants to finish them fast. This part is now 50% off!"
 				event_text_label.text = current_event[0] + " 50% off"
 			"value":
-				event_popup_text.text = "The Biscuit Gods' ritual has begun. This time, they are accepting sacrifices in " + current_event[0]+ ". This part is temporarily worth double value!"
+				event_popup_text.text = "The Biscuit Gods' ritual has begun. This time, they are accepting sacrifices in " + current_event[0]+ ", making them temporarily worth double value!"
 				event_text_label.text = current_event[0] + " 2x value"
 			"safe":
 				event_popup_text.text = "Erratic changes in space atmosphere has made " + current_event[0] + " parts unbreakable, giving them 100% safety temporarily!"

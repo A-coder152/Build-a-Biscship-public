@@ -11,6 +11,8 @@ var scale_tween
 var default_scale
 var impacter
 var exploded = false
+var tiles_empty = true
+var tiles_full = false
 func setup(part: Part):
 	item = part
 	var dumb = Vector2(item.blocks.x - 1, item.blocks.y - 1)
