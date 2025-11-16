@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://de340xq0pvp72"]
+[gd_scene load_steps=43 format=3 uid="uid://de340xq0pvp72"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://Scripts/main.gd" id="1_gxbyj"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_0yb8q"]
@@ -83,6 +83,18 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4g8h3"]
+bg_color = Color(1, 0.901961, 0.584314, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.85098, 0.631373, 0.443137, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
@@ -312,34 +324,38 @@ text = "0"
 vertical_alignment = 1
 
 [node name="eventrect" type="TextureRect" parent="."]
+visible = false
 offset_left = 373.602
 offset_top = 11.6019
 offset_right = 757.602
 offset_bottom = 57.6019
 texture = ExtResource("33_5ej0n")
 
-[node name="Label" type="Label" parent="eventrect"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 5.0
-offset_right = 375.0
-offset_bottom = 44.0
+[node name="HBoxContainer" type="HBoxContainer" parent="eventrect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="timeman" type="Label" parent="eventrect/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.715952, 0.500292, 0.310219, 1)
+theme_override_font_sizes/font_size = 20
+text = "2:45 "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="textman" type="Label" parent="eventrect/HBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
-text = "Choc engine x2 value for 2:45!"
+text = "15% off all shop items"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="rocket" type="Node2D" parent="." groups=["rocket"]]
-
-[node name="Encyclopedia" parent="." instance=ExtResource("35_0yb8q")]
-visible = false
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 1152.0
-offset_bottom = 648.0
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="TutorialChoice" type="Node2D" parent="."]
 
@@ -364,6 +380,98 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2kneu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q0wjc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ql8yx")
 text = "yes!"
+
+[node name="Encyclopedia" parent="." instance=ExtResource("35_0yb8q")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="neweventpopup" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="darkbg" type="ColorRect" parent="neweventpopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.513726)
+
+[node name="Panel" type="Panel" parent="neweventpopup"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -173.5
+offset_right = 350.0
+offset_bottom = 173.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4g8h3")
+
+[node name="fneifhre" type="Label" parent="neweventpopup/Panel"]
+layout_mode = 2
+offset_left = 19.0
+offset_top = 21.0
+offset_right = 685.0
+offset_bottom = 81.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 40
+text = "New Event!"
+horizontal_alignment = 1
+
+[node name="Image" type="TextureRect" parent="neweventpopup/Panel"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+offset_left = 453.0
+offset_top = 93.0
+offset_right = 669.0
+offset_bottom = 309.0
+texture = ExtResource("29_51puf")
+stretch_mode = 5
+
+[node name="eventdesc" type="Label" parent="neweventpopup/Panel"]
+layout_mode = 2
+offset_left = 35.0
+offset_top = 86.0
+offset_right = 428.0
+offset_bottom = 250.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "An improvement in dual choc engines makes them saf"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="eventtiem" type="Label" parent="neweventpopup/Panel"]
+layout_mode = 2
+offset_left = 31.0
+offset_top = 269.185
+offset_right = 434.0
+offset_bottom = 311.185
+theme_override_colors/font_color = Color(0.7252, 0.507999, 0.316794, 1)
+theme_override_font_sizes/font_size = 24
+text = "Active for the next 2:45!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="TutorialPanels" type="Node2D" parent="."]
 visible = false

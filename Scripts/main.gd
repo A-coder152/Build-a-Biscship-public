@@ -81,6 +81,12 @@ var main_build_idx = 0
 @onready var items_container = $HBoxContainer/Sidebar/ScrollContainer/ItemsContainer
 @onready var tutorial = $TutorialPanels
 @onready var encyclopedia = $Encyclopedia
+@onready var event_rect = $eventrect
+@onready var event_text_label = $eventrect/HBoxContainer/textman
+@onready var event_time_label = $eventrect/HBoxContainer/timeman
+@onready var event_popup = $neweventpopup
+@onready var event_popup_text = $neweventpopup/Panel/eventdesc
+@onready var event_popup_time = $neweventpopup/Panel/eventtiem
 
 func _ready():
 	# Initial UI update and connect signals
@@ -517,7 +523,9 @@ func update_warnings(factor, idx):
 
 #this is for tesitng purposes. Move the function body to whatever function adds the part to rocket
 func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("leftClick") and isValid:
+	if Input.is_action_just_pressed("leftClick") and event_popup.visible:
+		event_popup.hide()
+	elif Input.is_action_just_pressed("leftClick") and isValid:
 		print("lefto")
 		_place_thing()
 		Sound.play_sfx(place, 0.15, 1, 3)
@@ -790,8 +798,10 @@ func _on_onesectimer_timeout() -> void:
 			else:
 				end_event()
 				return
+		event_time_label.text = str(event_time_remaining[0]) + ":"
+		event_time_label.text += str(event_time_remaining[1]) if event_time_remaining[1] / 10 >= 1 else "0" + str(event_time_remaining[1])
 	else:
-		if randf() > 0.996:
+		if randf() > 0.997 and not (tutorial and tutorial.visible):
 			start_event()
 
 func start_event():
@@ -809,7 +819,87 @@ func start_event():
 			item.success_upgrade_cost = round(item.success_upgrade_cost * 0.9)
 	else:
 		var event_item = items[round((selection - 0.2) * 1.25 * len(items))]
-		
+		while event_item.locked:
+			event_item = items[randf() * len(items)]
+		current_event = [event_item.part_name]
+		var second_random = randf()
+		second_random *= 4.99 if event_item.special_name else 3.99
+		if second_random < 1:
+			current_event.append("sale")
+			event_item.cost = round(event_item.cost / 2)
+		elif second_random < 2:
+			current_event.append("value")
+			event_item.value *= 2
+		elif second_random < 3:
+			current_event.append("safe")
+			current_event.append(event_item.success)
+			event_item.success = 1
+		elif second_random < 4:
+			current_event.append("weight")
+			event_item.weight = round(event_item.weight / 2)
+		else:
+			current_event.append("special")
+			event_item.special *= 0.5 if event_item.special < 1 else 2.
+	if len(current_event) == 1:
+		match current_event[0]:
+			"firesale":
+				event_popup_text.text = "The biscuit shop has some sweet deals available! All items are discounted by 15%!"
+				event_text_label.text = "15% off all shop items"
+			"upgradesale":
+				event_popup_text.text = "The biscuit labs are offering sweet deals on upgrades! All upgrades are 10% off!"
+				event_text_label.text = "10% off all upgrades"
+	else:
+		match current_event[1]:
+			"sale":
+				event_popup_text.text = "A huge oversupply in " + current_event[0] + " has occurred, and the biscuit shop wants to finish them fast. This part is now 50% off!"
+				event_text_label.text = current_event[0] + " 50% off"
+			"value":
+				event_popup_text.text = "The Biscuit Gods' ritual has begun. This time, they are accepting sacrifices in " + current_event[0]+ ". This part is temporarily worth double value!"
+				event_text_label.text = current_event[0] + " 2x value"
+			"safe":
+				event_popup_text.text = "Erratic changes in space atmosphere has made " + current_event[0] + " parts unbreakable, giving them 100% safety temporarily!"
+				event_text_label.text = current_event[0] + " 100% safe"
+			"weight":
+				event_popup_text.text = "A rare material has been discovered, which reduces the weight of " + current_event[0] + " in launches by 50%! Hurry up before the material runs out!"
+				event_text_label.text = current_event[0] + " 50% lighter"
+			"special":
+				event_popup_text.text = "A malfunction in the labs has generated a batch of extremely powerful " + current_event[0] +", multiplying their special effects by 2x!"
+				event_text_label.text = current_event[0] + " 2x power"
+	event_time_remaining = [randi_range(1, 2), randi_range(0, 59)]
+	event_popup_time.text = "Active for the next " + str(event_time_remaining[0]) + ":"
+	event_popup_time.text += str(event_time_remaining[1]) if event_time_remaining[1] / 10 >= 1 else "0" + str(event_time_remaining[1])
+	event_popup.show()
+	event_rect.show()
+	
 
 func end_event():
-	pass
+	if len(current_event) == 1:
+		match current_event[0]:
+			"firesale":
+				for item in items:
+					item.cost = round(item.cost / 0.85)
+			"upgradesale":
+				for item in items:
+					item.value_upgrade_cost = round(item.value_upgrade_cost / 0.9)
+					item.weight_upgrade_cost = round(item.weight_upgrade_cost / 0.9)
+					item.special_upgrade_cost = round(item.special_upgrade_cost / 0.9)
+					item.success_upgrade_cost = round(item.success_upgrade_cost / 0.9)
+	else:
+		var event_item
+		for item in items:
+			if item.part_name == current_event[0]:
+				event_item = item
+				break
+		match current_event[1]:
+			"sale":
+				event_item.cost = round(event_item.cost * 2)
+			"value":
+				event_item.value /= 2
+			"safe":
+				event_item.success = current_event[2]
+			"weight":
+				event_item.weight = round(event_item.weight * 2)
+			"special":
+				event_item.special *= 0.5 if event_item.special > 1 else 2.
+	current_event = []
+	event_rect.hide()
