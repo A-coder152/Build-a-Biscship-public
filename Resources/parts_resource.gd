@@ -1,7 +1,6 @@
 class_name Part extends Resource 
 enum TYPE {ENGINE, FUEL, FILLING, COATING, STRUCTURE}
 enum TILE {NONE, RULE, EFFECT, BENEFIT}
-enum TILE_RULES {NONE, ENGINE, CONE, FILLING, COATING}
 const SPECIAL_UPPERS = ["thrust", "fuel"]
 const SPECIAL_DOWNERS = ["drag", "risk"]
 var level = 0
@@ -26,4 +25,3 @@ var tiles_full = false
 @export var special_upgrade_cost: int
 @export var tile_type: TILE
 @export var special_tiles: Array[Vector2]
-@export var tile_rules: TILE_RULES

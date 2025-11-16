@@ -383,6 +383,7 @@ text = "yes!"
 
 [node name="Encyclopedia" parent="." instance=ExtResource("35_0yb8q")]
 visible = false
+z_index = 3
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -393,6 +394,7 @@ grow_vertical = 1
 
 [node name="neweventpopup" type="Control" parent="."]
 visible = false
+z_index = 4
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -475,6 +477,7 @@ autowrap_mode = 2
 
 [node name="TutorialPanels" type="Node2D" parent="."]
 visible = false
+z_index = 3
 
 [node name="Slide1" type="Node2D" parent="TutorialPanels"]
 
@@ -860,6 +863,7 @@ text = "That's it for the tutorial!"
 
 [node name="AudioPopup" type="ColorRect" parent="."]
 visible = false
+z_index = 3
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.835294)

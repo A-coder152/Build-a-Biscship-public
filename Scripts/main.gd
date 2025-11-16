@@ -901,5 +901,6 @@ func end_event():
 				event_item.weight = round(event_item.weight * 2)
 			"special":
 				event_item.special *= 0.5 if event_item.special > 1 else 2.
+	reset_items_container()
 	current_event = []
 	event_rect.hide()
