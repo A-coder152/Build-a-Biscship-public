@@ -34,3 +34,6 @@ func _on_buy_pressed() -> void:
 func _on_add_pressed() -> void:
 	main_scene.add_item_to_rocket(item)
 	Sound.play_sfx(add_sound, 0, 1, -1)
+
+func _on_back_pressed() -> void:
+	main_scene.encyclopedia_time(item)

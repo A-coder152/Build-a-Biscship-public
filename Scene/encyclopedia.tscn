@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c74ehjm1g8mkb"]
+[gd_scene load_steps=4 format=3 uid="uid://c74ehjm1g8mkb"]
 
-[ext_resource type="Texture2D" uid="uid://dpt2rfqw0ehbl" path="res://Assets/Art/cone .png" id="1_3k2wf"]
+[ext_resource type="Script" uid="uid://c3qr2lt2se0ml" path="res://Scripts/encyclopedia.gd" id="1_37lnx"]
+[ext_resource type="Texture2D" uid="uid://crtkee3gp1lra" path="res://Assets/Ship Parts/engine 2 dual.png" id="2_37lnx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4g8h3"]
 bg_color = Color(1, 0.901961, 0.584314, 1)
@@ -23,7 +24,7 @@ offset_right = 672.0
 offset_bottom = 378.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.417, 0.417)
+script = ExtResource("1_37lnx")
 
 [node name="darkbg" type="ColorRect" parent="."]
 layout_mode = 1
@@ -32,7 +33,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.317647)
+color = Color(0, 0, 0, 0.513726)
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -98,7 +99,8 @@ horizontal_alignment = 1
 [node name="Image" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = ExtResource("1_3k2wf")
+texture = ExtResource("2_37lnx")
+stretch_mode = 5
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2

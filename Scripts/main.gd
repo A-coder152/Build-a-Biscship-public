@@ -77,6 +77,7 @@ var main_build_idx = 0
 @onready var message_log = $MessageLog
 @onready var items_container = $HBoxContainer/Sidebar/ScrollContainer/ItemsContainer
 @onready var tutorial = $TutorialPanels
+@onready var encyclopedia = $Encyclopedia
 
 func _ready():
 	# Initial UI update and connect signals
@@ -269,6 +270,8 @@ func _on_launch_button_pressed():
 		message_log.new_message("You need to add parts to your rocket first!")
 		return
 	
+	special_cells_placed = []
+	
 	for build in builds:
 		if builds.find(build) != main_build_idx:
 			for part in build:
@@ -335,7 +338,7 @@ func clear_rocket():
 	update_ui()
 
 func buy_item(item):
-	if $TutorialChoice.visible: $TutorialChoice.hide()
+	if $TutorialChoice and $TutorialChoice.visible: $TutorialChoice.hide()
 	var idx = items.find(item)
 	if biscuit_points >= item.cost:
 		items[idx].owned += 1
@@ -384,7 +387,7 @@ func remove_part(part):
 				build_sizes[builds.find(build)] = update_build_size(part_x_vector, part_y_vector, build_sizes[builds.find(build)])
 				print(build_sizes[builds.find(build)])
 			update_rocket_values()
-	if part.item.tile_type != Part.TILE_RULES.NONE:
+	if part.item.tile_type != Part.TILE.NONE:
 		var special_cells_copy = special_cells_placed.duplicate()
 		for chicken in special_cells_placed:
 			if chicken[2] == part:
@@ -507,6 +510,8 @@ func _input(event: InputEvent) -> void:
 		print("lefto")
 		_place_thing(objectCells)
 		Sound.play_sfx(place, 0.15, 1, 3)
+	elif Input.is_action_just_pressed("leftClick") and encyclopedia.visible:
+		encyclopedia.hide()
 	elif Input.is_action_just_pressed("leftClick") and obj and not isValid:
 		print("invalid placement - destroying object")
 		message_log.new_message("Invalid object placement!")
@@ -751,3 +756,7 @@ func _on_next_slide_pressed() -> void:
 	else:
 		tutorial.queue_free()
 		message_log.new_message("Tutorial completed! Good luck building your biscships!")
+
+func encyclopedia_time(item):
+	encyclopedia.change_content(item)
+	encyclopedia.show()

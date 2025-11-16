@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://de340xq0pvp72"]
+[gd_scene load_steps=42 format=3 uid="uid://de340xq0pvp72"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://Scripts/main.gd" id="1_gxbyj"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_0yb8q"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://cnmc5ydi8g8bu" path="res://Scripts/message_log.gd" id="32_aw5su"]
 [ext_resource type="Texture2D" uid="uid://cstfm5so0tib5" path="res://Assets/ui/LaunchButton.png" id="33_5ej0n"]
 [ext_resource type="Texture2D" uid="uid://cvbmairca8x1g" path="res://Assets/ui/CookieCounter.png" id="34_xcxrc"]
+[ext_resource type="PackedScene" uid="uid://c74ehjm1g8mkb" path="res://Scene/encyclopedia.tscn" id="35_0yb8q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63tgn"]
 bg_color = Color(0.85098, 0.631373, 0.443137, 1)
@@ -311,6 +312,16 @@ text = "0"
 vertical_alignment = 1
 
 [node name="rocket" type="Node2D" parent="." groups=["rocket"]]
+
+[node name="Encyclopedia" parent="." instance=ExtResource("35_0yb8q")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="TutorialChoice" type="Node2D" parent="."]
 
