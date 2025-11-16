@@ -1,0 +1,236 @@
+[gd_scene load_steps=3 format=3 uid="uid://c74ehjm1g8mkb"]
+
+[ext_resource type="Texture2D" uid="uid://dpt2rfqw0ehbl" path="res://Assets/Art/cone .png" id="1_3k2wf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4g8h3"]
+bg_color = Color(1, 0.901961, 0.584314, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.85098, 0.631373, 0.443137, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[node name="Encyclopedia" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 672.0
+offset_bottom = 378.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.417, 0.417)
+
+[node name="darkbg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.317647)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4g8h3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 291.0
+offset_top = 142.0
+offset_right = 859.0
+offset_bottom = 510.0
+theme_override_constants/separation = 16
+
+[node name="Item" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 40
+text = "Dual Choc Engine"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Cost" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Cost: "
+horizontal_alignment = 1
+
+[node name="Value" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Value:"
+horizontal_alignment = 1
+
+[node name="Owned" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Owned:"
+horizontal_alignment = 1
+
+[node name="Image" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("1_3k2wf")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Success" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Success:"
+horizontal_alignment = 1
+
+[node name="Weight" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Weight:"
+horizontal_alignment = 1
+
+[node name="Spceial" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Special: "
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="info" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control2" type="Control" parent="VBoxContainer/VBoxContainer/info"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/VBoxContainer/info"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.683188, 0.473701, 0.288382, 1)
+text = "The green maen: "
+
+[node name="text" type="Label" parent="VBoxContainer/VBoxContainer/info"]
+custom_minimum_size = Vector2(3, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 12
+text = "Aerodynamic structure block, reducing drag! make sure tiles are unblocked to let through"
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/VBoxContainer/info"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="tiles" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control2" type="Control" parent="VBoxContainer/VBoxContainer/tiles"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/VBoxContainer/tiles"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.683188, 0.473701, 0.288382, 1)
+text = "Special rules: "
+
+[node name="text" type="Label" parent="VBoxContainer/VBoxContainer/tiles"]
+custom_minimum_size = Vector2(3, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 12
+text = "Keep the yellow tiles empty to reduce drag!"
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/VBoxContainer/tiles"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="cool" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control2" type="Control" parent="VBoxContainer/VBoxContainer/cool"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/VBoxContainer/cool"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.683188, 0.473701, 0.288382, 1)
+text = "Choc: "
+
+[node name="text" type="Label" parent="VBoxContainer/VBoxContainer/cool"]
+custom_minimum_size = Vector2(3, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 12
+text = "Chocolate Part! More risk, more reward!"
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/VBoxContainer/cool"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="cool2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control2" type="Control" parent="VBoxContainer/VBoxContainer/cool2"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/VBoxContainer/cool2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.683188, 0.473701, 0.288382, 1)
+text = "Dual: "
+
+[node name="text" type="Label" parent="VBoxContainer/VBoxContainer/cool2"]
+custom_minimum_size = Vector2(3, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 12
+text = "Dual part! Takes up larger space for more power!"
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/VBoxContainer/cool2"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2

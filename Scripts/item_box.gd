@@ -30,6 +30,7 @@ func update():
 func _on_buy_pressed() -> void:
 	main_scene.buy_item(item)
 	Sound.play_sfx(click, 0.1, 1, -3)
+
 func _on_add_pressed() -> void:
 	main_scene.add_item_to_rocket(item)
 	Sound.play_sfx(add_sound, 0, 1, -1)
