@@ -838,7 +838,7 @@ func _on_tutorial_pressed() -> void:
 
 func _on_next_slide_pressed() -> void:
 	tutorial.get_child(tutorial_slide).visible = false
-	if tutorial_slide < 5:
+	if tutorial_slide < 8:
 		tutorial_slide += 1
 		tutorial.get_child(tutorial_slide).visible = true
 	else:

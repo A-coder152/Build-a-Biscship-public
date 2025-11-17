@@ -486,7 +486,7 @@ text = "Do not show again"
 
 [node name="Encyclopedia" parent="." instance=ExtResource("35_0yb8q")]
 visible = false
-z_index = 3
+z_index = 4
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -497,7 +497,7 @@ grow_vertical = 1
 
 [node name="neweventpopup" type="Control" parent="."]
 visible = false
-z_index = 4
+z_index = 5
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -836,6 +836,70 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
 theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
 text = "Next"
 
+[node name="Slide7" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide7"]
+offset_left = 305.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide7"]
+offset_left = 343.0
+offset_top = 247.981
+offset_right = 1048.0
+offset_bottom = 450.981
+texture = ExtResource("33_5ej0n")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide7/PanelThing"]
+layout_mode = 0
+offset_left = 26.0959
+offset_top = 14.0
+offset_right = 532.096
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 30
+text = "Encyclopedia"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide7/PanelThing"]
+layout_mode = 0
+offset_left = 16.9017
+offset_top = 64.3981
+offset_right = 532.902
+offset_bottom = 142.398
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 16
+text = "To learn more about a specific biscuit part, 
+you can click on its card and you'll see its
+entry in the encyclopedia. feel free to try!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide7/PanelThing"]
+layout_mode = 0
+offset_left = 539.707
+offset_top = 28.4293
+offset_right = 647.707
+offset_bottom = 168.429
+texture = ExtResource("29_51puf")
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide7/PanelThing"]
+layout_mode = 0
+offset_left = 237.3
+offset_top = 153.0
+offset_right = 309.3
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
 [node name="Slide5" type="Node2D" parent="TutorialPanels"]
 visible = false
 
@@ -953,12 +1017,139 @@ flip_h = true
 
 [node name="NextSlide" type="Button" parent="TutorialPanels/Slide6/PanelThing"]
 layout_mode = 0
-offset_left = 283.0
+offset_left = 376.067
 offset_top = 153.0
-offset_right = 530.0
+offset_right = 446.067
 offset_bottom = 177.0
 theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
 theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
+[node name="Slide9" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide9"]
+offset_right = 813.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide9"]
+offset_left = 86.331
+offset_top = 14.389
+offset_right = 791.331
+offset_bottom = 217.389
+texture = ExtResource("33_5ej0n")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide9/PanelThing"]
+layout_mode = 0
+offset_left = 162.787
+offset_top = 14.0
+offset_right = 668.787
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 30
+text = "Biscuit bailout"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide9/PanelThing"]
+layout_mode = 0
+offset_left = 153.592
+offset_top = 64.3981
+offset_right = 669.592
+offset_bottom = 142.398
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 16
+text = "If you're low on biscuits, click the counter in the
+top right! It'll grant you some urgent biscuits
+when you need them most."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide9/PanelThing"]
+layout_mode = 0
+offset_left = 26.3789
+offset_top = 26.3789
+offset_right = 134.379
+offset_bottom = 166.379
+texture = ExtResource("29_51puf")
+flip_h = true
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide9/PanelThing"]
+layout_mode = 0
+offset_left = 376.067
+offset_top = 153.0
+offset_right = 446.067
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
+[node name="Slide8" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide8"]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide8"]
+offset_left = 131.894
+offset_top = 184.652
+offset_right = 1042.89
+offset_bottom = 455.652
+texture = ExtResource("33_5ej0n")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide8/PanelThing"]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 19.0
+offset_right = 892.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 40
+text = "Limited time events!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide8/PanelThing"]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 87.0
+offset_right = 890.0
+offset_bottom = 158.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 22
+text = "Every once in a while, there will be limited
+time events, providing exclusive bonuses
+and discounts on certain parts!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide8/PanelThing"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 26.0
+offset_right = 192.0
+offset_bottom = 243.0
+texture = ExtResource("29_51puf")
+flip_h = true
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide8/PanelThing"]
+layout_mode = 0
+offset_left = 395.446
+offset_top = 214.0
+offset_right = 701.446
+offset_bottom = 242.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
 theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
 theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
@@ -1038,7 +1229,10 @@ autostart = true
 [connection signal="pressed" from="TutorialPanels/Slide2/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide3/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide4/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide7/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide5/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide6/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide9/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide8/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="AudioPopup/P1/PopupButton" to="." method="_on_popup_button_pressed"]
 [connection signal="timeout" from="onesectimer" to="." method="_on_onesectimer_timeout"]
