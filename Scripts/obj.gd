@@ -9,7 +9,7 @@ var explosion_scene = preload("res://Scene/explosion.tscn")
 var explosion_sound = preload("res://Assets/sounds/nuclear-explosion-386181.mp3")
 var scale_tween
 var default_scale
-var impacter
+var impacter = []
 var exploded = false
 var tiles_empty = true
 var tiles_full = false

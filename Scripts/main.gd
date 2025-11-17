@@ -182,11 +182,13 @@ func update_rocket_values():
 	var one_tank = 1.
 	for part in engines:
 		var non_break_chance = 1 - part.item.success
+		if len(part.impacter): non_break_chance /= 2.
 		if len(part.neighbors) == 1: rocket_switch_chance *= non_break_chance / (1- part.item.success * part.neighbors[0].item.success)
 		one_engine *= non_break_chance
 		engines_thrust += part.item.special
 	for part in fuels:
 		var non_break_chance = 1 - part.item.success
+		if len(part.impacter): non_break_chance /= 2.
 		if len(part.neighbors) == 1: rocket_switch_chance *= non_break_chance / (1- part.item.success * part.neighbors[0].item.success)
 		one_tank *= non_break_chance
 		fuel_on_rocket += part.item.special
@@ -390,6 +392,11 @@ func remove_part(part):
 	rocket.remove_child(part)
 	for build in builds:
 		if part in build:
+			if part.item.tile_type == part.item.TILE.BENEFIT:
+				for sjef in build:
+					if part in sjef.impacter:
+						sjef.impacter.erase(part)
+						print("hehehehhehea      ", sjef.impacter)
 			part.item.owned += 1
 			rocket_cost -= part.item.cost
 			message_log.new_message("Removed " + part.item.part_name + " from rocket.")
@@ -402,7 +409,8 @@ func remove_part(part):
 					var zero_cell_pos = _get_cell_pos(nobj.cells_covered[0].get_index())
 					var cell_uncovered = false
 					for i in nobj.item.special_tiles:
-						if get_cell_by_coords(zero_cell_pos + Vector2i(i)).full:
+						var thiswillneverbeusedever = get_cell_by_coords(zero_cell_pos + Vector2i(i))
+						if thiswillneverbeusedever and thiswillneverbeusedever.full:
 							nobj.tiles_empty = false
 						else: cell_uncovered = true
 					if not cell_uncovered: nobj.tiles_full = true
@@ -677,6 +685,9 @@ func _check_and_highlight_cells():
 				elif obj.item.tile_type == Part.TILE.EFFECT:
 					if cell.full: obj.tiles_empty = false
 					else: empty_tile_seen = true
+				elif obj.item.tile_type == Part.TILE.BENEFIT and cell.full:
+					var imgettingragebaited = get_part_from_cell(cell)
+					if imgettingragebaited and obj not in imgettingragebaited.impacter: imgettingragebaited.impacter.append(obj)
 		if not empty_tile_seen: obj.tiles_full = true
 		
 		if obj.item.type == Part.TYPE.ENGINE:
@@ -779,6 +790,8 @@ func _place_thing():
 				cell_uncovered = true
 			else: special_blok.tiles_empty = false
 		if not cell_uncovered: special_blok.tiles_full = true
+		if special_cells_placed[cellwatch.find(special_cell)][1] == Color.CORNFLOWER_BLUE and special_blok not in obj.impacter:
+			obj.impacter.append(special_blok)
 		# remember blue guy logic!!!!!
 	
 	update_rocket_values()

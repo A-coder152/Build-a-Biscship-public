@@ -50,7 +50,7 @@ func change_content(item: Part):
 				if item.type == item.TYPE.FILLING: tiles_label.text += "\nMust be covered for filling to have value."
 			Part.TILE.EFFECT:
 				tiles_title_label.text = "Yellow Tile: "
-				tiles_label.text = "Leave empty to allow drag reduction."
+				tiles_label.text = "Leave empty to allow special effects."
 			Part.TILE.BENEFIT:
 				tiles_title_label.text = "Blue Tile: "
 				tiles_label.text = "Parts on blue tiles are affected by coating,\nincreasing success chances by x%."
