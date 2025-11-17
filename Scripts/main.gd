@@ -230,22 +230,23 @@ func update_rocket_values():
 		update_warnings(-(1 - cooked_by_mass_y), 3)
 	if rocket_success_chance > 0: rocket_success_chance *= cooked_by_mass_y
 	
-	if engines_thrust > rocket_mass * 2:
+	if engines_thrust > rocket_mass * 2.5:
 		print("sigma")
-		var overthrust_nerf = max((4 - engines_thrust / rocket_mass) / 2., 0)
+		var overthrust_nerf = max((5 - engines_thrust / rocket_mass) / 2.5, 0)
 		update_warnings(1 - overthrust_nerf, 0)
 		if rocket_success_chance > 0: rocket_success_chance *= overthrust_nerf
 	
 	if rocket_success_chance > 0:
-		const FUEL_DIST_MULT = 10.
-		const DRAG_DIST_MULT = 1
+		const FUEL_DIST_MULT = 12.
+		const DRAG_DIST_MULT = 10
 		print(fuel_on_rocket, " b ", engines_thrust)
 		rocket_distance = (fuel_on_rocket / engines_thrust) * ((engines_thrust / rocket_mass) - 1) * FUEL_DIST_MULT
 		var drag_tiles = (build_size[0].y - build_size[0].x + 1)
+		var sigmaton = 0
 		for part in aerodynamics:
-			drag_tiles -= (1 - part.item.special) * part.item.blocks.x if part.tiles_empty else 0
+			sigmaton += (1 - part.item.special) * part.item.blocks.x if part.tiles_empty else 0
 		print(drag_tiles, " jijiji")
-		rocket_distance -= drag_tiles * DRAG_DIST_MULT
+		rocket_distance -= sqrt(drag_tiles * DRAG_DIST_MULT) * (drag_tiles - sigmaton) / drag_tiles
 		rocket_distance = max(0, rocket_distance)
 			
 	#rocket_parts.append(part)
@@ -304,7 +305,7 @@ func _on_launch_button_pressed():
 			return
 			
 				
-		const DIST_POINTS_MULT = 20
+		const DIST_POINTS_MULT = 10
 		var total_points = round((rocket_distance * DIST_POINTS_MULT * randf_range(0.8, 1.2) + rocket_value) * 100) / 100.
 		grid.visible = false
 		await get_tree().create_timer(0.5).timeout
@@ -652,7 +653,7 @@ func _check_and_highlight_cells():
 			for i in special_cells_placed:
 				if i[0] == cell and i[1] == Color(0.8, 0.6, 0.3):
 					if obj.item.type != Part.TYPE.STRUCTURE:
-						isValid = obj.item.type == i[2].item.type
+						isValid = isValid and obj.item.type == i[2].item.type
 						if not isValid: cell.change_color(Color.CRIMSON)
 					
 		last_highlighted_cells.append(cell)
@@ -786,13 +787,13 @@ func _place_thing():
 		var cell_uncovered = false
 		print(special_blok.item.special_tiles)
 		for pos in special_blok.item.special_tiles:
-			if not get_cell_by_coords(zero_cell_pos + Vector2i(pos)).full: 
+			var ragebait = get_cell_by_coords(zero_cell_pos + Vector2i(pos))
+			if ragebait and not ragebait.full: 
 				cell_uncovered = true
-			else: special_blok.tiles_empty = false
+			elif ragebait: special_blok.tiles_empty = false
 		if not cell_uncovered: special_blok.tiles_full = true
 		if special_cells_placed[cellwatch.find(special_cell)][1] == Color.CORNFLOWER_BLUE and special_blok not in obj.impacter:
 			obj.impacter.append(special_blok)
-		# remember blue guy logic!!!!!
 	
 	update_rocket_values()
 	message_log.new_message("Added " + str(obj.item.part_name) + " to rocket.")
@@ -961,3 +962,7 @@ func end_event():
 	reset_items_container()
 	current_event = []
 	event_rect.hide()
+
+
+func _on_biscuitos_pressed() -> void:
+	pass # Replace with function body.
