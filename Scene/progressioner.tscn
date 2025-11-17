@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp8vbiprhl4fw"]
+[gd_scene load_steps=8 format=3 uid="uid://bp8vbiprhl4fw"]
 
 [ext_resource type="Texture2D" uid="uid://cstfm5so0tib5" path="res://Assets/ui/LaunchButton.png" id="1_6slju"]
 [ext_resource type="Texture2D" uid="uid://dx478hoio107w" path="res://Assets/ui/biscuit tin 2.png" id="2_8nv4t"]
+[ext_resource type="Script" uid="uid://njfrcbw1wpah" path="res://Scene/progressioner.gd" id="2_68heg"]
 [ext_resource type="Texture2D" uid="uid://dv7e4nt2smsq1" path="res://Assets/ui/biscuit shop 2.png" id="3_0yrpa"]
+[ext_resource type="Texture2D" uid="uid://dvhl8v4728mgw" path="res://Assets/ui/biscuit planet.png" id="5_3n01p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68heg"]
 bg_color = Color(0.85098, 0.631373, 0.443137, 0.635294)
@@ -23,6 +25,7 @@ custom_minimum_size = Vector2(40, 0)
 offset_right = 300.0
 offset_bottom = 77.0
 texture = ExtResource("1_6slju")
+script = ExtResource("2_68heg")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
@@ -49,6 +52,7 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_68heg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_3n01p")
+max_value = 5.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/ProgressBar"]
@@ -57,6 +61,7 @@ offset_right = 100.0
 offset_bottom = 12.0
 theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
 theme_override_font_sizes/font_size = 8
+text = "0m"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
@@ -81,6 +86,9 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_68heg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_3n01p")
+min_value = 5.0
+max_value = 20.0
+value = 5.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/ProgressBar2"]
@@ -106,3 +114,41 @@ theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
 theme_override_font_sizes/font_size = 12
 text = "Shop"
 horizontal_alignment = 1
+
+[node name="ProgressBar3" type="ProgressBar" parent="ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 12)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_68heg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3n01p")
+min_value = 20.0
+value = 20.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/ProgressBar3"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("5_3n01p")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 12
+text = "Planet"
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2

@@ -90,6 +90,9 @@ var main_build_idx = 0
 @onready var event_popup_text = $neweventpopup/Panel/eventdesc
 @onready var event_popup_time = $neweventpopup/Panel/eventtiem
 @onready var brokeboi = $brokeboi
+@onready var progresso = $progresso
+@onready var progresso_popup = $progressopopup
+@onready var progresso_texto = $progressopopup/Panel/eventdesc
 
 func _ready():
 	# Initial UI update and connect signals
@@ -102,6 +105,7 @@ func _ready():
 	gridSize = Vector2(grid.cellWidth, grid.cellHeight) / 2.4
 	for cell in grid.get_children():
 		cell.change_color(Color(0.5, 0.5, 0.5, 0.5))
+	progresso.setup()
 func _process(delta):
 	# added this stupid thing because godot is a fucking bitch
 	hover_update_timer += delta
@@ -309,6 +313,7 @@ func _on_launch_button_pressed():
 			
 				
 		const DIST_POINTS_MULT = 10
+		progresso.update_bar(rocket_distance)
 		var total_points = round((rocket_distance * DIST_POINTS_MULT * randf_range(0.8, 1.2) + rocket_value) * 100) / 100.
 		grid.visible = false
 		await get_tree().create_timer(0.5).timeout
@@ -556,6 +561,8 @@ func update_warnings(factor, idx):
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("leftClick") and event_popup.visible:
 		event_popup.hide()
+	elif Input.is_action_just_pressed("leftClick") and progresso_popup.visible:
+		progresso_popup.hide()
 	elif Input.is_action_just_pressed("leftClick") and isValid:
 		print("lefto")
 		_place_thing()
@@ -838,7 +845,7 @@ func _on_tutorial_pressed() -> void:
 
 func _on_next_slide_pressed() -> void:
 	tutorial.get_child(tutorial_slide).visible = false
-	if tutorial_slide < 8:
+	if tutorial_slide < 9:
 		tutorial_slide += 1
 		tutorial.get_child(tutorial_slide).visible = true
 	else:
@@ -980,3 +987,10 @@ func _on_byebrokeboi_pressed() -> void:
 
 func _on_nobrokeboi_pressed() -> void:
 	brokeboi.hide()
+
+func milestone_reached(num):
+	progresso_popup.show()
+	var thingos = ["Biscuit Tin", "Biscuit Shop", "Biscuit Planet"]
+	var vried = 100 * num + 50
+	progresso_texto.text = "Congrats on flying " + str(progresso.pb) + "m and reaching the " + thingos[num] + "! You get " + str(vried) + " Biscuit Points for this achievement!"
+	biscuit_points += vried

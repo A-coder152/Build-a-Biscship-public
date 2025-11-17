@@ -281,7 +281,7 @@ autowrap_mode = 2
 [node name="MessageLog" type="RichTextLabel" parent="."]
 offset_left = 417.0
 offset_top = 556.0
-offset_right = 1130.0
+offset_right = 818.0
 offset_bottom = 638.0
 theme_override_colors/default_color = Color(0.85098, 0.631373, 0.443137, 1)
 text = "welcome to build a biscship!
@@ -332,7 +332,11 @@ theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
 text = "0"
 vertical_alignment = 1
 
-[node name="TextureRect" parent="." instance=ExtResource("35_phte7")]
+[node name="progresso" parent="." instance=ExtResource("35_phte7")]
+offset_left = 820.144
+offset_top = 549.161
+offset_right = 1120.14
+offset_bottom = 626.161
 
 [node name="eventrect" type="TextureRect" parent="."]
 visible = false
@@ -391,6 +395,79 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2kneu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q0wjc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ql8yx")
 text = "yes!"
+
+[node name="progressopopup" type="Control" parent="."]
+visible = false
+z_index = 4
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="darkbg" type="ColorRect" parent="progressopopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.513726)
+
+[node name="Panel" type="Panel" parent="progressopopup"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -173.5
+offset_right = 350.0
+offset_bottom = 173.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4g8h3")
+
+[node name="fneifhre" type="Label" parent="progressopopup/Panel"]
+layout_mode = 2
+offset_left = 19.0
+offset_top = 21.0
+offset_right = 685.0
+offset_bottom = 81.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 40
+text = "New milestone!"
+horizontal_alignment = 1
+
+[node name="Image" type="TextureRect" parent="progressopopup/Panel"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+offset_left = 37.7889
+offset_top = 91.7062
+offset_right = 253.789
+offset_bottom = 307.706
+texture = ExtResource("29_51puf")
+stretch_mode = 5
+flip_h = true
+
+[node name="eventdesc" type="Label" parent="progressopopup/Panel"]
+layout_mode = 2
+offset_left = 250.796
+offset_top = 108.388
+offset_right = 667.796
+offset_bottom = 303.388
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Congrats on flying your rocket 3r4m and reaching the shop! You earn 100 biscuit points for this achievement!
+
+<click to continue>"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="brokeboi" type="Control" parent="."]
 visible = false
@@ -1031,6 +1108,70 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
 theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
 text = "Next"
 
+[node name="Slide10" type="Node2D" parent="TutorialPanels"]
+visible = false
+
+[node name="DarkBg" type="ColorRect" parent="TutorialPanels/Slide10"]
+offset_right = 813.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.835294)
+
+[node name="PanelThing" type="TextureRect" parent="TutorialPanels/Slide10"]
+offset_left = 86.331
+offset_top = 434.053
+offset_right = 791.331
+offset_bottom = 637.053
+texture = ExtResource("33_5ej0n")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="TutorialPanels/Slide10/PanelThing"]
+layout_mode = 0
+offset_left = 162.787
+offset_top = 14.0
+offset_right = 668.787
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 30
+text = "Milestones"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="TutorialPanels/Slide10/PanelThing"]
+layout_mode = 0
+offset_left = 153.592
+offset_top = 64.3981
+offset_right = 669.592
+offset_bottom = 142.398
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 16
+text = "On the bottom right, you'll see milestones you
+can reach. If your rocket flies to a new
+milestone, you get rewards!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LarryMain2" type="TextureRect" parent="TutorialPanels/Slide10/PanelThing"]
+layout_mode = 0
+offset_left = 26.3789
+offset_top = 26.3789
+offset_right = 134.379
+offset_bottom = 166.379
+texture = ExtResource("29_51puf")
+flip_h = true
+
+[node name="NextSlide" type="Button" parent="TutorialPanels/Slide10/PanelThing"]
+layout_mode = 0
+offset_left = 376.067
+offset_top = 153.0
+offset_right = 446.067
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_63tgn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_esmn7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0uv0")
+text = "Next"
+
 [node name="Slide9" type="Node2D" parent="TutorialPanels"]
 visible = false
 
@@ -1235,6 +1376,7 @@ autostart = true
 [connection signal="pressed" from="TutorialPanels/Slide7/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide5/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide6/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
+[connection signal="pressed" from="TutorialPanels/Slide10/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide9/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide8/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="AudioPopup/P1/PopupButton" to="." method="_on_popup_button_pressed"]
