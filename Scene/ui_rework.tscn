@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://de340xq0pvp72"]
+[gd_scene load_steps=44 format=3 uid="uid://de340xq0pvp72"]
 
 [ext_resource type="Script" uid="uid://bh3bsrm6bxcl2" path="res://Scripts/main.gd" id="1_gxbyj"]
 [ext_resource type="Script" uid="uid://bfqm5t7ekjk02" path="res://Resources/parts_resource.gd" id="2_0yb8q"]
@@ -95,6 +95,14 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tudev"]
+bg_color = Color(0.85098, 0.631373, 0.443137, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 6
 
 [node name="Main" type="Node2D"]
 scale = Vector2(0.417, 0.417)
@@ -305,15 +313,15 @@ text = "Launch Rocket!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect4" type="TextureRect" parent="."]
+[node name="biscuitos" type="TextureButton" parent="."]
 offset_left = 861.573
 offset_top = 11.1942
 offset_right = 1081.57
 offset_bottom = 57.1942
-texture = ExtResource("34_xcxrc")
+texture_normal = ExtResource("34_xcxrc")
 stretch_mode = 4
 
-[node name="PointsLabel" type="Label" parent="TextureRect4"]
+[node name="PointsLabel" type="Label" parent="biscuitos"]
 layout_mode = 2
 offset_left = 50.0
 offset_top = 3.0
@@ -380,6 +388,101 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2kneu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q0wjc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ql8yx")
 text = "yes!"
+
+[node name="brokeboi" type="Control" parent="."]
+visible = false
+z_index = 4
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="darkbg" type="ColorRect" parent="brokeboi"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.513726)
+
+[node name="Panel" type="Panel" parent="brokeboi"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -173.5
+offset_right = 350.0
+offset_bottom = 173.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4g8h3")
+
+[node name="fneifhre" type="Label" parent="brokeboi/Panel"]
+layout_mode = 2
+offset_left = 19.0
+offset_top = 21.0
+offset_right = 685.0
+offset_bottom = 81.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 40
+text = "Out of biscuits?"
+horizontal_alignment = 1
+
+[node name="Image" type="TextureRect" parent="brokeboi/Panel"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+offset_left = 37.7889
+offset_top = 91.7062
+offset_right = 253.789
+offset_bottom = 307.706
+texture = ExtResource("29_51puf")
+stretch_mode = 5
+flip_h = true
+
+[node name="eventdesc" type="Label" parent="brokeboi/Panel"]
+layout_mode = 2
+offset_left = 246.0
+offset_top = 94.0
+offset_right = 663.0
+offset_bottom = 236.0
+theme_override_colors/font_color = Color(0.85098, 0.631373, 0.443137, 1)
+theme_override_font_sizes/font_size = 20
+text = "Hey! You seem low on biscuits. If you ever need some more, click the biscuit counter in the top right!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="nobrokeboi" type="Button" parent="brokeboi/Panel"]
+layout_mode = 0
+offset_left = 349.787
+offset_top = 245.631
+offset_right = 562.787
+offset_bottom = 277.631
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_tudev")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tudev")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tudev")
+text = "Return to game"
+
+[node name="byebrokeboi" type="Button" parent="brokeboi/Panel"]
+layout_mode = 0
+offset_left = 349.787
+offset_top = 284.0
+offset_right = 562.787
+offset_bottom = 316.0
+theme_override_colors/font_color = Color(1, 0.901961, 0.584314, 1)
+theme_override_styles/hover = SubResource("StyleBoxFlat_tudev")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tudev")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tudev")
+text = "Do not show again"
 
 [node name="Encyclopedia" parent="." instance=ExtResource("35_0yb8q")]
 visible = false
@@ -926,8 +1029,11 @@ text = "I can hear the music!"
 [node name="onesectimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="pressed" from="biscuitos" to="." method="_on_biscuitos_pressed"]
 [connection signal="pressed" from="TutorialChoice/NoTutorial" to="." method="_on_no_tutorial_pressed"]
 [connection signal="pressed" from="TutorialChoice/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="brokeboi/Panel/nobrokeboi" to="." method="_on_nobrokeboi_pressed"]
+[connection signal="pressed" from="brokeboi/Panel/byebrokeboi" to="." method="_on_byebrokeboi_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide1/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide2/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]
 [connection signal="pressed" from="TutorialPanels/Slide3/PanelThing/NextSlide" to="." method="_on_next_slide_pressed"]

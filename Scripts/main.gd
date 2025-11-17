@@ -30,6 +30,8 @@ var tutorial_slide = 0
 var current_event = []
 var event_time_remaining = [0, 0]
 
+var show_brokeboi = true
+
 # Rocket Variables
 var rocket_parts = []
 var parts_obj = []
@@ -70,7 +72,7 @@ var main_build_idx = 0
 @export var bg_music: AudioStream
 
 # UI Node References
-@onready var points_label = $TextureRect4/PointsLabel
+@onready var points_label = $biscuitos/PointsLabel
 @onready var rocket_value_label = $LabelsContainer/ValueLabel
 @onready var fail_chance_label = $LabelsContainer/FailureChanceLabel
 @onready var weight_label = $LabelsContainer/WeightLabel
@@ -87,6 +89,7 @@ var main_build_idx = 0
 @onready var event_popup = $neweventpopup
 @onready var event_popup_text = $neweventpopup/Panel/eventdesc
 @onready var event_popup_time = $neweventpopup/Panel/eventtiem
+@onready var brokeboi = $brokeboi
 
 func _ready():
 	# Initial UI update and connect signals
@@ -363,6 +366,7 @@ func buy_item(item):
 	if biscuit_points >= item.cost:
 		items[idx].owned += 1
 		biscuit_points -= item.cost
+		if biscuit_points <= 40 and show_brokeboi: brokeboi.show()
 		for child in items_container.get_children():
 			if item == child.item:
 				child.item = items[idx]
@@ -965,4 +969,14 @@ func end_event():
 
 
 func _on_biscuitos_pressed() -> void:
-	pass # Replace with function body.
+	if biscuit_points < 100:
+		biscuit_points += 100
+		update_ui()
+
+
+func _on_byebrokeboi_pressed() -> void:
+	show_brokeboi = false
+	brokeboi.hide()
+
+func _on_nobrokeboi_pressed() -> void:
+	brokeboi.hide()
